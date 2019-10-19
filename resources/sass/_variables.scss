@@ -1,0 +1,24 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap');
+
+// Theme colors
+$dark-blue: rgb(58, 84, 110);
+$dark-green: rgb(13, 59, 73);
+$offwhite: #EEE;
+$light-grey: #BBB;
+$dark-grey: #444;
+$primary: #2196f3;
+
+// Background colors
+$color-navbar: $offwhite;
+$color-sidebar: $dark-blue;
+
+// Text colors
+$text-white: #FFF;
+$text-light: $light-grey;
+$text-dark: $dark-grey;
+$text-theme: $dark-blue;
+
+// Dimension constraints
+$width-sidebar: 15rem;
+$navbar-height: 8vh;

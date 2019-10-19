@@ -1,0 +1,56 @@
+// Set the general document font
+html, div, label, p, a, button {
+	font-family: 'Nunito', 'Open Sans', sans-serif;
+}
+
+// Set the heading font
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Quicksand', 'Open Sans', sans-serif;
+	font-weight: bold;
+}
+
+.logo {
+	height: 40px;
+}
+
+// Center the cards on the content area
+.content {
+	padding: 2em 1em;
+	max-width: 1000px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5em;
+	
+	h2 {
+		color:$dark-grey;
+		margin-bottom: 1em;
+		font-size: 1.5em;
+	}
+}
+
+.container {
+	max-width: 1500px;
+
+}
+
+.container-fluid {
+	height: 100vh - $navbar-height;
+	max-width: 1500px;
+	overflow: auto;
+
+}
+
+// Push buttons to the right
+.btn-right {
+	float:right;
+}
+
+// Add a margin to columns when stacked
+@media (max-width: 768px) {
+
+	[class*="col-"] {
+		margin-bottom: 15px;
+	}
+
+}
