@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -60,7 +60,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
@@ -70,13 +70,15 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
 		]);
 		
-		$group = new Group;
-		$group->id_parent = 0;
-		$group->id_user = $user->id;
-		$group->name = 'STUDIO';
-		$group->save();
+		$group = Group::create([
+			'id_parent' => 0,
+			'id_user' => $user->id,
+			'name' => 'HOME',
+		]);
 
 		$user->id_home = $group->id;
-        
+		$user->save();
+		
+		return $user;
     }
 }
