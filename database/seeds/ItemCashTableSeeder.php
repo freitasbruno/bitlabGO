@@ -13,6 +13,7 @@ class ItemCashTableSeeder extends Seeder
     {
         DB::table('item_cash')->insert([
 			'id_user' => 1,
+			'id_parent' => 1,
             'name' => 'Coffee and cake',
             'type' => 'expense',
 			'amount' => 5.60,
@@ -22,6 +23,7 @@ class ItemCashTableSeeder extends Seeder
 
 		DB::table('item_cash')->insert([
 			'id_user' => 1,
+			'id_parent' => 1,
             'name' => 'May salary',
             'type' => 'income',
 			'amount' => 1800,

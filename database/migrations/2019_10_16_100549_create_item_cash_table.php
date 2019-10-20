@@ -14,7 +14,8 @@ class CreateItemCashTable extends Migration
     public function up()
     {
         Schema::create('item_cash', function (Blueprint $table) {
-            $table->bigIncrements('id');$table->integer('id_parent')->default(0);
+			$table->bigIncrements('id');
+			$table->integer('id_parent')->default(0);
 			$table->integer('id_user');
             $table->string('name', 300);
 			$table->longText('description')->nullable();
