@@ -5,7 +5,6 @@
 
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/home">HOME</a></li>
 			@if (session('currentGroup'))
 				@foreach ($groupHierarchy as $group)
 					@if($group != end($groupHierarchy))

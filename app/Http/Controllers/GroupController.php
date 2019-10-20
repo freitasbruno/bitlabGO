@@ -19,17 +19,8 @@ class GroupController extends Controller
      */
     public function index()
     {
-        // Get the user's top level groups
-
-		$groups = Group::where('id_user', Auth::id())->where('id_parent', 0)->get();;
-		$cashItems = ItemCash::all();
-		
-		// Remove the current group from the session
-		session()->forget('currentGroup');
-
-        // load the view and pass the groups    
-        return view('home', ['groups' => $groups, 'cashItems' => $cashItems]);
-
+		$user = Auth::user();
+		return redirect('home/' . $user->id_home);
     }
 
     /**
@@ -71,7 +62,6 @@ class GroupController extends Controller
 		$group = Group::find($id);
         $groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
-		$childrenHierarchy = $group->buildChildrenHierarchy();
 		$cashItems = ItemCash::getGroupItems($id);
 
 		// Change the currentGroup in the Session
@@ -80,8 +70,7 @@ class GroupController extends Controller
         // load the view and pass the groups
         return view('home', [
 			'groups' => $groups, 
-			'groupHierarchy' => $groupHierarchy, 
-			'childrenHierarchy' => $childrenHierarchy, 
+			'groupHierarchy' => $groupHierarchy,
 			'cashItems' => $cashItems
 		]);
     }

@@ -41,7 +41,7 @@ class Group extends Model
      *
      * @return array $groups
      */
-    private function getChildren()
+    public function getChildren()
     {        
 		if(!$this->hasChildren()){
 			return null;
@@ -51,7 +51,7 @@ class Group extends Model
 				if($group->hasChildren()){
 					$group->children = Group::where('id_user', Auth::id())->where('id_parent', $group->id)->get();
 				}				
-				$group->cash = ItemCash::getGroupItems($group->id);
+				$group->cashItems = $group->hasCashItems() ? ItemCash::getGroupItems($group->id) : null;
 			} 
 			return $groups;    
         }
@@ -64,13 +64,13 @@ class Group extends Model
      * @param  array $childrenHierarchy
      * @return array $childrenHierarchy
      */
-    private function getChildrenHierachy(array $childrenHierarchy = [])
+    public function getChildrenHierarchy(array $childrenHierarchy = [])
     {  
 		array_push($childrenHierarchy, $this);
 		if ($this->hasChildren()) {
 			$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
 			foreach ($groups as $group) {
-				return $group->getChildrenHierachy($childrenHierarchy);
+				return $group->getChildrenHierarchy($childrenHierarchy);
 			}
 		}else{
 			return $childrenHierarchy;
@@ -83,7 +83,7 @@ class Group extends Model
      * @param  array  $groupHierarchy
 	 * @return array $groupHierarchy
      */
-    private function buildHierarchy($groupHierarchy = [])
+    public function buildHierarchy($groupHierarchy = [])
     {        
         array_unshift($groupHierarchy, $this);
 
@@ -93,5 +93,17 @@ class Group extends Model
 			$parent = Group::find($this->id_parent);
             return $parent->buildHierarchy($groupHierarchy);
         }
-    }
+	}
+			
+    /**
+     * Check is the Group has any nested cashItem(s).
+	 * Return true is it has at least one or false otherwise
+     *
+     * @return bool
+     */
+    public function hasCashItems()
+    {        
+        $items = ItemCash::where('id_user', Auth::id())->where('id_parent', $this->id)->first();
+        return ($items ? 'true' : 'false');
+	} 
 }

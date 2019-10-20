@@ -21,9 +21,3 @@ Auth::routes();
 
 Route::resource('/home', 'GroupController');
 Route::resource('/cashItems', 'ItemCashController');
-
-
-Route::get('/test', function () {
-	$group = Group::find(8);
-    return $group->hasChildren();
-});

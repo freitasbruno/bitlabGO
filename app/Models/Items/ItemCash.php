@@ -21,7 +21,7 @@ class ItemCash extends Item
 	];
 	
 		
-	private static function getGroupItems($group_id) 
+	public static function getGroupItems($group_id) 
 	{
 		$items = ItemCash::where('id_parent', $group_id)->get();
 		return $items;
