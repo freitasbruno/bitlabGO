@@ -70,14 +70,20 @@ class GroupController extends Controller
     {
 		$group = Group::find($id);
         $groups = $group->getChildren();
-		$groupHierarchy = Group::buildHierarchy($group);
+		$groupHierarchy = $group->buildHierarchy();
+		$childrenHierarchy = $group->buildChildrenHierarchy();
 		$cashItems = ItemCash::getGroupItems($id);
 
 		// Change the currentGroup in the Session
 		session(['currentGroup' => Group::find($id)]);
 
         // load the view and pass the groups
-        return view('home', ['groups' => $groups, 'groupHierarchy' => $groupHierarchy,  'cashItems' => $cashItems]);
+        return view('home', [
+			'groups' => $groups, 
+			'groupHierarchy' => $groupHierarchy, 
+			'childrenHierarchy' => $childrenHierarchy, 
+			'cashItems' => $cashItems
+		]);
     }
 
     /**

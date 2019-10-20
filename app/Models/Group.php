@@ -23,47 +23,54 @@ class Group extends Model
 	
 		
     /**
-     * Get an array of the current Group's children.
+     * Check is the Group has any nested group(s).
+	 * Return true is it has at least one or false otherwise
      *
-     * @param  int  $id
-     * @return array $groups
+     * @return bool
      */
-    public function hasChildren()
+    private function hasChildren()
     {        
         $groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->first();
-        return ($groups ? true : false);
+        return ($groups ? 'true' : 'false');
 	}
 
     /**
-     * Get an array of the current Group's children.
+     * Get an array of the current Group's children - 1st and 2nd degree.
+	 * Return Null is no children exist, or an array of Groups who's id_parent is set to the current Group id.
+	 * For each of the children groups find any ItemCash objects
      *
-     * @param  int  $id
      * @return array $groups
      */
-    public function getChildren()
+    private function getChildren()
     {        
-        $groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
-        foreach($groups as $group){
-			$group -> children = Group::where('id_user', Auth::id())->where('id_parent', $group->id)->get();
-			$group -> cash = ItemCash::getGroupItems($group->id);
+		if(!$this->hasChildren()){
+			return null;
+		}else{
+			$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
+        	foreach($groups as $group){
+				if($group->hasChildren()){
+					$group->children = Group::where('id_user', Auth::id())->where('id_parent', $group->id)->get();
+				}				
+				$group->cash = ItemCash::getGroupItems($group->id);
+			} 
+			return $groups;    
         }
-
-        return $groups;
 	}
 	
     /**
-     * Get an array of the current Group's children.
+     * Recursively get an array of the full hierarchy of the current Group's children.
+	 * Return Null is no children exist, or an array of Groups who's id_parent is set to the current Group id.
      *
-     * @param  int  $id
-     * @return array $groups
+     * @param  array $childrenHierarchy
+     * @return array $childrenHierarchy
      */
-    public function getChildrenHierachy($childrenHierarchy)
+    private function getChildrenHierachy(array $childrenHierarchy = [])
     {  
 		array_push($childrenHierarchy, $this);
 		if ($this->hasChildren()) {
 			$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
 			foreach ($groups as $group) {
-				return getChildrenHierachy($childrenHierarchy);
+				return $group->getChildrenHierachy($childrenHierarchy);
 			}
 		}else{
 			return $childrenHierarchy;
@@ -71,20 +78,20 @@ class Group extends Model
 	}
 	   
     /**
-     * Build the hierarchy of Groups based on the current Group.
+     * Build the current Group parent objects hierarchy, up to the HOME group.
      *
-     * @param  int  $id
-     * @return array $groups
+     * @param  array  $groupHierarchy
+	 * @return array $groupHierarchy
      */
-    public static function buildHierarchy(Group $group, $groupHierarchy = [])
+    private function buildHierarchy($groupHierarchy = [])
     {        
-        array_unshift($groupHierarchy, $group);
+        array_unshift($groupHierarchy, $this);
 
-        if ($group->id_parent == 0){
+        if ($this->id_parent == 0){
             return $groupHierarchy;
         }else{
-			$parent = Group::find($group->id_parent);
-            return Group::buildHierarchy($parent, $groupHierarchy);
+			$parent = Group::find($this->id_parent);
+            return $parent->buildHierarchy($groupHierarchy);
         }
     }
 }
