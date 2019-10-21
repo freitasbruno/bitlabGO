@@ -26,5 +26,5 @@ Route::resource('/cashItems', 'ItemCashController');
 
 Route::get('/test', function () {
 	$group = Group::find(5);
-	return ItemCash::getItems($group);    
+	return $group->getChildren();    
 });

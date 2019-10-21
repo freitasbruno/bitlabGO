@@ -31,7 +31,7 @@ class Group extends Model
     private function hasChildren()
     {        
         $groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->first();
-        return ($groups ? 'true' : 'false');
+        return ($groups ? true : false);
 	}
 
     /**
@@ -44,13 +44,16 @@ class Group extends Model
     public function getChildren()
     {        
 		if(!$this->hasChildren()){
-			return null;
+			$this->children = null;
+			return $this;
 		}else{
 			$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
         	foreach($groups as $group){
 				if($group->hasChildren()){
 					$group->children = Group::where('id_user', Auth::id())->where('id_parent', $group->id)->get();
-				}				
+				}else{
+					$group->children = null;
+				}			
 				$group->cashItems = ItemCash::getItems($group);
 			} 
 			return $groups;    
