@@ -51,7 +51,7 @@ class Group extends Model
 				if($group->hasChildren()){
 					$group->children = Group::where('id_user', Auth::id())->where('id_parent', $group->id)->get();
 				}				
-				$group->cashItems = $group->hasCashItems() ? ItemCash::getGroupItems($group->id) : null;
+				$group->cashItems = ItemCash::getItems($group);
 			} 
 			return $groups;    
         }

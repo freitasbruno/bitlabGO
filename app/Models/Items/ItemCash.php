@@ -19,11 +19,4 @@ class ItemCash extends Item
     protected $fillable = [
         'name', 'description', 'amount', 'currency'
 	];
-	
-		
-	public static function getGroupItems($group_id) 
-	{
-		$items = ItemCash::where('id_parent', $group_id)->get();
-		return $items;
-	}
 }

@@ -15,7 +15,7 @@
 		@endforeach
 		</ul>
 		
-		@if(($group->cashItems)->isNotEmpty())
+		@if($group->cashItems)
 			<dl class="row">
 			<dd class="col-sm-6 text-truncate">Name</dt>
 			<dd class="col-sm-6 text-right">Amount</dd>

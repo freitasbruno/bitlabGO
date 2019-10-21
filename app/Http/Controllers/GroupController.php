@@ -62,7 +62,7 @@ class GroupController extends Controller
 		$group = Group::find($id);
         $groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
-		$cashItems = ItemCash::getGroupItems($id);
+		$cashItems = ItemCash::getItems($group);
 
 		// Change the currentGroup in the Session
 		session(['currentGroup' => Group::find($id)]);

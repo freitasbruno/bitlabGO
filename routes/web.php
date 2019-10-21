@@ -12,6 +12,7 @@
 */
 
 use App\Models\Group;
+use App\Models\Items\ItemCash;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,3 +22,9 @@ Auth::routes();
 
 Route::resource('/home', 'GroupController');
 Route::resource('/cashItems', 'ItemCashController');
+
+
+Route::get('/test', function () {
+	$group = Group::find(5);
+	return ItemCash::getItems($group);    
+});
