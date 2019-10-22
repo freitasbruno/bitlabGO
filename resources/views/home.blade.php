@@ -22,12 +22,13 @@
 	</nav>
 	<h1>GROUPS</h1>
 	<div class="row">
-		
-		@foreach($groups as $group)
-		<div class="col-lg-4 col-md-6 mb-3">
-			@include('includes/groupCard')
-		</div>
-		@endforeach
+		@if($groups)
+			@foreach($groups as $group)
+			<div class="col-lg-4 col-md-6 mb-3">
+				@include('includes/groupCard')
+			</div>
+			@endforeach
+		@endif
 	</div>
 
 	<div class="row mx-0 table-responsive">

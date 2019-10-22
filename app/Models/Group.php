@@ -44,8 +44,7 @@ class Group extends Model
     public function getChildren()
     {        
 		if(!$this->hasChildren()){
-			$this->children = null;
-			return $this;
+			return null;
 		}else{
 			$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
         	foreach($groups as $group){
