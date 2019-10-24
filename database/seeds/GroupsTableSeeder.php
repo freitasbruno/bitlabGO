@@ -99,5 +99,9 @@ class GroupsTableSeeder extends Seeder
 		$group5->id_user = $id_user;
 		$group5->name = 'SHOPPING';
 		$group5->save();
+		
+		//$homeGroups = factory(Group::class, 20)->states('homeGroup')->create();
+		//$groups = factory(Group::class, 250)->create();
+
     }
 }

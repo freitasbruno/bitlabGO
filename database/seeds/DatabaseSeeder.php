@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Group as Group;
+use App\Models\User as User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,8 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-		$this->call(UsersTableSeeder::class);
-		$this->call(GroupsTableSeeder::class);
-		$this->call(ItemCashTableSeeder::class);
+		$this->call([			
+			UsersTableSeeder::class,
+			GroupsTableSeeder::class,			
+			ItemCashTableSeeder::class
+		]);
     }
 }

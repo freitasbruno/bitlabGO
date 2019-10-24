@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\User as User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -24,6 +25,6 @@ class UsersTableSeeder extends Seeder
             'email' => 'janedoe@gmail.com',
 			'password' => bcrypt('1234567890'),
 			'id_home' => 2,
-        ]);
+		]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Items\ItemCash as ItemCash;
 
 class ItemCashTableSeeder extends Seeder
 {
@@ -30,5 +31,8 @@ class ItemCashTableSeeder extends Seeder
 			'currency' => 'EUR',
 			'created_at' => date("Y-m-d H:i:s")
 		]);
+
+		$smallCashItems = factory(ItemCash::class, 100)->states('smallExpenses')->create();
+		$cashItems = factory(ItemCash::class, 10)->create();
     }
 }

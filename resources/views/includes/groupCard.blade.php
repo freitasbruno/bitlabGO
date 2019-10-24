@@ -35,7 +35,7 @@
 			@foreach($group->cashItems as $cash)
 				<hr class="w-100 mt-0">
 				<dt class="col-sm-6 text-truncate">{{ $cash->name }}</dt>
-				<dd class="col-sm-6 text-right">{{ $cash->amount . " " . $cash->currency }}</dd>
+				<dd class="col-sm-6 text-right">{{ ($cash -> type == 'expense' ? '-' : '+') . $cash->amount . " " . $cash->currency }}</dd>
 			@endforeach
 		@else
 			<p>No expenses found</p>
