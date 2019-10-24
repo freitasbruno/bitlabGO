@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Group as Group;
+use App\Models\Item;
 use App\Models\Items\ItemCash as ItemCash;
 use View;
 use Auth;
@@ -62,7 +63,11 @@ class GroupController extends Controller
 		$group = Group::find($id);
         $groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
-		$cashItems = ItemCash::getItems($group);
+		$cashItems = ItemCash::getItems($id);
+		$group->cashGroupTotals = ItemCash::getGroupTotals($id);
+
+		$gh = $group->groupHierarchy();
+		$totals = $gh->getBalance();
 
 		// Change the currentGroup in the Session
 		session(['currentGroup' => Group::find($id)]);
@@ -71,7 +76,8 @@ class GroupController extends Controller
         return view('home', [
 			'groups' => $groups, 
 			'groupHierarchy' => $groupHierarchy,
-			'cashItems' => $cashItems
+			'cashItems' => $cashItems,
+			'totals' => $totals
 		]);
     }
 

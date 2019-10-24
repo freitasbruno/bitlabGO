@@ -7,6 +7,14 @@
 	</div>
 	<div class="card-body">
 		<p>{{ $group->description }}</p>
+
+		<p class="mb-0">Totals</p>		
+		<div class="d-flex justify-content-between mb-3">
+			<div>{{ $group->cashGroupTotals['expense'] }}</div>
+			<div>{{ $group->cashGroupTotals['income'] }}</div>
+			<div>{{ $group->cashGroupTotals['balance'] }}</div>
+		</div>	
+		
 		@if($group->children)
 			<h5>Groups: {{ $group->children ? $group->children->count() : 0 }}</h5>
 			<ul>

@@ -18,7 +18,10 @@
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#groupModal"><i class="fas fa-plus dark"></i>New Group</button>
 			</li>
-		</ol>
+		</ol>		
+		<div>Total Expense: {{ $totals['expense'] }}</div>
+		<div>Total Income: {{ $totals['income'] }}</div>
+		<div>Balance: {{ $totals['income'] - $totals['expense'] }}</div>
 	</nav>
 	<h1>GROUPS</h1>
 	<div class="row">

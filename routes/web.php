@@ -15,7 +15,7 @@ use App\Models\Group;
 use App\Models\Items\ItemCash;
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Auth::routes();
@@ -23,8 +23,9 @@ Auth::routes();
 Route::resource('/home', 'GroupController');
 Route::resource('/cashItems', 'ItemCashController');
 
-
-Route::get('/test', function () {
-	$group = Group::find(5);
-	return $group->getChildren();    
+Route::get('/test/{id}', function ($id) {
+	$group = Group::find($id);
+	$g = $group->groupHierarchy();
+	//return ItemCash::getGroupTotals($id)['expense'];
+	return dd($g->getBalance());   
 });
