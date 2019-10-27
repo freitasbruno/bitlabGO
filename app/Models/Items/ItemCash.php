@@ -3,8 +3,7 @@
 namespace App\Models\Items;
 
 use App\Models\Item as Item;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Account as Account;
 use Illuminate\Support\Facades\Auth;
 
 class ItemCash extends Item
@@ -18,7 +17,7 @@ class ItemCash extends Item
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'amount', 'currency'
+        'name', 'description', 'amount', 'currency', 'recurring', 'interval'
 	];
 
 	/**
@@ -40,5 +39,27 @@ class ItemCash extends Item
 		$balance = $totalIncome - $totalExpense;
 
 		return ['expense'=>$totalExpense, 'income'=>$totalIncome, 'balance'=>$balance];		 
+	}
+
+		
+    /**
+     * Get an array of the items that belong to a Group.
+	 * Needs to be called statically from one of the classes that extends Item.
+	 * Return Null is no items exist, or an array of Items who's id_parent matches the current Group id.
+     *
+     * @param int $id
+     * @return array $items
+     */
+	static public function getItems(int $id){
+		$items = ItemCash::where('id_user', Auth::id())->where('id_parent', $id)->get();
+		
+		if ($items->isNotEmpty()){
+			foreach ($items as $item) {
+				$item->account = Account::find($item->id_account);
+			}
+			return $items;
+		} else {
+			return null;
+		}
 	}
 }

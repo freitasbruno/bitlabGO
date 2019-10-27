@@ -24,8 +24,6 @@ Route::resource('/home', 'GroupController');
 Route::resource('/cashItems', 'ItemCashController');
 
 Route::get('/test/{id}', function ($id) {
-	$group = Group::find($id);
-	$g = $group->groupHierarchy();
-	//return ItemCash::getGroupTotals($id)['expense'];
-	return dd($g->getBalance());   
+	return Auth::user()->id;
+	return Group::where('id_user', 1)->get()->random()->id;
 });

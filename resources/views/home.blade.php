@@ -18,11 +18,25 @@
 				<!-- Button trigger modal -->
 				<button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#groupModal"><i class="fas fa-plus dark"></i>New Group</button>
 			</li>
-		</ol>		
-		<div>Total Expense: {{ $totals['expense'] }}</div>
-		<div>Total Income: {{ $totals['income'] }}</div>
-		<div>Balance: {{ $totals['income'] - $totals['expense'] }}</div>
+		</ol>			
 	</nav>
+
+	<div class="row">
+		<div class="col-6">
+			<h4>GROUP TOTALS</h4>
+			<div>Total Expense: {{ $totals['expense'] }}</div>
+			<div>Total Income: {{ $totals['income'] }}</div>
+			<div>Balance: {{ $totals['income'] - $totals['expense'] }}</div>	
+		</div>
+		
+		<div class="col-6">
+			<h4 >USER ACCOUNTS</h4>
+			@foreach ($accounts as $account)
+				<div>{{ $account['name'] }}: {{ $account['balance'] }} {{ $account['currency'] }}</div>
+			@endforeach
+		</div>	
+	</div>	
+
 	<h1>GROUPS</h1>
 	<div class="row">
 		@if($groups)
@@ -42,10 +56,11 @@
 				<tbody>
 					@foreach($cashItems as $cashItem)
 					<tr>
-						<td>{{ $cashItem -> name }}</td>
-						<td class="text-right">{{ ($cashItem -> type == 'expense' ? '-' : '+') . number_format((float)($cashItem -> amount), 2, '.', '') }}</td>
+						<td>{{ $cashItem->name }}</td>
+						<td>{{ $cashItem->account->name }}</td>
+						<td class="text-right">{{ ($cashItem->type == 'expense' ? '-' : '+') . number_format((float)($cashItem->amount), 2, '.', '') }}</td>
 						<td>{{ $cashItem -> currency }}</td>
-						<td class="text-center">{{ $cashItem -> created_at -> format("Y-m-d") }}</td>
+						<td class="text-center">{{ $cashItem->created_at->format("Y-m-d") }}</td>
 						<td class="text-right">
 							@component('components/itemTools')
 								{{ 'cashItems/' . $cashItem -> id }}

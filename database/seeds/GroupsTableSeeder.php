@@ -1,7 +1,10 @@
 <?php
 
+use App\Models\Account;
 use Illuminate\Database\Seeder;
 use App\Models\Group as Group;
+use App\Models\Items\ItemCash as ItemCash;
+
 
 class GroupsTableSeeder extends Seeder
 {
@@ -12,6 +15,9 @@ class GroupsTableSeeder extends Seeder
      */
     public function run()
     {
+		
+		//$groups = factory(Group::class, 20)->states('homeGroup')->create();
+
 		$group = new Group;
 		$group->id_parent = 0;
 		$group->id_user = 1;
@@ -24,6 +30,57 @@ class GroupsTableSeeder extends Seeder
 		$group->name = 'HOME';
 		$group->save();
 
+		
+		for ($i=1; $i < 3; $i++) { 
+			$groups = factory(Group::class, rand(1, 7))->create([
+				'id_parent' => $i,
+				'id_user' => $i
+			]);		
+			
+			foreach($groups as $group) {
+				$rand_1 = rand(0, 1);
+				if ($rand_1 == 1){
+					$childGroups = factory(Group::class, rand(1, 7))->create([
+						'id_parent' => $group->id,
+						'id_user' => $group->id_user
+					]);
+
+					foreach($childGroups as $childGroup) {
+						$rand_2 = rand(0, 1);
+						if ($rand_2 == 1){
+							$smallCashItems = factory(ItemCash::class, rand(1, 10))->states('smallExpenses')->create([
+								'id_parent' => $childGroup->id,
+								'id_user' => $childGroup->id_user,
+								'id_account' => Account::where('id_user', $childGroup->id_user)->get()->random()->id
+							]);
+							$cashItems = factory(ItemCash::class, rand(0, 2))->create([
+								'id_parent' => $childGroup->id,
+								'id_user' => $childGroup->id_user,
+								'id_account' => Account::where('id_user', $childGroup->id_user)->get()->random()->id
+							]);	
+						}
+					}		
+				}				
+				
+				$rand_3 = rand(0, 1);
+				if ($rand_3 == 1){
+					$smallCashItems = factory(ItemCash::class, rand(1, 10))->states('smallExpenses')->create([
+						'id_parent' => $group->id,
+						'id_user' => $group->id_user,
+						'id_account' => Account::where('id_user', $group->id_user)->get()->random()->id
+					]);
+					$cashItems = factory(ItemCash::class, rand(0, 2))->create([
+						'id_parent' => $group->id,
+						'id_user' => $group->id_user,
+						'id_account' => Account::where('id_user', $group->id_user)->get()->random()->id
+					]);	
+				}	
+			}
+		}
+
+		//$groups = factory(Group::class, 250)->create();
+				
+		/*
 		$id_user = 1;
 
 		$group = new Group;
@@ -99,9 +156,6 @@ class GroupsTableSeeder extends Seeder
 		$group5->id_user = $id_user;
 		$group5->name = 'SHOPPING';
 		$group5->save();
-		
-		//$homeGroups = factory(Group::class, 20)->states('homeGroup')->create();
-		//$groups = factory(Group::class, 250)->create();
-
+		*/
     }
 }
