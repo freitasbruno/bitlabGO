@@ -12,6 +12,7 @@
 */
 
 use App\Models\Group;
+use App\Models\User;
 use App\Models\Items\ItemCash;
 
 Route::get('/', function () {
@@ -21,9 +22,13 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::resource('/home', 'GroupController');
+Route::resource('/accounts', 'AccountController');
 Route::resource('/cashItems', 'ItemCashController');
 
 Route::get('/test/{id}', function ($id) {
-	return Auth::user()->id;
+	$g = Group::find($id);
+	return dd($g->groupHierarchy());
+	return dd(Group::find($id)->children);
+	return dd(User::find($id)->groups->pluck('id'));
 	return Group::where('id_user', 1)->get()->random()->id;
 });

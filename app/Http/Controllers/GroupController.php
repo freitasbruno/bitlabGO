@@ -65,9 +65,8 @@ class GroupController extends Controller
 		$group->cashGroupTotals = ItemCash::getGroupTotals($id);
 		$accounts = Account::where('id_user', Auth::user()->id)->get();
 
-		$gh = $group->groupHierarchy();
-		$totals = $gh->getBalance();
-
+		$totals = $group->getBalance();
+		
 		// Change the currentGroup in the Session
 		session(['currentGroup' => Group::find($id)]);
 

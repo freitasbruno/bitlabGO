@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 use App\Models\Items\ItemCash as ItemCash;
 
 class Group extends Model
@@ -21,23 +21,28 @@ class Group extends Model
 		'id_user', 'name', 'description'
 	];
 
-
 	/**
-	 * Check is the Group has any nested group(s).
-	 * Return true is it has at least one or false otherwise
-	 *
-	 * @return bool
-	 */
-	public function hasChildren()
-	{
-		$groups = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->first();
-		return ($groups ? true : false);
+     * Get the user who owns the group.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'id_user');
 	}
 
-	public function groups()
-	{
-		$groups = Group::where('id_parent', $this->id)->get();
-		return $groups->sortBy('name');
+	/**
+     * Get the parent group of a group.
+     */
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\Group', 'id_parent');
+	}
+
+	/**
+     * Get the children groups of a group.
+     */
+    public function children()
+    {
+        return $this->hasMany('App\Models\Group', 'id_parent');
 	}
 
 	/**
@@ -49,16 +54,11 @@ class Group extends Model
 	 */
 	public function getChildren()
 	{
-		if (!$this->hasChildren()) {
+		if ($this->children()->doesntExist()) {
 			return null;
 		} else {
-			$groups = $this->groups();
+			$groups = $this->children()->with('children')->get();
 			foreach ($groups as $group) {
-				if ($group->hasChildren()) {
-					$group->children = $group->groups();
-				} else {
-					$group->children = null;
-				}
 				$group->cashItems = ItemCash::getItems($group->id);
 				$group->cashGroupTotals = ItemCash::getGroupTotals($group->id);
 			}
@@ -74,14 +74,10 @@ class Group extends Model
 	 */
 	public function groupHierarchy()
 	{
-
-		if ($this->hasChildren()) {
-			$this->children = Group::where('id_user', Auth::id())->where('id_parent', $this->id)->get();
-			$this->children->each(function ($child, $key) {
+		if ($this->children()->exists()) {
+			$this->children->each(function ($child) {
 				$child->groupHierarchy();
 			});
-		} else {
-			$this->children = null;
 		}
 
 		return $this;
