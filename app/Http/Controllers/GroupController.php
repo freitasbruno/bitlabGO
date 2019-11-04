@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Models\Group as Group;
-use App\Models\Items\ItemCash as ItemCash;
+use App\Models\Items\CashItem as CashItem;
 use Auth;
 
 
@@ -61,9 +61,12 @@ class GroupController extends Controller
 		$group = Group::find($id);
         $groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
-		$cashItems = ItemCash::getItems($id);
-		$group->cashGroupTotals = ItemCash::getGroupTotals($id);
-		$accounts = Account::where('id_user', Auth::user()->id)->get();
+		$cashItems = $group->cashItems;
+		$group->cashTotals = $group->getCashTotals();
+		$accounts = Auth::user()->accounts;
+		foreach ($accounts as $account) {
+			$account->cashTotals = $account->getCashTotals();
+		}
 
 		$totals = $group->getBalance();
 		

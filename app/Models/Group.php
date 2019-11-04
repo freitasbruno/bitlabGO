@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Items\ItemCash as ItemCash;
+use App\Models\Items\CashItem as CashItem;
 
 class Group extends Model
 {
@@ -44,11 +44,19 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Group', 'id_parent');
 	}
+	
+	/**
+     * Get the cashItems of a group.
+     */
+    public function cashItems()
+    {
+        return $this->hasMany('App\Models\Items\CashItem', 'id_parent');
+	}
 
 	/**
 	 * Get an array of the current Group's children - 1st and 2nd degree.
 	 * Return Null is no children exist, or an array of Groups who's id_parent is set to the current Group id.
-	 * For each of the children groups find any ItemCash objects
+	 * For each of the children groups find any CashItem objects
 	 *
 	 * @return array $groups
 	 */
@@ -59,8 +67,7 @@ class Group extends Model
 		} else {
 			$groups = $this->children()->with('children')->get();
 			foreach ($groups as $group) {
-				$group->cashItems = ItemCash::getItems($group->id);
-				$group->cashGroupTotals = ItemCash::getGroupTotals($group->id);
+				$group->cashTotals = $group->getCashTotals();
 			}
 			return $groups;
 		}
@@ -83,16 +90,45 @@ class Group extends Model
 		return $this;
 	}
 
+	
+	/**
+	 * Recursively add up the total expenses and income of the current Group's children hierarchy.
+	 * Return an array oan array containing 2 key value pairs for Expenses and Income with their values.
+	 *
+	 * @param array $total
+	 * @return array $total
+	 */
 	public function getBalance(array $total = ["expense" => 0, "income" => 0])
 	{
-		$total['expense'] += ItemCash::getGroupTotals($this->id)['expense'];
-		$total['income'] += ItemCash::getGroupTotals($this->id)['income'];
+		$total['expense'] += $this->getCashTotals()['expense'];
+		$total['income'] += $this->getCashTotals()['income'];
 		if ($this->children) {
 			foreach ($this->children as $child) {
 				return $child->getBalance($total);
 			}
 		}
 		return $total;
+	}
+
+	/**
+     * Get an array with the Totals of income and expenses for a given group.
+	 * Return Null is no items exist, or an array containing 3 key value pairs for Expenses, Income and Balance with their values.
+     *
+     * @return array $totals
+     */
+	public function getCashTotals(){
+		if ($this->cashItems){
+			$totals = [
+				'expense' => $this->cashItems()->where('type', 'expense')->sum('amount'),
+				'income' => $this->cashItems()->where('type', 'income')->sum('amount')
+			];		
+			$totals['balance'] = $totals['income'] - $totals['expense'];
+
+			return $totals;	
+
+		} else {
+			return null;
+		}				 
 	}
 
 	/**
@@ -107,21 +143,8 @@ class Group extends Model
 
 		if ($this->id_parent == 0) {
 			return $groupHierarchy;
-		} else {
-			$parent = Group::find($this->id_parent);
-			return $parent->buildHierarchy($groupHierarchy);
+		} else {			
+			return $this->parent->buildHierarchy($groupHierarchy);
 		}
-	}
-
-	/**
-	 * Check is the Group has any nested cashItem(s).
-	 * Return true is it has at least one or false otherwise
-	 *
-	 * @return bool
-	 */
-	public function hasCashItems()
-	{
-		$items = ItemCash::where('id_user', Auth::id())->where('id_parent', $this->id)->first();
-		return ($items ? 'true' : 'false');
 	}
 }

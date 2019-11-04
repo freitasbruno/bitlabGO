@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\ItemCash as ItemCash;
+use App\Models\Items\CashItem as CashItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class ItemCashController extends Controller
+class CashItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ItemCashController extends Controller
      */
     public function index()
     {
-        echo "hello from ItemCashController";
+        echo "hello from CashItemController";
     }
 
     /**
@@ -36,7 +36,7 @@ class ItemCashController extends Controller
      */
     public function store(Request $request)
     {
-		$item = new ItemCash;
+		$item = new CashItem;
 		$item->id_user = Auth::user()->id;
     	$item->id_parent = session('currentGroup')->id ?? 0;
 		$item->name = $request->get('name');
@@ -51,10 +51,10 @@ class ItemCashController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\ItemCash  $itemCash
+     * @param  \App\CashItem  $cashItem
      * @return \Illuminate\Http\Response
      */
-    public function show(ItemCash $itemCash)
+    public function show(CashItem $cashItem)
     {
         //
     }
@@ -62,12 +62,12 @@ class ItemCashController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\ItemCash  $itemCash
+     * @param  \App\CashItem  $cashItem
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-		$item = ItemCash::find($id);
+		$item = CashItem::find($id);
 		return view('editCashItem', ['item' => $item]);
     }
 
@@ -75,12 +75,12 @@ class ItemCashController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ItemCash  $itemCash
+     * @param  \App\CashItem  $cashItem
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-		$item = ItemCash::find($id);
+		$item = CashItem::find($id);
 		$item->name = $request->get('name');
 		$item->amount = $request->get('amount');
 		$item->type = $request->get('type');
@@ -95,13 +95,13 @@ class ItemCashController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\ItemCash  $itemCash
+     * @param  \App\CashItem  $cashItem
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-		$itemCash = ItemCash::find($id);
-		$itemCash->delete();
+		$cashItem = CashItem::find($id);
+		$cashItem->delete();
         return back();
 	}
 }

@@ -20,7 +20,6 @@
 			</li>
 		</ol>			
 	</nav>
-
 	<div class="row">
 		<div class="col-4">
 			<h4>GROUP TOTALS</h4>
@@ -30,14 +29,16 @@
 		</div>
 		<div class="col-4">
 			<h4>USER TOTALS</h4>
-			<div>Total Expense: {{ App\Models\Items\ItemCash::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}</div>
-			<div>Total Income: {{ App\Models\Items\ItemCash::where('id_user', Auth::id())->where('type', 'income')->sum('amount') }} </div>
-			<div>Balance: {{ App\Models\Items\ItemCash::where('id_user', Auth::id())->where('type', 'income')->sum('amount') - App\Models\Items\ItemCash::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}</div>	
+			<div>Total Expense: {{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}</div>
+			<div>Total Income: {{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'income')->sum('amount') }} </div>
+			<div>Balance: {{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'income')->sum('amount') - App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}</div>	
 		</div>		
 		<div class="col-4">
 			<h4 >USER ACCOUNTS</h4>
 			@foreach ($accounts as $account)
-				<div>{{ $account['name'] }}: {{ $account['balance'] }} {{ $account['currency'] }}</div>
+				<div>
+				<a href="/accounts/{{ $account->id }}">{{ $account['name'] }}</a> : {{ $account['balance'] }} {{ $account['currency'] }}				
+				</div>
 			@endforeach
 		</div>	
 	</div>	

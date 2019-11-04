@@ -43,5 +43,21 @@ class User extends Authenticatable
     public function groups()
     {
         return $this->hasMany('App\Models\Group', 'id_user');
+	}
+		
+	/**
+     * Get the groups for the user.
+     */
+    public function accounts()
+    {
+        return $this->hasMany('App\Models\Account', 'id_user');
+	}
+	
+	/**
+     * Get the cashItems for the user.
+     */
+    public function cashItems()
+    {
+        return $this->hasMany('App\Models\Items\CashItems', 'id_user');
     }
 }

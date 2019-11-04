@@ -10,9 +10,9 @@
 
 		<p class="mb-0">Totals</p>		
 		<div class="d-flex justify-content-between mb-3">
-			<div>{{ $group->cashGroupTotals['expense'] }}</div>
-			<div>{{ $group->cashGroupTotals['income'] }}</div>
-			<div>{{ $group->cashGroupTotals['balance'] }}</div>
+			<div>{{ $group->cashTotals['expense'] }}</div>
+			<div>{{ $group->cashTotals['income'] }}</div>
+			<div>{{ $group->cashTotals['balance'] }}</div>
 		</div>	
 		
 		@if($group->children)
@@ -26,8 +26,8 @@
 			<p>No groups found</p>
 		@endif
 		
-		@if($group->cashItems)
-			<h5>Expenses . {{ $group->cashItems ? $group->cashItems->count() : 0 }} items</h5>
+		@if($group->cashItems->isNotEmpty())
+			<h5>Expenses . {{ $group->cashItems->count()}} items</h5>
 			<hr class="px-0">
 			<dl class="row">
 			<dd class="col-sm-6 text-truncate">Name</dt>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 
-class AccountControler extends Controller
+class AccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,13 +46,12 @@ class AccountControler extends Controller
      */
     public function show(int $id)
     {
-        $account = Account::find($id);
-		$cashItems = ItemCash::getItems($id);
+		$account = Account::find($id);
 
         // load the view and pass the groups
-        return view('account', [
+        return view('accounts', [
 			'account' => $account,
-			'cashItems' => $cashItems
+			'cashItems' => $account->cashItems
 		]);
     }
 
