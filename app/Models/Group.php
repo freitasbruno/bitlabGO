@@ -52,6 +52,14 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Items\CashItem', 'id_parent');
 	}
+		
+	/**
+     * Get the tasks of a group.
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Items\Task', 'id_parent');
+	}
 
 	/**
 	 * Get an array of the current Group's children - 1st and 2nd degree.

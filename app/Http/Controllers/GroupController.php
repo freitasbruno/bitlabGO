@@ -62,6 +62,7 @@ class GroupController extends Controller
         $groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
 		$cashItems = $group->cashItems;
+		$tasks = $group->tasks;
 		$group->cashTotals = $group->getCashTotals();
 		$accounts = Auth::user()->accounts;
 		foreach ($accounts as $account) {
@@ -78,6 +79,7 @@ class GroupController extends Controller
 			'groups' => $groups, 
 			'groupHierarchy' => $groupHierarchy,
 			'cashItems' => $cashItems,
+			'tasks' => $tasks,
 			'totals' => $totals,
 			'accounts' => $accounts
 		]);

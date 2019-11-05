@@ -58,6 +58,14 @@ class User extends Authenticatable
      */
     public function cashItems()
     {
-        return $this->hasMany('App\Models\Items\CashItems', 'id_user');
+        return $this->hasMany('App\Models\Items\CashItem', 'id_user');
+	}
+		
+	/**
+     * Get the tasks for the user.
+     */
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Items\Task', 'id_user');
     }
 }

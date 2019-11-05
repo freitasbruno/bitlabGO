@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\CashItem as CashItem;
+use App\Models\Items\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CashItemController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class CashItemController extends Controller
      */
     public function index()
     {
-        echo "hello from CashItemController";
+        //
     }
 
     /**
@@ -36,13 +36,10 @@ class CashItemController extends Controller
      */
     public function store(Request $request)
     {
-		$item = new CashItem;
+        $item = new Task;
 		$item->id_user = Auth::user()->id;
     	$item->id_parent = session('currentGroup')->id ?? 0;
 		$item->name = $request->get('name');
-		$item->amount = $request->get('amount');
-		$item->type = $request->get('type');
-		$item->currency = $request->get('currency');
 		$item->save();
 
         return back();
@@ -51,10 +48,10 @@ class CashItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(CashItem $cashItem)
+    public function show(Task $task)
     {
         //
     }
@@ -62,29 +59,25 @@ class CashItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-		$item = CashItem::find($id);
-		return view('editCashItem', ['item' => $item]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
-		$item = CashItem::find($id);
+        $item = Task::find($id);
 		$item->name = $request->get('name');
-		$item->amount = $request->get('amount');
-		$item->type = $request->get('type');
-		$item->currency = $request->get('currency');
 		$item->save();
 
 		$id_parent = session('currentGroup')->id ?? null;
@@ -95,13 +88,13 @@ class CashItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-		$item = CashItem::find($id);
+		$item = Task::find($id);
 		$item->delete();
         return back();
-	}
+    }
 }

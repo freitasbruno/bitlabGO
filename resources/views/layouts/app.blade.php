@@ -15,8 +15,7 @@
 
 		<!-- Bootstrap core JavaScript -->
 		<script src="{{ asset('js/jquery/jquery.min.js') }}" defer></script>
-		<script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}" defer></script>		
-		<script src="{{ asset('js/bootstrap/bootstrap-select.min.js') }}" defer></script>
+		<script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}" defer></script>
 		
 		<!-- Custom Scripts -->
 		<script src="{{ asset('js/custom.js') }}" defer></script>
@@ -24,7 +23,6 @@
 
 		<!-- Bootstrap core CSS -->
 		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-		<link href="{{ asset('css/bootstrap/bootstrap-select.min.css') }}" rel="stylesheet">
 
 		<!-- Custom Styles -->
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">

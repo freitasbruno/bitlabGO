@@ -9,7 +9,7 @@
 			</div>
 			<form action="/home" method="post">
 				@csrf
-				@include('includes.groupForm')
+				@include('forms.groupForm')
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 					<button type="submit" class="btn btn-primary">Add</button>

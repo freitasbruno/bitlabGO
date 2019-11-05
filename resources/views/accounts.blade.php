@@ -32,7 +32,7 @@
 		</button>
 
 		<!-- Modals -->
-		@include('includes.newCashItemModal')
+		@include('forms.newCashItemModal')
 
 	</div>
 </div>

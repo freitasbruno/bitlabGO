@@ -23,7 +23,8 @@ Auth::routes();
 
 Route::resource('home', 'GroupController');
 Route::resource('accounts', 'AccountController');
-Route::resource('cashItems', 'ItemCashController');
+Route::resource('cashItems', 'CashItemController');
+Route::resource('tasks', 'TaskController');
 
 Route::get('/test/{id}', function ($id) {
 	$a = Account::where('id', '=', $id)->with('cashItems')->get();

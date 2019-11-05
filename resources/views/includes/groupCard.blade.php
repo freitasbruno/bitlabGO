@@ -5,7 +5,7 @@
 			{{ 'home/' . $group -> id }}
 		@endcomponent
 	</div>
-	<div class="card-body">
+	<div class="card-body p-2">
 		<p>{{ $group->description }}</p>
 
 		<p class="mb-0">Totals</p>		
@@ -17,26 +17,21 @@
 		
 		@if($group->children)
 			<h5>Groups: {{ $group->children ? $group->children->count() : 0 }}</h5>
-			<ul>
-				@foreach($group->children as $child)
-					<li><a href="/home/{{ $child -> id }}">{{ $child->name }}</a></li>			
-				@endforeach
-			</ul>
+			@each('cards.groupCard', $group->children, 'group')
 		@else
 			<p>No groups found</p>
 		@endif
 		
+		@if($group->tasks->isNotEmpty())
+			<h5>Tasks . {{ $group->tasks->count()}} items</h5>
+			@each('cards.taskCard', $group->tasks, 'item')			
+		@else
+			<p>No tasks found</p>
+		@endif
+
 		@if($group->cashItems->isNotEmpty())
 			<h5>Expenses . {{ $group->cashItems->count()}} items</h5>
-			<hr class="px-0">
-			<dl class="row">
-			<dd class="col-sm-6 text-truncate">Name</dt>
-			<dd class="col-sm-6 text-right">Amount</dd>
-			@foreach($group->cashItems as $cash)
-				<hr class="w-100 mt-0">
-				<dt class="col-sm-6 text-truncate">{{ $cash->name }}</dt>
-				<dd class="col-sm-6 text-right">{{ ($cash -> type == 'expense' ? '-' : '+') . $cash->amount . " " . $cash->currency }}</dd>
-			@endforeach
+			@each('cards.cashCard', $group->cashItems, 'item')			
 		@else
 			<p>No expenses found</p>
 		@endif
