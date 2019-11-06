@@ -24,6 +24,8 @@ Auth::routes();
 Route::resource('home', 'GroupController');
 Route::resource('accounts', 'AccountController');
 Route::resource('cashItems', 'CashItemController');
+
+Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 Route::resource('tasks', 'TaskController');
 
 Route::get('/test/{id}', function ($id) {
