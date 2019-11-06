@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Items\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Psy\Util\Json;
 
 class TaskController extends Controller
 {
@@ -83,6 +84,20 @@ class TaskController extends Controller
 		$id_parent = session('currentGroup')->id ?? null;
         // load the view and pass the groups
         return redirect('home/' . $id_parent);
+	}
+
+	/**
+     * Toggle the complete status of a task.
+     *
+     */	
+    public function toggleComplete()
+    {
+		$taskId = $_POST['taskId'];
+
+		$item = Task::find($taskId);
+		$item->complete = !$item->complete;
+		$item->save();
+        return back();
     }
 
     /**
