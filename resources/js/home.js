@@ -19,5 +19,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .fail(function(errorThrown) {
                 console.log("failed");
             });
+	});
+	
+    $(".timerStopBtn").click(function() {
+        var itemId = this.value;
+        //this.form.submit();
+        $.ajax({
+            url: '/timers/stop/',
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+			},
+			data: {
+				itemId: itemId
+			}
+        })
+            .done(function(response) {
+                console.log("success");
+                console.log(response);
+            })
+            .fail(function(errorThrown) {
+                console.log("failed");
+            });
     });
 });

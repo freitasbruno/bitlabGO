@@ -60,6 +60,14 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Items\Task', 'id_parent');
 	}
+		
+	/**
+     * Get the timers of a group.
+     */
+    public function timers()
+    {
+        return $this->hasMany('App\Models\Items\Timer', 'id_parent');
+	}
 
 	/**
 	 * Get an array of the current Group's children - 1st and 2nd degree.

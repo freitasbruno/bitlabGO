@@ -18,22 +18,21 @@
 		@if($group->children)
 			<h5>Groups: {{ $group->children ? $group->children->count() : 0 }}</h5>
 			@each('cards.groupCard', $group->children, 'group')
-		@else
-			<p>No groups found</p>
 		@endif
 		
 		@if($group->tasks->isNotEmpty())
 			<h5>Tasks . {{ $group->tasks->count()}} items</h5>
-			@each('cards.taskCard', $group->tasks, 'item')			
-		@else
-			<p>No tasks found</p>
+			@each('cards.taskCard', $group->tasks, 'item')
+		@endif
+		
+		@if($group->timers->isNotEmpty())
+			<h5>Timers . {{ $group->timers->count()}} items</h5>
+			@each('cards.timerCard', $group->timers, 'item')
 		@endif
 
 		@if($group->cashItems->isNotEmpty())
 			<h5>Expenses . {{ $group->cashItems->count()}} items</h5>
-			@each('cards.cashCard', $group->cashItems, 'item')			
-		@else
-			<p>No expenses found</p>
+			@each('cards.cashCard', $group->cashItems, 'item')
 		@endif
 	</div>
 </div>

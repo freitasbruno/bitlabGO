@@ -11,10 +11,6 @@
 |
 */
 
-use App\Models\Group;
-use App\Models\User;
-use App\Models\Account;
-
 Route::get('/', function () {
 	return view('welcome');
 });
@@ -28,7 +24,12 @@ Route::resource('cashItems', 'CashItemController');
 Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 Route::resource('tasks', 'TaskController');
 
-Route::get('/test/{id}', function ($id) {
-	$a = Account::where('id', '=', $id)->with('cashItems')->get();
-	return dd($a);
+Route::post('timers/stop', 'TimerController@stop');
+Route::resource('timers', 'TimerController');
+use App\Models\Items\Timer;
+Route::get('/test', function () {
+	
+	$timer = Timer::find(1);
+	echo date_diff(date_create($timer->stop), date_create($timer->start))->format('%Y-%m-%d %H:%i:%s');
+	return;
 });

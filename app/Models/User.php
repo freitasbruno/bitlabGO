@@ -68,4 +68,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Items\Task', 'id_user');
     }
+		
+	/**
+     * Get the timers for the user.
+     */
+    public function timers()
+    {
+        return $this->hasMany('App\Models\Items\Timer', 'id_user');
+    }
 }

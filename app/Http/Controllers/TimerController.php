@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\Task;
+use App\Models\Items\Timer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TaskController extends Controller
+class TimerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,10 +36,11 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Task;
+        $item = new Timer;
 		$item->id_user = Auth::user()->id;
     	$item->id_parent = session('currentGroup')->id ?? 0;
 		$item->name = $request->get('name');
+		$item->start = now();
 		$item->save();
 
         return back();
@@ -48,10 +49,10 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Task  $task
+     * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show(Timer $timer)
     {
         //
     }
@@ -59,10 +60,10 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Task  $task
+     * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit(Timer $timer)
     {
         //
     }
@@ -71,43 +72,37 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
+     * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Timer $timer)
     {
-        $item = Task::find($id);
-		$item->name = $request->get('name');
-		$item->save();
-
-		$id_parent = session('currentGroup')->id ?? null;
-        // load the view and pass the groups
-        return redirect('home/' . $id_parent);
+        //
 	}
-
+	
 	/**
-     * Toggle the complete status of a task.
+     * Update the finish time of a timer.
      *
      */	
-    public function toggleComplete()
+    public function stop()
     {
-		$taskId = $_POST['taskId'];
+		$itemId = $_POST['itemId'];
 
-		$item = Task::find($taskId);
-		$item->complete = !$item->complete;
+		$item = Timer::find($itemId);
+		$item->stop = now();
 		$item->save();
-        return "task complete toggled";
+        return $item->stop;
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Task  $task
+     * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
     public function destroy(int $id)
     {
-		$item = Task::find($id);
+        $item = Timer::find($id);
 		$item->delete();
         return back();
     }

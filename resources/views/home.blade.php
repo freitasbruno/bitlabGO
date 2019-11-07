@@ -88,6 +88,39 @@
 		New Task
 	</button>
 
+	@if($timers)
+	<div class="row mx-0 table-responsive">
+		<h1>TIMERS</h1>
+		<table class="table">
+			<tbody>
+				@foreach($timers as $timer)
+				<tr>
+					<td>{{ $timer->name }}</td>
+					<td class="text-center">{{ $timer->start }}</td>
+					@if($timer->stop)
+						<td class="text-center">{{ $timer->stop }}</td>
+					@else
+						<td class="text-center">
+							<button type="button" class="btn btn-link timerStopBtn" value="{{ $timer->id }}">Stop</button>
+						</td>
+					@endif
+					<td class="text-right">
+						@component('components/itemTools')
+						{{ 'tasks/' . $timer->id }}
+						@endcomponent
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+	@endif
+	
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#timerModal">
+		New Timer
+	</button>
+
 	@if($cashItems)
 	<div class="row mx-0 table-responsive">
 		<h1>EXPENSES</h1>
@@ -123,6 +156,7 @@
 	@include('forms.newCashItemModal')
 	@include('forms.newGroupModal')
 	@include('forms.newTaskModal')
-
+	@include('forms.newTimerModal')
+	
 </div>
 @endsection
