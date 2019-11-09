@@ -64,6 +64,7 @@ class GroupController extends Controller
 		$cashItems = $group->cashItems;
 		$tasks = $group->tasks;
 		$timers = $group->timers;
+		$bookmarks = $group->bookmarks;
 		$group->cashTotals = $group->getCashTotals();
 		$accounts = Auth::user()->accounts;
 		foreach ($accounts as $account) {
@@ -82,6 +83,7 @@ class GroupController extends Controller
 			'cashItems' => $cashItems,
 			'tasks' => $tasks,
 			'timers' => $timers,
+			'bookmarks' => $bookmarks,
 			'totals' => $totals,
 			'accounts' => $accounts
 		]);

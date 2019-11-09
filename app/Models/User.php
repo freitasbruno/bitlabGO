@@ -75,5 +75,13 @@ class User extends Authenticatable
     public function timers()
     {
         return $this->hasMany('App\Models\Items\Timer', 'id_user');
-    }
+	}
+				
+	/**
+     * Get the bookmarks for the user.
+     */
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Items\Bookmark', 'id_parent');
+	}
 }

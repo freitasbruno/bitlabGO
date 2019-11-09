@@ -20,12 +20,14 @@ Auth::routes();
 Route::resource('home', 'GroupController');
 Route::resource('accounts', 'AccountController');
 Route::resource('cashItems', 'CashItemController');
+Route::resource('bookmarks', 'BookmarkController');
 
 Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 Route::resource('tasks', 'TaskController');
 
 Route::post('timers/stop', 'TimerController@stop');
 Route::resource('timers', 'TimerController');
+
 use App\Models\Items\Timer;
 Route::get('/test', function () {
 	

@@ -68,6 +68,14 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Items\Timer', 'id_parent');
 	}
+		
+	/**
+     * Get the bookmarks of a group.
+     */
+    public function bookmarks()
+    {
+        return $this->hasMany('App\Models\Items\Bookmark', 'id_parent');
+	}
 
 	/**
 	 * Get an array of the current Group's children - 1st and 2nd degree.

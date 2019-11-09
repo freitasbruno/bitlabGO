@@ -62,6 +62,32 @@
 	</div>
 	@endif
 
+	@if($bookmarks)
+	<div class="row mx-0 table-responsive">
+		<h1>BOOKMARKS</h1>
+		<table class="table">
+			<tbody>
+				@foreach($bookmarks as $bookmark)
+				<tr>
+					<td>{{ $bookmark->name }}</td>
+					<td class="text-left">{{ $bookmark->url }}</td>
+					<td class="text-right">
+						@component('components/itemTools')
+						{{ 'bookmarks/' . $bookmark -> id }}
+						@endcomponent
+					</td>
+				</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+	@endif
+	
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookmarkModal">
+		New Bookmark
+	</button>
+
 	@if($tasks)
 	<div class="row mx-0 table-responsive">
 		<h1>TASKS</h1>
@@ -157,6 +183,7 @@
 	@include('forms.newGroupModal')
 	@include('forms.newTaskModal')
 	@include('forms.newTimerModal')
+	@include('forms.newBookmarkModal')
 	
 </div>
 @endsection

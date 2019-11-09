@@ -34,5 +34,10 @@
 			<h5>Expenses . {{ $group->cashItems->count()}} items</h5>
 			@each('cards.cashCard', $group->cashItems, 'item')
 		@endif
+
+		@if($group->bookmarks->isNotEmpty())
+			<h5>Bookmarks . {{ $group->bookmarks->count()}} items</h5>
+			@each('cards.bookmarkCard', $group->bookmarks, 'item')
+		@endif
 	</div>
 </div>
