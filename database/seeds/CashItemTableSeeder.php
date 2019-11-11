@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Items\ItemCash as ItemCash;
+use App\Models\Items\CashItem as CashItem;
 
-class ItemCashTableSeeder extends Seeder
+class CashItemTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -32,7 +32,7 @@ class ItemCashTableSeeder extends Seeder
 			'created_at' => date("Y-m-d H:i:s")
 		]);
 
-		$smallCashItems = factory(ItemCash::class, 100)->states('smallExpenses')->create();
-		$cashItems = factory(ItemCash::class, 10)->create();
+		$smallCashItems = factory(CashItem::class, 100)->states('smallExpenses')->create();
+		$cashItems = factory(CashItem::class, 10)->create();
     }
 }

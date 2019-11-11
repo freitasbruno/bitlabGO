@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\Group;
-use App\Models\Items\ItemCash;
+use App\Models\Items\CashItem;
 use Faker\Generator as Faker;
 use Illuminate\Support\Arr;
 
-$factory->define(ItemCash::class, function (Faker $faker) {
+$factory->define(CashItem::class, function (Faker $faker) {
     return [
 		'id_parent' => 0,
 		'id_account' => 0,
@@ -19,7 +19,7 @@ $factory->define(ItemCash::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(ItemCash::class, 'smallExpenses', function (Faker $faker) {
+$factory->state(CashItem::class, 'smallExpenses', function (Faker $faker) {
 	return [
 		'amount' => $faker->randomFloat(2, 1, 50)
 	];

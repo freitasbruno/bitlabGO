@@ -6,11 +6,12 @@ use App\Models\Group;
 
 class Account extends Group
 {	
+	
 	/**
-     * Get the cashItems of an account.
+     * Get the parent group of the account.
      */
-    public function cashItems()
+    public function group()
     {
-        return $this->hasMany('App\Models\Items\CashItem', 'id_account');
+        return $this->belongsTo('App\Models\Group', 'id_parent');
 	}
 }

@@ -44,6 +44,14 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Group', 'id_parent');
 	}
+
+	/**
+     * Get the associated account of the group.
+     */
+    public function account()
+    {
+        return $this->hasOne('App\Models\Account', 'id_parent');
+	}
 	
 	/**
      * Get the cashItems of a group.

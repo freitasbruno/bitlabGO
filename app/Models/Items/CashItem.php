@@ -39,6 +39,6 @@ class CashItem extends Item
      */
     public function account()
     {
-        return $this->belongsTo('App\Models\Account', 'id_account');
+        return $this->belongsTo('App\Models\Group', 'id_account');
 	}
 }

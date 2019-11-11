@@ -3,7 +3,7 @@
 use App\Models\Account;
 use Illuminate\Database\Seeder;
 use App\Models\Group as Group;
-use App\Models\Items\ItemCash as ItemCash;
+use App\Models\Items\CashItem as CashItem;
 
 
 class GroupsTableSeeder extends Seeder
@@ -48,12 +48,12 @@ class GroupsTableSeeder extends Seeder
 					foreach($childGroups as $childGroup) {
 						$rand_2 = rand(0, 1);
 						if ($rand_2 == 1){
-							$smallCashItems = factory(ItemCash::class, rand(1, 10))->states('smallExpenses')->create([
+							$smallCashItems = factory(CashItem::class, rand(1, 10))->states('smallExpenses')->create([
 								'id_parent' => $childGroup->id,
 								'id_user' => $childGroup->id_user,
 								'id_account' => Account::where('id_user', $childGroup->id_user)->get()->random()->id
 							]);
-							$cashItems = factory(ItemCash::class, rand(0, 2))->create([
+							$cashItems = factory(CashItem::class, rand(0, 2))->create([
 								'id_parent' => $childGroup->id,
 								'id_user' => $childGroup->id_user,
 								'id_account' => Account::where('id_user', $childGroup->id_user)->get()->random()->id
@@ -64,12 +64,12 @@ class GroupsTableSeeder extends Seeder
 				
 				$rand_3 = rand(0, 1);
 				if ($rand_3 == 1){
-					$smallCashItems = factory(ItemCash::class, rand(1, 10))->states('smallExpenses')->create([
+					$smallCashItems = factory(CashItem::class, rand(1, 10))->states('smallExpenses')->create([
 						'id_parent' => $group->id,
 						'id_user' => $group->id_user,
 						'id_account' => Account::where('id_user', $group->id_user)->get()->random()->id
 					]);
-					$cashItems = factory(ItemCash::class, rand(0, 2))->create([
+					$cashItems = factory(CashItem::class, rand(0, 2))->create([
 						'id_parent' => $group->id,
 						'id_user' => $group->id_user,
 						'id_account' => Account::where('id_user', $group->id_user)->get()->random()->id
