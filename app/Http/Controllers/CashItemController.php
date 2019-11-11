@@ -38,8 +38,9 @@ class CashItemController extends Controller
     {
 		$item = new CashItem;
 		$item->id_user = Auth::user()->id;
-    	$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->name = $request->get('name');
+		$item->id_parent = session('currentGroup')->id ?? 0;		
+		$item->id_account = 1;
+		$item->name = $request->get('cashName');
 		$item->amount = $request->get('amount');
 		$item->type = $request->get('type');
 		$item->currency = $request->get('currency');
@@ -81,12 +82,12 @@ class CashItemController extends Controller
     public function update(Request $request, $id)
     {
 		$item = CashItem::find($id);
-		$item->name = $request->get('name');
+		$item->name = $request->get('cashName');
 		$item->amount = $request->get('amount');
 		$item->type = $request->get('type');
 		$item->currency = $request->get('currency');
 		$item->save();
-
+		
 		$id_parent = session('currentGroup')->id ?? null;
         // load the view and pass the groups
         return redirect('home/' . $id_parent);

@@ -16,7 +16,7 @@
 			@endif
 			<li class="breadcrumb-item">
 				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#groupModal"><i
+				<button type="button" class="btn btn-link p-0 newItemBtn" data-value="group" data-toggle="modal" data-target="#itemModal"><i
 						class="fas fa-plus dark"></i>New Group</button>
 			</li>
 		</ol>
@@ -69,7 +69,7 @@
 			<tbody>
 				@foreach($bookmarks as $bookmark)
 				<tr>
-					<td>{{ $bookmark->name }}</td>
+					<td>{!! $bookmark->name !!}</td>
 					<td class="text-left">{{ $bookmark->url }}</td>
 					<td class="text-right">
 						@component('components/itemTools')
@@ -84,7 +84,7 @@
 	@endif
 	
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bookmarkModal">
+	<button type="button" class="btn btn-primary newItemBtn" data-value="bookmark" data-toggle="modal" data-target="#itemModal">
 		New Bookmark
 	</button>
 
@@ -110,7 +110,7 @@
 	@endif
 	
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#taskModal">
+	<button type="button" class="btn btn-primary newItemBtn" data-value="task" data-toggle="modal" data-target="#itemModal">
 		New Task
 	</button>
 
@@ -143,7 +143,7 @@
 	@endif
 	
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#timerModal">
+	<button type="button" class="btn btn-primary newItemBtn" data-value="timer" data-toggle="modal" data-target="#itemModal">
 		New Timer
 	</button>
 
@@ -174,16 +174,12 @@
 	@endif
 
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cashItemModal">
+	<button type="button" class="btn btn-primary newItemBtn" data-value="cashItem" data-toggle="modal" data-target="#itemModal">
 		New Transaction
 	</button>
 
 	<!-- Modals -->
-	@include('forms.newCashItemModal')
-	@include('forms.newGroupModal')
-	@include('forms.newTaskModal')
-	@include('forms.newTimerModal')
-	@include('forms.newBookmarkModal')
+	@include('forms.newItemModal')
 	
 </div>
 @endsection

@@ -39,7 +39,7 @@ class TimerController extends Controller
         $item = new Timer;
 		$item->id_user = Auth::user()->id;
     	$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->name = $request->get('name');
+		$item->name = $request->get('timerName');
 		$item->start = now();
 		$item->save();
 

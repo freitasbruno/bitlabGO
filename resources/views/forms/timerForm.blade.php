@@ -1,12 +1,9 @@
-<div class="modal-body">	
+<div class="modal-body itemForm timerForm">	
 	<div class="form-group">
 		<label for="name">Name</label>
-		<input type="text" name="name" value="{{ $item->name ?? '' }}" class="form-control" id="name" placeholder="Coffee and biscuits..." autocomplete="off" required>
+		<input type="text" name="timerName" value="{{ $item->name ?? '' }}" class="form-control" id="name" placeholder="Coffee and biscuits..." autocomplete="off">
 	</div>
 	<div class="form-group">
-		<label for="id_group">Group</label>
-		<select name="group" class="form-control" id="id_group">
-			<option value="session()->get('currentGroup')->id">{{ session()->get('currentGroup')->name ?? 'NONE' }}</option>
-		</select>
+		<input type="hidden" name="group" value="{{ session()->get('currentGroup')->id }}">
 	</div>	
 </div>

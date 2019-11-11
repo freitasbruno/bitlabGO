@@ -39,7 +39,7 @@ class TaskController extends Controller
         $item = new Task;
 		$item->id_user = Auth::user()->id;
     	$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->name = $request->get('name');
+		$item->name = $request->get('taskName');
 		$item->save();
 
         return back();
@@ -77,7 +77,7 @@ class TaskController extends Controller
     public function update(Request $request, int $id)
     {
         $item = Task::find($id);
-		$item->name = $request->get('name');
+		$item->name = $request->get('taskName');
 		$item->save();
 
 		$id_parent = session('currentGroup')->id ?? null;

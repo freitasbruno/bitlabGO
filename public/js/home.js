@@ -41,5 +41,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .fail(function(errorThrown) {
                 console.log("failed");
             });
-    });
+	});
+	
+	$(".newItemBtn").click(function() {
+		var itemType = $(this).attr('data-value');
+
+		$('#itemModalTitle').html('New ' + itemType);
+		$('#itemForm').attr('action', '/' + itemType + 's');
+
+		$("#itemModal").find(".itemForm").hide();
+		$("#itemModal").find("." + itemType + "Form").show();
+		
+		/*
+		$('#itemForm').find(':submit').click(function() {
+			$('#itemForm').submit();
+		});
+		*/
+	});
+
+	$('#itemForm').submit(function() {
+		// validate the form fields
+		return true; 
+	});
 });

@@ -17,20 +17,25 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('home', 'GroupController');
-Route::resource('accounts', 'AccountController');
-Route::resource('cashItems', 'CashItemController');
-Route::resource('bookmarks', 'BookmarkController');
+Route::group(['middleware' => ['auth']], function () {
+	Route::resource('home', 'GroupController');
+	Route::resource('groups', 'GroupController');
+	Route::resource('accounts', 'AccountController');
+	Route::resource('cashItems', 'CashItemController');
+	Route::resource('bookmarks', 'BookmarkController');
+	
+	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
+	Route::resource('tasks', 'TaskController');
+	
+	Route::post('timers/stop', 'TimerController@stop');
+	Route::resource('timers', 'TimerController');
+});
 
-Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
-Route::resource('tasks', 'TaskController');
-
-Route::post('timers/stop', 'TimerController@stop');
-Route::resource('timers', 'TimerController');
 
 use App\Models\Items\Timer;
+
 Route::get('/test', function () {
-	
+
 	$timer = Timer::find(1);
 	echo date_diff(date_create($timer->stop), date_create($timer->start))->format('%Y-%m-%d %H:%i:%s');
 	return;
