@@ -67,8 +67,8 @@ class GroupController extends Controller
 		$timers = $group->timers;
 		$bookmarks = $group->bookmarks;
 		$group->cashTotals = $group->getCashTotals();
-		$accounts = Auth::user()->accounts;
-		foreach ($accounts as $account) {
+		$accountGroups = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
+		foreach ($accountGroups as $account) {
 			$account->cashTotals = $account->getCashTotals();
 		}
 
@@ -86,7 +86,7 @@ class GroupController extends Controller
 			'timers' => $timers,
 			'bookmarks' => $bookmarks,
 			'totals' => $totals,
-			'accounts' => $accounts
+			'accountGroups' => $accountGroups
 		]);
 	}
 

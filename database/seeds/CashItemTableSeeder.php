@@ -1,38 +1,38 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Group as Group;
 use App\Models\Items\CashItem as CashItem;
 
 class CashItemTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        DB::table('item_cash')->insert([
-			'id_user' => 1,
-			'id_parent' => 1,
-            'name' => 'Coffee and cake',
-            'type' => 'expense',
-			'amount' => 5.60,
-			'currency' => 'EUR',
-			'created_at' => date("Y-m-d H:i:s")
-		]);
+	/**
+	 * Run the database seeds.
+	 *
+	 * @return void
+	 */
+	public function run()
+	{
+		$accounts = Group::has('account')->get();
+		$groups = Group::doesntHave('account')->get();
 
-		DB::table('item_cash')->insert([
-			'id_user' => 1,
-			'id_parent' => 1,
-            'name' => 'May salary',
-            'type' => 'income',
-			'amount' => 1800,
-			'currency' => 'EUR',
-			'created_at' => date("Y-m-d H:i:s")
-		]);
-
-		$smallCashItems = factory(CashItem::class, 100)->states('smallExpenses')->create();
-		$cashItems = factory(CashItem::class, 10)->create();
-    }
+		foreach ($groups as $group) {
+			$rand = rand(0, 1);
+			if ($rand == 1) {
+				$smallCashItems = factory(CashItem::class, rand(1, 10))->states('smallExpenses')->create([
+					'id_parent' => $group->id,
+					'id_user' => $group->id_user,
+					'id_account' => $accounts->random()->id
+				]);
+			}
+			$rand = rand(0, 1);
+			if ($rand == 1) {
+				$cashItems = factory(CashItem::class, rand(0, 2))->create([
+					'id_parent' => $group->id,
+					'id_user' => $group->id_user,
+					'id_account' => $accounts->random()->id
+				]);
+			}
+		}
+	}
 }

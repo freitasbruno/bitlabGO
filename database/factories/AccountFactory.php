@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Account::class, function (Faker $faker) {
     return [
-		'id_parent' => 0,
 		'id_user' => 0,
         'balance' => 0,
     ];

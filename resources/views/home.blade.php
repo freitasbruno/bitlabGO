@@ -42,10 +42,10 @@
 		</div>
 		<div class="col-4">
 			<h4>USER ACCOUNTS</h4>
-			@foreach ($accounts as $account)
+			@foreach ($accountGroups as $accountGroup)
 			<div>
-				<a href="/accounts/{{ $account->id }}">{{ $account['name'] }}</a> : {{ $account['balance'] }}
-				{{ $account['currency'] }}
+				<a href="/accounts/{{ $accountGroup->id }}">{{ $accountGroup['name'] }}</a> : {{ $accountGroup->account['balance'] }}
+				{{ $accountGroup->account['currency'] }}
 			</div>
 			@endforeach
 		</div>
