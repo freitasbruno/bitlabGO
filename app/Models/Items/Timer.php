@@ -30,7 +30,7 @@ class Timer extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\Models\Group', 'id_parent');
+        return $this->belongsTo('App\Models\Item', 'id_parent');
 	}
 
 }

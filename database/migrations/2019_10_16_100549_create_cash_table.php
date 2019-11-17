@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemCashTable extends Migration
+class CreateCashTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateItemCashTable extends Migration
      */
     public function up()
     {
-        Schema::create('item_cash', function (Blueprint $table) {
+        Schema::create('cash', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->integer('id_parent')->default(0);
 			$table->integer('id_account')->default(0);
 			$table->integer('id_user');
-            $table->string('name', 300);
-			$table->longText('description')->nullable();
 			$table->enum('type', ['expense', 'income']);
 			$table->float('amount', 20, 2);
 			$table->enum('currency', ['EUR', 'USD']);
@@ -37,6 +35,6 @@ class CreateItemCashTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('item_cash');
+        Schema::dropIfExists('cash');
     }
 }

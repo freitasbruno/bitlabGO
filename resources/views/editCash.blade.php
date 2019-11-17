@@ -3,10 +3,10 @@
 @section('content')
 <div class="container">
 
-	<form action="/cashItems/{{ $item->id }}" method="POST">
+	<form action="/cash/{{ $cash->id }}" method="POST">
 		@csrf
 		@method('PUT')
-		@include('includes.cashItemForm', ['item' => $item])
+		@include('forms.cashForm', ['item' => $item, 'cashItem' => $cash, 'accounts' => $accounts])
 		<div class="text-center">
 			<a class="btn btn-secondary" href="/home/{{ session('currentGroup')->id ?? null }}" role="button">Close</a>
 			<button type="submit" class="btn btn-primary">Save</button>

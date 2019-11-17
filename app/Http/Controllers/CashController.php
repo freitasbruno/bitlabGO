@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Items\CashItem as CashItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Item as Item;
+use App\Models\Items\Cash as Cash;
+use App\Models\Group as Group;
 
-class CashItemController extends Controller
+class CashController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +17,7 @@ class CashItemController extends Controller
      */
     public function index()
     {
-        echo "hello from CashItemController";
+        echo "hello from CashController";
     }
 
     /**
@@ -36,15 +38,25 @@ class CashItemController extends Controller
      */
     public function store(Request $request)
     {
-		$item = new CashItem;
-		$item->id_user = Auth::user()->id;
-		$item->id_parent = session('currentGroup')->id ?? 0;		
-		$item->id_account = 1;
-		$item->name = $request->get('cashName');
-		$item->amount = $request->get('amount');
-		$item->type = $request->get('type');
-		$item->currency = $request->get('currency');
-		$item->save();
+		$id_user = Auth::user()->id;
+		$currentGroup = session('currentGroup')->id;
+
+		$item = Item::create([
+			'id_user' => $id_user,
+			'id_parent' => $currentGroup,
+			'name' => $request->get('cashName')
+		]);
+
+		$cash = Cash::create([
+			'id_user' => $id_user,
+			'id_parent' => $item->id,
+			'id_account' => $request->get('id_account'),
+			'type' => $request->get('type'),
+			'amount' => $request->get('amount'),
+			'currency' => $request->get('currency'),
+			'recurring' => $request->get('recurring') ? $request->get('recurring') : false,
+			'interval' => $request->get('interval')
+		]);
 
         return back();
     }
@@ -52,10 +64,10 @@ class CashItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Cash  $cash
      * @return \Illuminate\Http\Response
      */
-    public function show(CashItem $cashItem)
+    public function show(Cash $cash)
     {
         //
     }
@@ -63,26 +75,28 @@ class CashItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Cash  $cash
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-		$item = CashItem::find($id);
-		return view('editCashItem', ['item' => $item]);
+		$cash = Cash::find($id);
+		$item = Item::find($cash->id_parent);
+		$accounts = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
+
+		return view('editCash', ['item' => $item, 'cash' => $cash, 'accounts' => $accounts]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\CashItem  $cashItem
+     * @param  \App\Cash  $cash
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-		$item = CashItem::find($id);
-		$item->name = $request->get('cashName');
+		$item = Cash::find($id);
 		$item->amount = $request->get('amount');
 		$item->type = $request->get('type');
 		$item->currency = $request->get('currency');
@@ -96,13 +110,14 @@ class CashItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\CashItem  $cashItem
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
      */
     public function destroy($id)
     {
-		$item = CashItem::find($id);
+		$cash = Cash::find($id);
+		$item = Item::find($cash->id_parent);
+		$cash->delete();
 		$item->delete();
-        return back();
+		return back();
 	}
 }

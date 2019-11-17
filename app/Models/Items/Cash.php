@@ -4,10 +4,10 @@ namespace App\Models\Items;
 
 use App\Models\Item as Item;
 
-class CashItem extends Item
+class Cash extends Item
 {
 
-	protected $table = 'item_cash';
+	protected $table = 'cash';
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class CashItem extends Item
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'amount', 'currency', 'recurring', 'interval'
+        'id_user', 'id_parent', 'id_account', 'type', 'amount', 'currency', 'recurring', 'interval'
 	];
 
 	/**
@@ -31,7 +31,7 @@ class CashItem extends Item
      */
     public function parent()
     {
-        return $this->belongsTo('App\Models\Group', 'id_parent');
+        return $this->belongsTo('App\Models\Item', 'id_parent');
 	}
 	
 	/**

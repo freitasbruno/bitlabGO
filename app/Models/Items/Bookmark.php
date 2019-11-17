@@ -14,7 +14,7 @@ class Bookmark extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'url', 'iconUrl'
+        'id_user', 'id_parent', 'url', 'iconUrl'
 	];
 
 	/**
@@ -30,6 +30,16 @@ class Bookmark extends Model
      */
     public function parent()
     {
-        return $this->belongsTo('App\Models\Group', 'id_parent');
+        return $this->belongsTo('App\Models\Item', 'id_parent');
+	}
+
+	public function findSiteTitle()
+	{ 
+		$str = file_get_contents($this->url);
+		if(strlen($str)>0){
+			$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+			preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
+			return $title[1];
+		}
 	}
 }

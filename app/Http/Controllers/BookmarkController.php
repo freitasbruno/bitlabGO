@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Items\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,13 +37,22 @@ class BookmarkController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$item = new Bookmark;
-		$item->id_user = Auth::user()->id;
-		$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->url = $request->get('url');
+		$id_user = Auth::user()->id;
+		$currentGroup = session('currentGroup')->id;
 
-		$item->name = $this->findSiteTitle($item->url);
+		$item = Item::create([
+			'id_user' => $id_user,
+			'id_parent' => $currentGroup,
+			'name' => 'Title not found'
+		]);
+		
+		$bookmark = Bookmark::create([
+			'id_user' => $id_user,
+			'id_parent' => $item->id,
+			'url' => $request->get('url')
+		]);
 
+		$item->name = $bookmark->findSiteTitle();
 		$item->save();
 
 		return back();
@@ -91,23 +101,14 @@ class BookmarkController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Bookmark  $bookmark
-	 * @return \Illuminate\Http\Response
+     * @param  int  $id
 	 */
 	public function destroy(int $id)
 	{
-		$item = Task::find($id);
+		$bookmark = Bookmark::find($id);
+		$item = Item::find($bookmark->id_parent);
+		$bookmark->delete();
 		$item->delete();
 		return back();
-	}
-
-	private function findSiteTitle(string $url)
-	{ 
-		$str = file_get_contents($url);
-		if(strlen($str)>0){
-			$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
-			preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
-			return $title[1];
-		}
 	}
 }

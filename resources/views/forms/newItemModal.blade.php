@@ -12,7 +12,7 @@
 				<div id="formContent">
 					@include('forms.groupForm')
 					@include('forms.bookmarkForm')
-					@include('forms.cashItemForm')
+					@include('forms.cashForm')
 					@include('forms.taskForm')
 					@include('forms.timerForm')
 				</div>

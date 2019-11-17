@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Models\Group as Group;
-use App\Models\Items\CashItem as CashItem;
+use App\Models\Item as Item;
+use App\Models\Items\Cash as Cash;
 use Auth;
 
 
@@ -62,31 +63,36 @@ class GroupController extends Controller
 		$group = Group::find($id);
 		$groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
-		$cashItems = $group->cashItems;
-		$tasks = $group->tasks;
-		$timers = $group->timers;
-		$bookmarks = $group->bookmarks;
+
+		$items = Item::doesntHave('cash')->where('id_parent', $id)->get();
+		
+		$cash = $group->cash();
+		$tasks = $group->tasks();
+		$timers = $group->timers();
+		$bookmarks = $group->bookmarks();
+		
 		$group->cashTotals = $group->getCashTotals();
-		$accountGroups = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
-		foreach ($accountGroups as $account) {
+		$accounts = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
+		foreach ($accounts as $account) {
 			$account->cashTotals = $account->getCashTotals();
 		}
-
+		
 		$totals = $group->getBalance();
 
 		// Change the currentGroup in the Session
 		session(['currentGroup' => Group::find($id)]);
-
+		
 		// load the view and pass the groups
 		return view('home', [
 			'groups' => $groups,
 			'groupHierarchy' => $groupHierarchy,
-			'cashItems' => $cashItems,
+			'items' => $items,
+			'cash' => $cash,
 			'tasks' => $tasks,
 			'timers' => $timers,
 			'bookmarks' => $bookmarks,
 			'totals' => $totals,
-			'accountGroups' => $accountGroups
+			'accounts' => $accounts
 		]);
 	}
 

@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(event) {
+
+	// Toggle Task
     $(".taskCheckbox").change(function() {
         var taskId = this.value;
         //this.form.submit();
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             });
 	});
 	
+	// Stop Timer
     $(".timerStopBtn").click(function() {
         var itemId = this.value;
         //this.form.submit();
@@ -43,11 +46,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
             });
 	});
 	
+	// Create new Item - modal form
 	$(".newItemBtn").click(function() {
 		var itemType = $(this).attr('data-value');
 
 		$('#itemModalTitle').html('New ' + itemType);
-		$('#itemForm').attr('action', '/' + itemType + 's');
+
+		if (itemType === 'cash') {
+			$('#itemForm').attr('action', '/' + itemType);
+		} else {
+			$('#itemForm').attr('action', '/' + itemType + 's');
+		}
 
 		$("#itemModal").find(".itemForm").hide();
 		$("#itemModal").find("." + itemType + "Form").show();

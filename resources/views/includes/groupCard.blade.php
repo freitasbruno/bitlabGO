@@ -2,7 +2,7 @@
 	<div class="card-header d-flex justify-content-between">
 		<a href="/home/{{ $group->id }}">{{ $group->name }}</a>
 		@component('components/itemTools')
-			{{ 'home/' . $group -> id }}
+			{{ 'home/' . $group->id }}
 		@endcomponent
 	</div>
 	<div class="card-body p-2">
@@ -20,24 +20,24 @@
 			@each('cards.groupCard', $group->children, 'group')
 		@endif
 		
-		@if($group->tasks->isNotEmpty())
-			<h5>Tasks . {{ $group->tasks->count()}} items</h5>
-			@each('cards.taskCard', $group->tasks, 'item')
+		@if($group->tasks()->isNotEmpty())
+			<h5>Tasks . {{ $group->tasks()->count()}} items</h5>
+			@each('cards.taskCard', $group->tasks(), 'item')
 		@endif
 		
-		@if($group->timers->isNotEmpty())
-			<h5>Timers . {{ $group->timers->count()}} items</h5>
-			@each('cards.timerCard', $group->timers, 'item')
+		@if($group->timers()->isNotEmpty())
+			<h5>Timers . {{ $group->timers()->count()}} items</h5>
+			@each('cards.timerCard', $group->timers(), 'item')
 		@endif
 
-		@if($group->cashItems->isNotEmpty())
-			<h5>Expenses . {{ $group->cashItems->count()}} items</h5>
-			@each('cards.cashCard', $group->cashItems, 'item')
+		@if($group->cash()->isNotEmpty())
+			<h5>Expenses . {{ $group->cash()->count()}} items</h5>
+			@each('cards.cashCard', $group->cash(), 'item')
 		@endif
 
-		@if($group->bookmarks->isNotEmpty())
-			<h5>Bookmarks . {{ $group->bookmarks->count()}} items</h5>
-			@each('cards.bookmarkCard', $group->bookmarks, 'item')
+		@if($group->bookmarks()->isNotEmpty())
+			<h5>Bookmarks . {{ $group->bookmarks()->count()}} items</h5>
+			@each('cards.bookmarkCard', $group->bookmarks(), 'item')
 		@endif
 	</div>
 </div>

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-
+	<?php //dd($cash) ?>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			@if (session('currentGroup'))
@@ -30,7 +30,7 @@
 		</div>
 		<div class="col-4">
 			<h4>USER TOTALS</h4>
-			<div>Total Expense:
+			{{-- <div>Total Expense:
 				{{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}
 			</div>
 			<div>Total Income:
@@ -38,14 +38,14 @@
 			</div>
 			<div>Balance:
 				{{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'income')->sum('amount') - App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}
-			</div>
+			</div> --}}
 		</div>
 		<div class="col-4">
 			<h4>USER ACCOUNTS</h4>
-			@foreach ($accountGroups as $accountGroup)
+			@foreach ($accounts as $account)
 			<div>
-				<a href="/accounts/{{ $accountGroup->id }}">{{ $accountGroup['name'] }}</a> : {{ $accountGroup->account['balance'] }}
-				{{ $accountGroup->account['currency'] }}
+				<a href="/accounts/{{ $account->id }}">{{ $account['name'] }}</a> : {{ $account->account['balance'] }}
+				{{ $account->account['currency'] }}
 			</div>
 			@endforeach
 		</div>
@@ -70,10 +70,10 @@
 				@foreach($bookmarks as $bookmark)
 				<tr>
 					<td>{!! $bookmark->name !!}</td>
-					<td class="text-left">{{ $bookmark->url }}</td>
+					<td class="text-left">{{ $bookmark->bookmark->url }}</td>
 					<td class="text-right">
 						@component('components/itemTools')
-						{{ 'bookmarks/' . $bookmark -> id }}
+						{{ 'bookmarks/' . $bookmark->bookmark->id }}
 						@endcomponent
 					</td>
 				</tr>
@@ -147,23 +147,24 @@
 		New Timer
 	</button>
 
-	@if($cashItems)
+	@if($cash)
 	<div class="row mx-0 table-responsive">
 		<h1>EXPENSES</h1>
 		<table class="table">
 			<tbody>
-				@foreach($cashItems as $cashItem)
+				@foreach($cash as $item)
 				<tr>
-					<td>{{ $cashItem->name }}</td>
-					<td>{{ $cashItem->account->name }}</td>
+					<td>{{ $item->name }}</td>
+					{{-- <td>{{ $item->account()->name }}</td> --}}
 					<td class="text-right">
-						{{ ($cashItem->type == 'expense' ? '-' : '+') . number_format((float)($cashItem->amount), 2, '.', '') }}
+						{{ ($item->cash->type == 'expense' ? '-' : '+') . number_format((float)($item->cash->amount), 2, '.', '') }}
 					</td>
-					<td>{{ $cashItem -> currency }}</td>
-					<td class="text-center">{{ $cashItem->created_at->format("Y-m-d") }}</td>
+					<td>{{ $item->cash->currency }}</td>
+					<td class="text-center">{{ $item->cash->created_at->format("Y-m-d") }}</td>
 					<td class="text-right">
+						{{ $item->cash->id }}
 						@component('components/itemTools')
-						{{ 'cashItems/' . $cashItem -> id }}
+						{{ 'cash/' . $item->cash->id }}
 						@endcomponent
 					</td>
 				</tr>
@@ -174,7 +175,7 @@
 	@endif
 
 	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-primary newItemBtn" data-value="cashItem" data-toggle="modal" data-target="#itemModal">
+	<button type="button" class="btn btn-primary newItemBtn" data-value="cash" data-toggle="modal" data-target="#itemModal">
 		New Transaction
 	</button>
 

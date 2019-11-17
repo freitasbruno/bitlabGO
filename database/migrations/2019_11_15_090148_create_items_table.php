@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTimersTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateTimersTable extends Migration
      */
     public function up()
     {
-        Schema::create('timers', function (Blueprint $table) {
-			$table->bigIncrements('id');
+        Schema::create('items', function (Blueprint $table) {			
+            $table->bigIncrements('id');
 			$table->integer('id_parent')->default(0);
 			$table->integer('id_user');
-			$table->dateTime('start')->default(now());
-			$table->dateTime('stop')->nullable();
+            $table->string('name', 300);
+			$table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,6 +31,6 @@ class CreateTimersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('timers');
+        Schema::dropIfExists('items');
     }
 }

@@ -17,9 +17,8 @@ class CreateBookmarksTable extends Migration
 			$table->bigIncrements('id');
 			$table->integer('id_user');
 			$table->integer('id_parent');
-            $table->string('name', 100)->nullable();;
 			$table->string('url', 100);
-			$table->string('iconUrl', 100)->nullable();;
+			$table->string('iconUrl', 100)->nullable();
             $table->timestamps();
         });
     }

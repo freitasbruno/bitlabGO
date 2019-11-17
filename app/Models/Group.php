@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Items\CashItem as CashItem;
+use App\Models\Items\Cash as Cash;
 
 class Group extends Model
 {
@@ -18,7 +18,7 @@ class Group extends Model
 	 * @var array
 	 */
 	protected $fillable = [
-		'id_user', 'name', 'description'
+		'id_user', 'id_parent', 'name', 'description'
 	];
 
 	/**
@@ -54,11 +54,19 @@ class Group extends Model
 	}
 	
 	/**
+     * Get the items of a group.
+     */
+    public function items()
+    {
+        return $this->hasMany('App\Models\Item', 'id_parent');
+	}
+		
+	/**
      * Get the cashItems of a group.
      */
-    public function cashItems()
+    public function cash()
     {
-        return $this->hasMany('App\Models\Items\CashItem', 'id_parent');
+        return Item::has('cash')->where('id_parent', $this->id)->with('cash')->get();
 	}
 		
 	/**
@@ -66,7 +74,7 @@ class Group extends Model
      */
     public function tasks()
     {
-        return $this->hasMany('App\Models\Items\Task', 'id_parent');
+        return Item::has('task')->where('id_parent', $this->id)->with('task')->get();
 	}
 		
 	/**
@@ -74,7 +82,7 @@ class Group extends Model
      */
     public function timers()
     {
-        return $this->hasMany('App\Models\Items\Timer', 'id_parent');
+        return Item::has('timer')->where('id_parent', $this->id)->with('timer')->get();
 	}
 		
 	/**
@@ -82,7 +90,7 @@ class Group extends Model
      */
     public function bookmarks()
     {
-        return $this->hasMany('App\Models\Items\Bookmark', 'id_parent');
+        return Item::has('bookmark')->where('id_parent', $this->id)->with('bookmark')->get();
 	}
 
 	/**
@@ -122,7 +130,6 @@ class Group extends Model
 		return $this;
 	}
 
-	
 	/**
 	 * Recursively add up the total expenses and income of the current Group's children hierarchy.
 	 * Return an array oan array containing 2 key value pairs for Expenses and Income with their values.

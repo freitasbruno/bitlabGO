@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('home', 'GroupController');
 	Route::resource('groups', 'GroupController');
 	Route::resource('accounts', 'AccountController');
-	Route::resource('cashItems', 'CashItemController');
+	Route::resource('cash', 'CashController');
 	Route::resource('bookmarks', 'BookmarkController');
 	
 	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');

@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Group as Group;
-use App\Models\User as User;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +15,8 @@ class DatabaseSeeder extends Seeder
 			UsersTableSeeder::class,
 			GroupsTableSeeder::class,
 			AccountsTableSeeder::class,
-			CashItemTableSeeder::class,
+			ItemTableSeeder::class,
+			CashTableSeeder::class
 		]);
     }
 }

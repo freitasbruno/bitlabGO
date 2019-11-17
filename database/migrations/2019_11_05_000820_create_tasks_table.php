@@ -17,7 +17,6 @@ class CreateTasksTable extends Migration
 			$table->bigIncrements('id');
 			$table->integer('id_parent')->default(0);
 			$table->integer('id_user');
-            $table->string('name', 300);
 			$table->boolean('complete')->default(false);
             $table->timestamps();
             $table->softDeletes();

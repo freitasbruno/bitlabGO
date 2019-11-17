@@ -35,7 +35,14 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item;
+		$item->id_user = Auth::user()->id;
+    	$item->id_parent = session('currentGroup')->id ?? 0;
+		$item->name = $request->get('itemName');
+		$item->description = $request->get('itemDescription');
+		$item->save();
+
+        return back();
     }
 
     /**
@@ -67,9 +74,14 @@ class ItemController extends Controller
      * @param  \App\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, int $id)
     {
-        //
+		$item = Item::find($id);
+		$item->name = $request->get('itemName');
+		$item->description = $request->get('itemDescription');
+		$item->save();
+
+        return back();
     }
 
     /**
