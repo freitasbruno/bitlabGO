@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Items\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,11 +37,19 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Task;
-		$item->id_user = Auth::user()->id;
-    	$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->name = $request->get('taskName');
-		$item->save();
+		$id_user = Auth::user()->id;
+		$currentGroup = session('currentGroup')->id;
+
+		$item = Item::create([
+			'id_user' => $id_user,
+			'id_parent' => $currentGroup,
+			'name' => $request->get('taskName')
+		]);
+		
+		$task = Task::create([
+			'id_user' => $id_user,
+			'id_parent' => $item->id
+		]);
 
         return back();
     }
@@ -76,13 +85,12 @@ class TaskController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $item = Task::find($id);
+		$task = Task::find($id);
+		$item = Item::find($task->id_parent);
 		$item->name = $request->get('taskName');
 		$item->save();
 
-		$id_parent = session('currentGroup')->id ?? null;
-        // load the view and pass the groups
-        return redirect('home/' . $id_parent);
+        return back();
 	}
 
 	/**
@@ -93,9 +101,9 @@ class TaskController extends Controller
     {
 		$taskId = $_POST['taskId'];
 
-		$item = Task::find($taskId);
-		$item->complete = !$item->complete;
-		$item->save();
+		$task = Task::find($taskId);
+		$task->complete = !$task->complete;
+		$task->save();
         return "task complete toggled";
     }
 
@@ -107,7 +115,9 @@ class TaskController extends Controller
      */
     public function destroy(int $id)
     {
-		$item = Task::find($id);
+		$task = Task::find($id);
+		$item = Item::find($task->id_parent);
+		$task->delete();
 		$item->delete();
         return back();
     }

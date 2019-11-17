@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Items\Timer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,12 +37,20 @@ class TimerController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Timer;
-		$item->id_user = Auth::user()->id;
-    	$item->id_parent = session('currentGroup')->id ?? 0;
-		$item->name = $request->get('timerName');
-		$item->start = now();
-		$item->save();
+		$id_user = Auth::user()->id;
+		$currentGroup = session('currentGroup')->id;
+
+		$item = Item::create([
+			'id_user' => $id_user,
+			'id_parent' => $currentGroup,
+			'name' => $request->get('timerName')
+		]);
+		
+		$timer = Timer::create([
+			'id_user' => $id_user,
+			'id_parent' => $item->id,
+			'start' => now()
+		]);
 
         return back();
     }
@@ -86,12 +95,13 @@ class TimerController extends Controller
      */	
     public function stop()
     {
-		$itemId = $_POST['itemId'];
+		$timerId = $_POST['itemId'];
 
-		$item = Timer::find($itemId);
-		$item->stop = now();
-		$item->save();
-        return $item->stop;
+		$timer = Timer::find($timerId);
+		$timer->stop = now();
+		$timer->save();
+
+        return $timer->stop;
     }
 
     /**
@@ -102,7 +112,9 @@ class TimerController extends Controller
      */
     public function destroy(int $id)
     {
-        $item = Timer::find($id);
+        $timer = Timer::find($id);
+        $item = Item::find($timer->id_parent);
+		$timer->delete();
 		$item->delete();
         return back();
     }

@@ -4,7 +4,7 @@
 			<a href="{{ $item->bookmark->url }}" target="_blank">{{ $item->name }}</a>			
 		</div>
 		@component('components/itemTools')
-		{{ 'bookmarks/' . $item->id }}
+		{{ 'bookmarks/' . $item->bookmark->id }}
 		@endcomponent
 	</div>
 </div>

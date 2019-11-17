@@ -14,7 +14,7 @@ class Task extends Item
      * @var array
      */
     protected $fillable = [
-        'name', 'complete'
+        'id_user', 'id_parent', 'complete'
 	];
 
 	/**

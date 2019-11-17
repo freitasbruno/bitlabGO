@@ -2,7 +2,6 @@
 
 @section('content')
 <div class="container">
-	<?php //dd($cash) ?>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			@if (session('currentGroup'))
@@ -96,10 +95,10 @@
 				@foreach($tasks as $task)
 				<tr>
 					<td>{{ $task->name }}</td>
-					<td class="text-center">{{ $task->created_at->format("Y-m-d") }}</td>
+					<td class="text-center">{{ $task->task->created_at->format("Y-m-d") }}</td>
 					<td class="text-right">
 						@component('components/itemTools')
-						{{ 'tasks/' . $task -> id }}
+						{{ 'tasks/' . $task->task->id }}
 						@endcomponent
 					</td>
 				</tr>
@@ -122,17 +121,17 @@
 				@foreach($timers as $timer)
 				<tr>
 					<td>{{ $timer->name }}</td>
-					<td class="text-center">{{ $timer->start }}</td>
-					@if($timer->stop)
-						<td class="text-center">{{ $timer->stop }}</td>
+					<td class="text-center">{{ $timer->timer->start }}</td>
+					@if($timer->timer->stop)
+						<td class="text-center">{{ $timer->timer->stop }}</td>
 					@else
 						<td class="text-center">
-							<button type="button" class="btn btn-link timerStopBtn" value="{{ $timer->id }}">Stop</button>
+							<button type="button" class="btn btn-link timerStopBtn" value="{{ $timer->timer->id }}">Stop</button>
 						</td>
 					@endif
 					<td class="text-right">
 						@component('components/itemTools')
-						{{ 'tasks/' . $timer->id }}
+						{{ 'tasks/' . $timer->timer->id }}
 						@endcomponent
 					</td>
 				</tr>
@@ -162,7 +161,6 @@
 					<td>{{ $item->cash->currency }}</td>
 					<td class="text-center">{{ $item->cash->created_at->format("Y-m-d") }}</td>
 					<td class="text-right">
-						{{ $item->cash->id }}
 						@component('components/itemTools')
 						{{ 'cash/' . $item->cash->id }}
 						@endcomponent
