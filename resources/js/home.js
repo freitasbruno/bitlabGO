@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-
-	// Toggle Task
+	
+    // Toggle Task
     $(".taskCheckbox").change(function() {
         var taskId = this.value;
         //this.form.submit();
         $.ajax({
-            url: '/tasks/toggleComplete/',
+            url: "/tasks/toggleComplete/",
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-			},
-			data: {
-				taskId: taskId
-			}
+            },
+            data: {
+                taskId: taskId
+            }
         })
             .done(function(response) {
                 $(this).toggleClass("taskComplete");
@@ -21,21 +21,21 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .fail(function(errorThrown) {
                 console.log("failed");
             });
-	});
-	
-	// Stop Timer
+    });
+
+    // Stop Timer
     $(".timerStopBtn").click(function() {
         var itemId = this.value;
         //this.form.submit();
         $.ajax({
-            url: '/timers/stop/',
+            url: "/timers/stop/",
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-			},
-			data: {
-				itemId: itemId
-			}
+            },
+            data: {
+                itemId: itemId
+            }
         })
             .done(function(response) {
                 console.log("success");
@@ -44,32 +44,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
             .fail(function(errorThrown) {
                 console.log("failed");
             });
-	});
-	
-	// Create new Item - modal form
-	$(".newItemBtn").click(function() {
-		var itemType = $(this).attr('data-value');
+    });
 
-		$('#itemModalTitle').html('New ' + itemType);
+    // Create new Item - modal form
+    $(".newItemBtn").click(function() {
+        var itemType = $(this).attr("data-value");
 
-		if (itemType === 'cash') {
-			$('#itemForm').attr('action', '/' + itemType);
-		} else {
-			$('#itemForm').attr('action', '/' + itemType + 's');
-		}
+        $("#itemModalTitle").html("New " + itemType);
 
-		$("#itemModal").find(".itemForm").hide();
-		$("#itemModal").find("." + itemType + "Form").show();
-		
-		/*
+        if (itemType === "cash") {
+            $("#itemForm").attr("action", "/" + itemType);
+        } else {
+            $("#itemForm").attr("action", "/" + itemType + "s");
+        }
+
+        $("#itemModal")
+            .find(".itemForm")
+            .hide();
+        $("#itemModal")
+            .find("." + itemType + "Form")
+            .show();
+
+        /*
 		$('#itemForm').find(':submit').click(function() {
 			$('#itemForm').submit();
 		});
 		*/
-	});
+    });
 
-	$('#itemForm').submit(function() {
-		// validate the form fields
-		return true; 
-	});
+    $("#itemForm").submit(function() {
+        // validate the form fields
+        return true;
+    });
 });

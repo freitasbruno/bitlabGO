@@ -1,10 +1,16 @@
 /*# sourceMappingURL=style.scss.map */ 
 
+// CUSTOM VARIABLES
 @import "variables";
-@import "normalize";
+@import "uikit-override";
 
-@import "general";
-@import "navbar";
-@import "sidebar";
-@import "cards";
-//@import "forms";
+// UIKIT DEFAULT VARIABLE AND MIXINS
+@import "uikit/variables-theme";
+@import "uikit/mixins-theme";
+
+// CUSTOM MIXINS
+@import "mixins";
+
+
+// UIKIT CORE
+@import "uikit/uikit-theme";

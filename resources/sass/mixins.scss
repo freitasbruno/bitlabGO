@@ -1,0 +1,22 @@
+$max: 50;
+$offset: 5;
+$unit: 'em';
+
+@mixin mp_loop($className, $styleName) {
+  $i: 0;
+  @while $i <= $max {
+    #{$className + $i} { 
+      #{$styleName}: #{$i/10 + $unit};
+    }
+    $i: $i + $offset;
+  }
+}
+
+@include mp_loop('.pl-', 'padding-left');
+@include mp_loop('.pr-', 'padding-right');
+@include mp_loop('.pt-', 'padding-top');
+@include mp_loop('.pb-', 'padding-bottom');
+@include mp_loop('.ml-', 'margin-left');
+@include mp_loop('.mr-', 'margin-right');
+@include mp_loop('.mt-', 'margin-top');
+@include mp_loop('.mb-', 'margin-bottom');

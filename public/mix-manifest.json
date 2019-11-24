@@ -1,10 +1,12 @@
 {
     "/js/app.js": "/js/app.js?id=cf7f1758019baa5c85e0",
-    "/css/app.css": "/css/app.css?id=9d3e1ba26547e532bdb8",
-    "/css/style.css": "/css/style.css?id=823b583983ff8ee92be2",
-    "/js/home.js": "/js/home.js?id=8659c714e408fbb59521",
+    "/css/style.css": "/css/style.css?id=dc9554e160a0f4cdb55e",
+    "/js/home.js": "/js/home.js?id=e550a5438115bfcc8625",
+    "/js/uikit/uikit.js": "/js/uikit/uikit.js?id=396e9ae115a8461a0ce8",
+    "/js/uikit/uikit-icons.js": "/js/uikit/uikit-icons.js?id=a7c02b1edd4b834d55a5",
     "/js/app.min.js": "/js/app.min.js?id=cf7f1758019baa5c85e0",
-    "/js/home.min.js": "/js/home.min.js?id=8659c714e408fbb59521",
-    "/css/app.min.css": "/css/app.min.css?id=9d3e1ba26547e532bdb8",
-    "/css/style.min.css": "/css/style.min.css?id=823b583983ff8ee92be2"
+    "/js/home.min.js": "/js/home.min.js?id=e550a5438115bfcc8625",
+    "/js/uikit/uikit.min.js": "/js/uikit/uikit.min.js?id=396e9ae115a8461a0ce8",
+    "/js/uikit/uikit-icons.min.js": "/js/uikit/uikit-icons.min.js?id=a7c02b1edd4b834d55a5",
+    "/css/style.min.css": "/css/style.min.css?id=dc9554e160a0f4cdb55e"
 }

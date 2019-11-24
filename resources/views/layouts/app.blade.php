@@ -15,15 +15,14 @@
 
 		<!-- Bootstrap core JavaScript -->
 		<script src="{{ asset('js/jquery/jquery.min.js') }}" defer></script>
-		<script src="{{ asset('js/bootstrap/bootstrap.bundle.min.js') }}" defer></script>
-		
+		<script src="{{ asset('js/uikit/uikit.min.js') }}" defer></script>
+		<script src="{{ asset('js/uikit/uikit-icons.min.js') }}" defer></script>
+
 		<!-- Custom Scripts -->
 		<script src="{{ asset('js/home.js') }}" defer></script>
 
-		<!-- Bootstrap core CSS -->
-		<link href="{{ asset('css/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-
 		<!-- Custom Styles -->
+		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 		<!-- FontAwesome icons kit -->
@@ -31,57 +30,58 @@
 
 	</head>
 
-  	<body>
-	  	<div id="app">
+	<body>
 			<!-- Top bar -->
-			<div class="navbar navbar-expand-lg static-top">
-				<!-- Logo container -->
-				<div>
-					<a href="index.html" class="navbar-brand">
-						BoltFlow
-					</a>             
-				</div>
-				<!-- /#Logo container -->
-
-				<!-- Right Side Of Navbar -->
-				<ul class="navbar-nav ml-auto">
-					<!-- Authentication Links -->
-					@guest
-						<li class="nav-item">
-							<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-						</li>
-						@if (Route::has('register'))
-							<li class="nav-item">
-								<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+			<div
+				uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+				<nav class="uk-navbar-container" uk-navbar style="position: relative; z-index: 980;">
+					<div class="uk-navbar-left">
+						<a class="uk-navbar-item uk-logo" href="#">BOLTFLOW</a>
+						<ul class="uk-navbar-nav">
+							<li class="uk-active"><a href="#">Active</a></li>
+							<li>
+								<a href="#">Parent</a>
+								<div class="uk-navbar-dropdown">
+									<ul class="uk-nav uk-navbar-dropdown-nav">
+										<li class="uk-active"><a href="#">Active</a></li>
+										<li><a href="#">Item</a></li>
+										<li><a href="#">Item</a></li>
+									</ul>
+								</div>
 							</li>
-						@endif
-					@else
-						<li class="nav-item">
-							<a>{{ Auth::user()->name }} <span class="caret"></span></a>
+							<li><a href="#">Item</a></li>
+						</ul>
+					</div>
 
-							<a href="{{ route('logout') }}"
-								onclick="event.preventDefault();
-												document.getElementById('logout-form').submit();">
-								{{ __('Logout') }}
-							</a>
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								@csrf
-							</form>
+					<!-- Authentication Links -->	
+					@auth					
+					<div class="uk-navbar-right">
+						<ul class="uk-navbar-nav">
+							<li><a href="">{{ Auth::user()->name }}</a>
+								<div class="uk-navbar-dropdown">
+									<ul class="uk-nav uk-navbar-dropdown-nav">
+										<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+											document.getElementById('logout-form').submit();">
+											{{ __('Logout') }}</a></li>								
+											<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+												@csrf
+											</form>
+										</li>
+									</ul>
+								</div>						
+							</li>						
+						</ul>
+					</div>
+					@endauth
+					<!-- Authentication Links -->
 
-						</li>
-					@endguest
-				</ul>
-				
-				<button class="navbar-toggler" type="button" id="menu-toggle">
-					<i class="fas fa-bars dark right"></i>
-				</button>
+				</nav>
 			</div>
-			<!-- /#Top bar -->
-
-			<main class="py-4">
-				@yield('content')
-			</main>
 		</div>
-  	</body>
+		<!-- /#Top bar -->
+
+		@yield('content')
+		
+	</body>
 
 </html>

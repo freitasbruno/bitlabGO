@@ -1,13 +1,17 @@
-<div class="card h-100">
+<div class="mdc-card mdc-ripple-surface card h-100">
 	<div class="card-header d-flex justify-content-between">
 		<a href="/home/{{ $group->id }}">{{ $group->name }}</a>
 		@component('components/itemTools')
 			{{ 'home/' . $group->id }}
 		@endcomponent
 	</div>
-	<div class="card-body p-2">
+	<div class="card-body">
 		<p>{{ $group->description }}</p>
-
+		<button class="mdc-fab" aria-label="Favorite">
+			<div class="mdc-fab__ripple"></div>
+			<span class="mdc-fab__icon material-icons">favorite</span>
+		</button>
+		<hr>
 		<p class="mb-0">Totals</p>		
 		<div class="d-flex justify-content-between mb-3">
 			<div>{{ $group->cashTotals['expense'] }}</div>
