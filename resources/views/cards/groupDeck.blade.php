@@ -1,16 +1,17 @@
-<div class="mdc-card mdc-ripple-surface card h-100">
-	<div class="card-header d-flex justify-content-between">
+<div class="uk-card uk-card-hover group-deck">
+	<div class="uk-card-header">
 		<a href="/home/{{ $group->id }}">{{ $group->name }}</a>
 		@component('components/itemTools')
 			{{ 'home/' . $group->id }}
 		@endcomponent
 	</div>
-	<div class="card-body">
-		<p>{{ $group->description }}</p>
-		<button class="mdc-fab" aria-label="Favorite">
-			<div class="mdc-fab__ripple"></div>
-			<span class="mdc-fab__icon material-icons">favorite</span>
-		</button>
+	<div class="uk-card-body">
+		<span>Show details</span>
+		<a href="" 
+		    uk-icon="chevron-down" 
+			uk-toggle="target: .group-description-{{ $group->id }}; animation: uk-animation-fade; queued: true">
+		</a>		
+		<p class="group-description-{{ $group->id }}" hidden>{{ $group->description }}</p>
 		<hr>
 		<p class="mb-0">Totals</p>		
 		<div class="d-flex justify-content-between mb-3">

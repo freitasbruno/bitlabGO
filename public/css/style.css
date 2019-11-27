@@ -1,5 +1,22 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap);@charset "UTF-8";
 
+.groups-container {
+  padding: 1em;
+}
+
+.group-deck {
+  background: #EEE;
+  margin: 0.5em;
+}
+
+.group-deck :hover {
+  background: #EEE;
+}
+
+.group-deck div {
+  padding: 0.5em;
+}
+
 .pl-0 {
   padding-left: 0em;
 }

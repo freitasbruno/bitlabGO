@@ -35,22 +35,19 @@
 			<div
 				uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
 				<nav class="uk-navbar-container" uk-navbar style="position: relative; z-index: 980;">
-					<div class="uk-navbar-left">
-						<a class="uk-navbar-item uk-logo" href="#">BOLTFLOW</a>
+					<div class="uk-navbar-left">						
 						<ul class="uk-navbar-nav">
-							<li class="uk-active"><a href="#">Active</a></li>
-							<li>
-								<a href="#">Parent</a>
-								<div class="uk-navbar-dropdown">
-									<ul class="uk-nav uk-navbar-dropdown-nav">
-										<li class="uk-active"><a href="#">Active</a></li>
-										<li><a href="#">Item</a></li>
-										<li><a href="#">Item</a></li>
-									</ul>
-								</div>
-							</li>
-							<li><a href="#">Item</a></li>
+							<li class="uk-active"><a href="#">HOME</a></li>
 						</ul>
+						<div class="uk-navbar-item">
+							<form action="javascript:void(0)">
+								<input class="uk-input uk-form-width-small" type="text" placeholder="Input">
+								<button class="uk-button uk-button-default">Button</button>
+							</form>
+						</div>
+					</div>
+					<div class="uk-navbar-center">
+						<a class="uk-navbar-item uk-logo" href="#">BOLTFLOW</a>
 					</div>
 
 					<!-- Authentication Links -->	
