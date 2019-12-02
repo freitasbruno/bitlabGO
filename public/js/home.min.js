@@ -75,5 +75,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $("#itemForm").submit(function() {
         // validate the form fields
         return true;
+	});
+	
+	$(".itemTools").click(function() {
+        $(this).parent().find('form').submit();
     });
 });

@@ -1,20 +1,40 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap);@charset "UTF-8";
 
-.groups-container {
+.main-container {
   padding: 1em;
+  background: #47929c;
+  min-height: 100vh;
+}
+
+#item-display-area > li > a.uk-accordion-title {
+  border-radius: 0.2em;
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0.5em;
+  font-weight: 600;
+  color: #FFF;
+}
+
+#item-display-area > li > a.uk-accordion-title:hover,
+#item-display-area > li > a.uk-accordion-title:visited,
+#item-display-area > li > a.uk-accordion-title:active,
+#item-display-area > li > a.uk-accordion-title:focus {
+  background: rgba(255, 255, 255, 0.2);
+  color: #DDD;
 }
 
 .group-deck {
   background: #EEE;
   margin: 0.5em;
-}
-
-.group-deck :hover {
-  background: #EEE;
+  border-radius: 0.2em;
 }
 
 .group-deck div {
   padding: 0.5em;
+}
+
+.group-deck .uk-card-body {
+  max-height: 400px;
+  overflow: auto;
 }
 
 .pl-0 {
@@ -6665,13 +6685,13 @@ ul.uk-nav-sub {
   height: 1.4em;
   margin-left: 10px;
   float: right;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="%23FFF" stroke-width="2.03" points="16 7 10 13 4 7"/></svg>');
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
 
 .uk-open > .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="%23FFF" stroke-width="2.03" points="4 13 10 7 16 13"/></svg>');
 }
 
 /* Hover + Focus */
@@ -15468,7 +15488,7 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*=uk-card-media]) .uk-accordion-title::before,
 .uk-overlay-primary .uk-accordion-title::before,
 .uk-offcanvas-bar .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba(255, 255, 255, 0.7)%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba(255, 255, 255, 0.7)%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="%23FFF" stroke-width="2.03" points="16 7 10 13 4 7"/></svg>');
 }
 
 .uk-light .uk-open > .uk-accordion-title::before,
@@ -15482,7 +15502,7 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*=uk-card-media]) .uk-open > .uk-accordion-title::before,
 .uk-overlay-primary .uk-open > .uk-accordion-title::before,
 .uk-offcanvas-bar .uk-open > .uk-accordion-title::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba(255, 255, 255, 0.7)%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
+  background-image: url('data:image/svg+xml;charset=UTF-8,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><polyline fill="none" stroke="%23FFF" stroke-width="2.03" points="4 13 10 7 16 13"/></svg>');
 }
 
 .uk-light .uk-iconnav > * > a,

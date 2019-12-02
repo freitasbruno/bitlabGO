@@ -1,7 +1,7 @@
 <div class="uk-card uk-card-hover group-deck">
 	<div class="uk-card-header">
 		<a href="/home/{{ $group->id }}">{{ $group->name }}</a>
-		@component('components/itemTools')
+		@component('components/itemTools', ['id' => $group->id])
 			{{ 'home/' . $group->id }}
 		@endcomponent
 	</div>
