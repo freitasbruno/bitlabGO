@@ -1,17 +1,43 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap);@charset "UTF-8";
 
-.main-container {
-  padding: 1em;
-  background: #47929c;
-  min-height: 100vh;
+body {
+  background: #55CFBF;
+}
+
+#main-navbar {
+  height: 8vh;
+  overflow: hidden;
+}
+
+#main-container {
+  height: 92vh;
+}
+
+#cash-container {
+  max-width: 400px;
+  margin-top: 2vh;
+  padding: 0em 0.5em 0em 1em;
+  height: 84vh;
+  overflow: auto;
+}
+
+#cash-container ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#main-container > .bottom-nav {
+  height: 4vh;
+  margin: 0px 15px;
 }
 
 #item-display-area > li > a.uk-accordion-title {
   border-radius: 0.2em;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   padding: 0.5em;
   font-weight: 600;
-  color: #FFF;
+  color: #DDD;
 }
 
 #item-display-area > li > a.uk-accordion-title:hover,
@@ -19,7 +45,23 @@
 #item-display-area > li > a.uk-accordion-title:active,
 #item-display-area > li > a.uk-accordion-title:focus {
   background: rgba(255, 255, 255, 0.2);
-  color: #DDD;
+  color: #FFF;
+}
+
+.header-container {
+  text-transform: uppercase;
+}
+
+.uk-accordion-content {
+  margin-top: 0px;
+}
+
+.item-container {
+  background: #EEE;
+}
+
+.item-container .grid {
+  margin: 0;
 }
 
 .group-deck {
@@ -28,13 +70,143 @@
   border-radius: 0.2em;
 }
 
-.group-deck div {
+.group-deck > div {
   padding: 0.5em;
+  margin: 0;
+}
+
+.group-deck .card-header > a {
+  padding: 0;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 500;
+  color: #427a88;
+}
+
+.group-deck .card-header > a:hover {
+  color: rgba(66, 122, 136, 0.8);
 }
 
 .group-deck .uk-card-body {
   max-height: 400px;
   overflow: auto;
+}
+
+.group-deck .scrollbar {
+  float: right;
+  height: 300px;
+  margin-bottom: 25px;
+  margin-left: 22px;
+  margin-top: 10px;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.group-deck .force-overflow {
+  min-height: 10%;
+}
+
+.group-deck .cardScrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.group-deck .cardScrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.group-deck .cardScrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.item-container {
+  padding: 0.5em;
+  border-radius: 0px 0px 5px 5px;
+}
+
+.item-container > .card,
+.item-container .grid > .card {
+  background: #FFF;
+  padding: 0.5em;
+  margin-top: 0.5em;
+  border-radius: 0.2em;
+}
+
+.card-deck .scrollbar {
+  float: right;
+  height: 84vh;
+  width: 100%;
+  padding-right: 0.5em;
+  overflow-y: scroll;
+}
+
+.card-deck .cardScrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.card-deck .cardScrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.card-deck .cardScrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.cash-card {
+  background: #FFF;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  height: 110px;
+  padding: 1em 2em;
+  margin-bottom: 0.5em;
+}
+
+.cash-card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+}
+
+.cash-card .icon-expense {
+  color: #9b3330;
+}
+
+.cash-card .icon-income {
+  color: #609b30;
+}
+
+.cash-card p.card-text-main,
+.cash-card p.card-text-normal,
+.cash-card p.card-text-small {
+  color: #646464;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0px;
+}
+
+.cash-card .card-text-main {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.cash-card .card-text-normal {
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.cash-card .card-text-small {
+  font-size: 0.7em;
+}
+
+div.uk-accordion-content {
+  margin-top: 0px;
 }
 
 .pl-0 {

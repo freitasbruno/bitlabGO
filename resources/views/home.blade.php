@@ -2,8 +2,9 @@
 
 @section('content')
 
-<div class="main-container">
-	<div uk-grid>
+<div id="main-container">
+	@if(false)
+	<div class="header-container" uk-grid>
 		<div class="uk-width-expand">
 			<ul class="uk-breadcrumb uk-padding-small uk-light">
 				@if (session('currentGroup'))
@@ -42,8 +43,7 @@
 				</ul>
 			</div>
 		</div>
-
-		@if(false)
+		
 		<div class="uk-grid uk-child-width-1-3">
 			<div>
 				<h4>GROUP TOTALS</h4>
@@ -73,11 +73,12 @@
 				@endforeach
 			</div>
 		</div>
-		@endif
 	</div>
+	@endif
 
+	@if (false)
 	<ul id="item-display-area" uk-accordion="multiple: true">
-		@if($groups->isNotEmpty())
+		@if($groups)
 		<li class="uk-open">
 			<a class="uk-accordion-title uk-light" href="#">GROUPS</a>
 			<div class="uk-accordion-content">
@@ -92,57 +93,31 @@
 		</li>
 		@endif
 
-		@if($bookmarks->isNotEmpty())
+		@if($bookmarks)
 		<li>
-			<a class="uk-accordion-title uk-light" href="#">BOOKMARKS</a>
+			<a class="uk-accordion-title" href="#">BOOKMARKS</a>
 			<div class="uk-accordion-content">
-				<div class="row mx-0 table-responsive">
-					<table class="table">
-						<tbody>
-							@foreach($bookmarks as $bookmark)
-							<tr>
-								<td>{!! $bookmark->name !!}</td>
-								<td class="text-left">{{ $bookmark->bookmark->url }}</td>
-								<td class="text-right">
-									@component('components/itemTools')
-									{{ 'bookmarks/' . $bookmark->bookmark->id }}
-									@endcomponent
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
+				<div class="item-container">					
+					<div class="grid uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid>					
+						@each('panels.bookmarkPanel', $bookmarks, 'item')					
+					</div>	
+				</div>	
 			</div>
 		</li>
 		@endif
 		
-		@if($tasks->isNotEmpty())
+		@if($tasks)
 		<li>
-			<a class="uk-accordion-title uk-light" href="#">TAKS</a>
+			<a class="uk-accordion-title" href="#">TASKS</a>
 			<div class="uk-accordion-content">
-				<div class="row mx-0 table-responsive">
-					<table class="table">
-						<tbody>
-							@foreach($tasks as $task)
-							<tr>
-								<td>{{ $task->name }}</td>
-								<td class="text-center">{{ $task->task->created_at->format("Y-m-d") }}</td>
-								<td class="text-right">
-									@component('components/itemTools')
-									{{ 'tasks/' . $task->task->id }}
-									@endcomponent
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
+				<div class="item-container">					
+					@each('panels.taskPanel', $tasks, 'item')					
 				</div>	
 			</div>
 		</li>
 		@endif
 
-		@if($timers->isNotEmpty())
+		@if($timers)
 		<li>
 			<a class="uk-accordion-title uk-light" href="#">TIMERS</a>
 			<div class="uk-accordion-content">
@@ -173,37 +148,36 @@
 			</div>
 		</li>
 		@endif
-
-		@if($cash->isNotEmpty())
-		<li>
-			<a class="uk-accordion-title uk-light" href="#">EXPENSES</a>
-			<div class="uk-accordion-content">
-				<div class="row mx-0 table-responsive">
-					<table class="table">
-						<tbody>
-							@foreach($cash as $item)
-							<tr>
-								<td>{{ $item->name }}</td>
-								{{-- <td>{{ $item->account()->name }}</td> --}}
-								<td class="text-right">
-									{{ ($item->cash->type == 'expense' ? '-' : '+') . number_format((float)($item->cash->amount), 2, '.', '') }}
-								</td>
-								<td>{{ $item->cash->currency }}</td>
-								<td class="text-center">{{ $item->cash->created_at->format("Y-m-d") }}</td>
-								<td class="text-right">
-									@component('components/itemTools')
-									{{ 'cash/' . $item->cash->id }}
-									@endcomponent
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</li>
-		@endif
+		
 	</ul>
+	@endif
+
+	@if($accounts)
+		<div id="cash-container" class="card-deck">
+			<div class="scrollbar cardScrollbar">
+				<ul>
+					@foreach ($accounts as $account)						
+					<li>
+						<div>
+							@each('cards.cashCard', $account->cash, 'cash')
+						</div>
+					</li>
+					@endforeach
+				</ul>
+			</div>
+			<div class="force-overflow"></div>	
+		</div>		
+		<div class="bottom-nav uk-position-bottom-center uk-position-small">
+			<ul class="uk-dotnav">
+				@for ($i = 0; $i < $accounts->count(); $i++)
+					
+				@endfor
+				@foreach ($accounts as $index => $account)
+					<li uk-slideshow-item="{{ $index }}"><a href="#">{{ $account->name }}</a></li>
+				@endforeach
+			</ul>
+		</div>			
+	@endif
 
 	<!-- Modals -->
 	@include('forms.newItemModal')

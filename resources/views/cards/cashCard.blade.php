@@ -1,7 +1,16 @@
-<div class="card mb-2">
-	<div class="d-flex justify-content-between p-2">
-		<div class="col-sm-6 text-truncate p-0">{{ $item->name }}</div>
-		<div class="col-sm-6 text-right p-0">
-			{{ ($item -> type == 'expense' ? '-' : '+') . $item->cash->amount . " " . $item->currency }}</div>
+<div class="cash-card">
+	<div class="uk-grid-small" uk-grid>
+		<div class="uk-width-auto">
+			@if ($cash -> type == 'expense')
+				<span class="icon-expense" uk-icon="icon: arrow-down; ratio: 2"></span>				
+			@else
+				<span class="icon-income" uk-icon="icon: arrow-up; ratio: 2"></span>					
+			@endif
+		</div>
+		<div class="uk-width-expand uk-flex-middle">
+			<p class="card-text-main">€{{ $cash->amount }}</p>
+			<p class="card-text-normal">{{ $cash->item->name }}</p>
+			<p class="card-text-small"><time datetime="2016-04-01T19:00">{{ $cash->created_at }}</time></p>
+		</div>
 	</div>
 </div>

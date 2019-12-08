@@ -19,6 +19,13 @@ class Cash extends Item
 	];
 
 	/**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['item'];
+
+	/**
      * Get the user who owns the group.
      */
     public function user()
@@ -29,7 +36,7 @@ class Cash extends Item
 	/**
      * Get the parent group of a group.
      */
-    public function parent()
+    public function item()
     {
         return $this->belongsTo('App\Models\Item', 'id_parent');
 	}

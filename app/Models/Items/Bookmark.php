@@ -18,6 +18,13 @@ class Bookmark extends Model
 	];
 
 	/**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['item'];
+
+	/**
      * Get the user who owns the task.
      */
     public function user()
@@ -28,7 +35,7 @@ class Bookmark extends Model
 	/**
      * Get the parent group of a task.
      */
-    public function parent()
+    public function item()
     {
         return $this->belongsTo('App\Models\Item', 'id_parent');
 	}

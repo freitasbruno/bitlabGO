@@ -124,3 +124,7 @@ $global-z-index:                                 1000 !default;
 
 $internal-accordion-close-image: "data:image/svg+xml;charset=UTF-8,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#FFF\" stroke-width=\"2.03\" points=\"16 7 10 13 4 7\"/></svg>";
 $internal-accordion-open-image: "data:image/svg+xml;charset=UTF-8,<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#FFF\" stroke-width=\"2.03\" points=\"4 13 10 7 16 13\"/></svg>";
+
+div.uk-accordion-content {
+	margin-top: 0px;
+}

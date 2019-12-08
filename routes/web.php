@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function () {
-	Route::resource('home', 'GroupController');
+	Route::resource('home', 'HomeController');
 	Route::resource('groups', 'GroupController');
 	Route::resource('accounts', 'AccountController');
 	Route::resource('cash', 'CashController');

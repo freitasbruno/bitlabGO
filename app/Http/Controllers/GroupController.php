@@ -86,11 +86,11 @@ class GroupController extends Controller
 		return view('home', [
 			'groups' => $groups,
 			'groupHierarchy' => $groupHierarchy,
-			'items' => $items,
-			'cash' => $cash,
-			'tasks' => $tasks,
-			'timers' => $timers,
-			'bookmarks' => $bookmarks,
+			'items' => $items->isEmpty() ? null : $items,
+			'cash' => $cash->isEmpty() ? null : $cash,
+			'tasks' => $tasks->isEmpty() ? null : $tasks,
+			'timers' => $timers->isEmpty() ? null : $timers,
+			'bookmarks' => $bookmarks->isEmpty() ? null : $bookmarks,
 			'totals' => $totals,
 			'accounts' => $accounts
 		]);

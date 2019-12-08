@@ -13,6 +13,7 @@ $primary: #2196f3;
 // Background colors
 $color-navbar: $offwhite;
 $color-sidebar: $dark-blue;
+$panel-background: $offwhite;
 
 // Text colors
 $text-white: #FFF;
@@ -20,6 +21,13 @@ $text-light: $light-grey;
 $text-dark: $dark-grey;
 $text-theme: $dark-blue;
 
+$card-text-color: rgb(100, 100, 100);
+
+// Links
+$link-color: rgb(66, 122, 136);
+$link-hover-color: rgba(66, 122, 136, 0.8);
+
 // Dimension constraints
 $width-sidebar: 15rem;
 $navbar-height: 8vh;
+$bottom-nav-height: 4vh;
