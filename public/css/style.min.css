@@ -13,20 +13,6 @@ body {
   height: 92vh;
 }
 
-#cash-container {
-  max-width: 400px;
-  margin-top: 2vh;
-  padding: 0em 0.5em 0em 1em;
-  height: 84vh;
-  overflow: auto;
-}
-
-#cash-container ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
 #main-container > .bottom-nav {
   height: 4vh;
   margin: 0px 15px;
@@ -62,6 +48,15 @@ body {
 
 .item-container .grid {
   margin: 0;
+}
+
+#main-navbar > .uk-navbar-container:not(.uk-navbar-transparent) {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0 1em;
+}
+
+#main-navbar > nav > div > .uk-navbar-toggle {
+  min-height: 8vh;
 }
 
 .group-deck {
@@ -136,6 +131,14 @@ body {
   border-radius: 0.2em;
 }
 
+.card-deck {
+  max-width: 480px;
+  margin-top: 2vh;
+  padding: 0em 0.5em 0em 1em;
+  height: 84vh;
+  overflow: auto;
+}
+
 .card-deck .scrollbar {
   float: right;
   height: 84vh;
@@ -161,52 +164,132 @@ body {
   cursor: grab;
 }
 
-.cash-card {
+.card-deck > .deck-title {
+  color: #FFF;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  height: 2.5em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 0.5em;
+}
+
+.uk-flex-top.uk-modal {
+  background: #55CFBF;
+  margin-top: 8vh;
+}
+
+.uk-flex-top.uk-modal .uk-modal-dialog {
+  background: transparent;
+}
+
+.cash-card,
+.cash-modal {
+  margin-bottom: 0.5em;
+  color: #787878;
   background: #FFF;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  height: 110px;
-  padding: 1em 2em;
-  margin-bottom: 0.5em;
 }
 
-.cash-card:hover {
+.cash-card:hover,
+.cash-card a:hover,
+.cash-modal:hover,
+.cash-modal a:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+  text-decoration: none;
 }
 
-.cash-card .icon-expense {
+.cash-card .icon-expense,
+.cash-modal .icon-expense {
   color: #9b3330;
 }
 
-.cash-card .icon-income {
+.cash-card .icon-income,
+.cash-modal .icon-income {
   color: #609b30;
 }
 
-.cash-card p.card-text-main,
-.cash-card p.card-text-normal,
-.cash-card p.card-text-small {
-  color: #646464;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.cash-card p.card-text-xl,
+.cash-card p.card-text-l,
+.cash-card p.card-text-m,
+.cash-card p.card-text-s,
+.cash-card p.card-text-xs,
+.cash-modal p.card-text-xl,
+.cash-modal p.card-text-l,
+.cash-modal p.card-text-m,
+.cash-modal p.card-text-s,
+.cash-modal p.card-text-xs {
+  color: #787878;
   margin: 0px;
 }
 
-.cash-card .card-text-main {
+.cash-card .card-text-xl,
+.cash-modal .card-text-xl {
   font-size: 1.5em;
   font-weight: 700;
 }
 
-.cash-card .card-text-normal {
-  font-size: 1em;
+.cash-card .card-text-l,
+.cash-modal .card-text-l {
+  font-size: 1.3em;
   font-weight: 600;
 }
 
-.cash-card .card-text-small {
+.cash-card .card-text-m,
+.cash-modal .card-text-m {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.cash-card .card-text-s,
+.cash-modal .card-text-s {
+  font-size: 0.9em;
+}
+
+.cash-card .card-text-xs,
+.cash-modal .card-text-xs {
   font-size: 0.7em;
+}
+
+.cash-card .cash-card-icon-col,
+.cash-modal .cash-card-icon-col {
+  width: 50px;
+}
+
+.share-avatar {
+  width: 30px;
+}
+
+.cash-card {
+  height: 110px;
+  margin-bottom: 1em;
+  padding: 1em 2em;
+}
+
+.cash-card p.card-text-xl,
+.cash-card p.card-text-l,
+.cash-card p.card-text-m,
+.cash-card p.card-text-s,
+.cash-card p.card-text-xs {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cash-modal {
+  padding: 2em;
 }
 
 div.uk-accordion-content {
   margin-top: 0px;
+}
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.uk-navbar-toggle {
+  max-height: 8vh;
 }
 
 .pl-0 {

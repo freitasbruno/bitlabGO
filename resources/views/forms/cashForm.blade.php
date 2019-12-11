@@ -1,4 +1,4 @@
-<div class="modal-body itemForm cashForm">
+<div class="uk-modal-body itemForm cashForm">
 	<div class="form-group">
 		<label for="id_group">Type</label>
 		<select name="type" class="form-control" id="type">
@@ -10,7 +10,7 @@
 		<label for="name">Account</label>
 		<select name="id_account" class="form-control" id="account">
 			@foreach ($accounts as $account)
-				<option value="{{ $account->id }}">{{ $account->name }}</option>				
+				<option value="{{ $account->group->id }}">{{ $account->group->name }}</option>				
 			@endforeach
 		</select>
 	</div>

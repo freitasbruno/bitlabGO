@@ -128,3 +128,11 @@ $internal-accordion-open-image: "data:image/svg+xml;charset=UTF-8,<svg width=\"2
 div.uk-accordion-content {
 	margin-top: 0px;
 }
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: rgba(255,255,255,0.3);
+}
+
+.uk-navbar-toggle {
+	max-height: 8vh;
+}

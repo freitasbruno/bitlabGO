@@ -79,5 +79,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	$(".itemTools").click(function() {
         $(this).parent().find('form').submit();
+	});
+	
+	$(".bottom-nav").find('li').click(function() {
+		$("#cash-container-" + $(this).attr('data-item')).siblings('.card-deck').hide();
+		$("#cash-container-" + $(this).attr('data-item')).fadeIn(1000);
+        console.log($(this).attr('data-item'));
     });
 });

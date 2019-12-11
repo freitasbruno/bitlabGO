@@ -33,17 +33,9 @@
 	<body>
 		<!-- Top bar -->
 		<div id="main-navbar" uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
-			<nav class="uk-navbar-container" uk-navbar style="position: relative; z-index: 980;">
+			<nav class="uk-navbar-container uk-light" uk-navbar style="position: relative; z-index: 99980;">
 				<div class="uk-navbar-left">						
-					<ul class="uk-navbar-nav">
-						<li class="uk-active"><a href="#">HOME</a></li>
-					</ul>
-					<div class="uk-navbar-item">
-						<form action="javascript:void(0)">
-							<input class="uk-input uk-form-width-small" type="text" placeholder="Input">
-							<button class="uk-button uk-button-default">Button</button>
-						</form>
-					</div>
+					<a class="uk-navbar-toggle" uk-navbar-toggle-icon href=""></a>					
 				</div>
 				<div class="uk-navbar-center">
 					<a class="uk-navbar-item uk-logo" href="#">BOLTFLOW</a>
@@ -53,7 +45,7 @@
 				@auth					
 				<div class="uk-navbar-right">
 					<ul class="uk-navbar-nav">
-						<li><a href="">{{ Auth::user()->name }}</a>
+						<li><img class="share-avatar" src="/images/prototype/boy.svg" alt="My SVG Icon">
 							<div class="uk-navbar-dropdown">
 								<ul class="uk-nav uk-navbar-dropdown-nav">
 									<li><a href="{{ route('logout') }}" onclick="event.preventDefault();

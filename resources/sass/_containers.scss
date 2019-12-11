@@ -13,17 +13,7 @@ body {
 }
 
 #cash-container {
-	max-width: 400px;
-	margin-top: $bottom-nav-height / 2;
-	padding: 0em 0.5em 0em 1em;	
-	height: 100vh - $navbar-height - $bottom-nav-height * 2;
-	overflow: auto;
-
-	ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
+	
 }
 
 #main-container  > .bottom-nav {
@@ -58,4 +48,14 @@ body {
 	.grid {
 		margin: 0;
 	}
+}
+
+
+#main-navbar > .uk-navbar-container:not(.uk-navbar-transparent) {
+	background: rgba(255,255,255,0.3);
+	padding: 0 1em;
+}
+
+#main-navbar > nav > div > .uk-navbar-toggle {
+	min-height: 8vh;
 }

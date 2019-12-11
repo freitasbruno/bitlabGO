@@ -53,7 +53,7 @@
 			</div>
 			<div>
 				<h4>USER TOTALS</h4>
-				{{-- <div>Total Expense:
+				<div>Total Expense:
 					{{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}
 				</div>
 				<div>Total Income:
@@ -61,7 +61,7 @@
 				</div>
 				<div>Balance:
 					{{ App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'income')->sum('amount') - App\Models\Items\CashItem::where('id_user', Auth::id())->where('type', 'expense')->sum('amount') }}
-				</div> --}}
+				</div>
 			</div>
 			<div>
 				<h4>USER ACCOUNTS</h4>
@@ -153,27 +153,31 @@
 	@endif
 
 	@if($accounts)
-		<div id="cash-container" class="card-deck">
+		@foreach ($accounts as $account)
+		<div id="cash-container-{{ $account->id }}" class="card-deck">
+			<div class="uk-grid-small deck-title" uk-grid>
+				<div class="uk-width-expand">
+					{{ $account->group->name }}
+				</div>
+				<div class="uk-width-auto">
+					<a class="newItemBtn" data-value="cash" uk-toggle="target: #itemModal">
+						<img class="share-avatar" src="/images/prototype/plus-white.svg" alt="My SVG Icon">
+					</a>
+				</div>
+			</div>
 			<div class="scrollbar cardScrollbar">
-				<ul>
-					@foreach ($accounts as $account)						
-					<li>
-						<div>
-							@each('cards.cashCard', $account->cash, 'cash')
-						</div>
-					</li>
-					@endforeach
-				</ul>
+				<div>
+					@each('cards.cashCard', $account->cash, 'cash')
+					@each('cards.cashModal', $account->cash, 'cash')
+				</div>
 			</div>
 			<div class="force-overflow"></div>	
-		</div>		
+		</div>
+		@endforeach	
 		<div class="bottom-nav uk-position-bottom-center uk-position-small">
 			<ul class="uk-dotnav">
-				@for ($i = 0; $i < $accounts->count(); $i++)
-					
-				@endfor
-				@foreach ($accounts as $index => $account)
-					<li uk-slideshow-item="{{ $index }}"><a href="#">{{ $account->name }}</a></li>
+				@foreach ($accounts as $account)
+					<li data-item="{{ $account->id }}"><a href="#">{{ $account->name }}</a></li>
 				@endforeach
 			</ul>
 		</div>			

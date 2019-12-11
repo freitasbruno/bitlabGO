@@ -70,6 +70,12 @@
 }
 
 .card-deck {
+	
+	max-width: 480px;
+	margin-top: $bottom-nav-height / 2;
+	padding: 0em 0.5em 0em 1em;	
+	height: 100vh - $navbar-height - $bottom-nav-height * 2;
+	overflow: auto;
 
 	.scrollbar {
 		float: right;
@@ -96,16 +102,35 @@
 	}
 }
 
-.cash-card {
-	background: $white;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-	height: 110px;
-	padding: 1em 2em;
+.card-deck > .deck-title {
+	color: $white;
+	font-size: 1.5em;
+	text-transform: uppercase;
+	height: 2.5em;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin-right: 0.5em;
+}
+
+.uk-flex-top.uk-modal {
+	background: #55CFBF;
+	margin-top: $navbar-height;
+
+	.uk-modal-dialog {
+		background: transparent;
+	}
+}
+
+.cash-card, .cash-modal {
 	margin-bottom: 0.5em;
+	color : $card-text-color;
+	background: $white;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
 	//transition: margin 200ms;
 
-	&:hover {
-		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+	&:hover, a:hover {
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);		
+		text-decoration: none;
 		//margin: 1em 0em;
 	}
 
@@ -117,22 +142,55 @@
 		color : rgb(96, 155, 48);
 	}
 
-	p.card-text-main, p.card-text-normal, p.card-text-small {
+	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
 		color : $card-text-color;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
 		margin: 0px;
 	}
-	.card-text-main {
+
+	.card-text-xl {
 		font-size: 1.5em;
 		font-weight: 700;
 	}
-	.card-text-normal {
-		font-size: 1em;
+
+	.card-text-l {
+		font-size: 1.3em;
 		font-weight: 600;
 	}
-	.card-text-small {
+
+	.card-text-m {
+		font-size: 1.1em;
+		font-weight: 500;
+	}
+
+	.card-text-s {
+		font-size: 0.9em;
+	}
+
+	.card-text-xs {
 		font-size: 0.7em;
 	}
+
+	.cash-card-icon-col {
+		width: 50px;
+	}
+}
+
+.share-avatar {
+	width: 30px;
+}
+
+.cash-card {	
+	height: 110px;
+	margin-bottom: 1em;
+	padding: 1em 2em;
+	
+	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+.cash-modal {
+	padding: 2em;
 }
