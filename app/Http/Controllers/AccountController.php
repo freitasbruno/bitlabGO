@@ -53,7 +53,23 @@ class AccountController extends Controller
 			'account' => $account,
 			'cashItems' => $account->cashItems
 		]);
-    }
+	}	
+	
+    /**
+     * Return the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAccount()
+    {
+		$accountId = $_POST['accountId'];
+		$account = Account::where('id', $accountId)
+			->with('cash')->first();
+		
+		$returnHTML = view('panels.accountPanel')->with('account', $account)->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+		return $account->toJson();
+	}
 
     /**
      * Show the form for editing the specified resource.

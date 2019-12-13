@@ -62,16 +62,33 @@ class CashController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return the specified resource.
      *
      * @param  \App\Cash  $cash
      * @return \Illuminate\Http\Response
      */
     public function show(Cash $cash)
     {
-        //
-    }
+		//
+	}
 
+    /**
+     * Return the specified resource.
+     *
+     * @param  \App\Cash  $cash
+     * @return \Illuminate\Http\Response
+     */
+    public function getItem()
+    {
+		$cashId = $_POST['itemId'];
+		$cash = Cash::where('id', $cashId)
+			->with('parent')->first();
+		
+		$returnHTML = view('cards.cashCard')->with('cash', $cash)->render();
+		return response()->json(array('success' => true, 'html'=>$returnHTML));
+		return $cash->toJson();
+	}
+	
     /**
      * Show the form for editing the specified resource.
      *

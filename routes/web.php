@@ -21,7 +21,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('home', 'HomeController');
 	Route::resource('groups', 'GroupController');
 	Route::resource('accounts', 'AccountController');
-	Route::resource('cash', 'CashController');
+	//Route::resource('cash', 'CashController');
 	Route::resource('bookmarks', 'BookmarkController');
 	
 	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth']], function () {
 	
 	Route::post('timers/stop', 'TimerController@stop');
 	Route::resource('timers', 'TimerController');
+	
+	Route::post('cash/getItem', 'CashController@getItem');
+	Route::post('accounts/getAccount', 'AccountController@getAccount');
 });
 
 

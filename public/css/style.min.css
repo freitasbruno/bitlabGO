@@ -53,6 +53,7 @@ body {
 #main-navbar > .uk-navbar-container:not(.uk-navbar-transparent) {
   background: rgba(255, 255, 255, 0.3);
   padding: 0 1em;
+  height: 8vh;
 }
 
 #main-navbar > nav > div > .uk-navbar-toggle {

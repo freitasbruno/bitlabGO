@@ -1,5 +1,5 @@
-<div class="cash-card">
-	<a href="#cash-modal-{{ $cash->id }}" uk-toggle>
+<div class="cash-card" data-id="{{ $cash->id }}" data-type="cash">
+	<a href="#cash-moda-{{ $cash->id }}" uk-toggle>
 		<div class="uk-grid-small" uk-grid>
 			<div class="uk-width-auto">
 				@if ($cash -> type == 'expense')

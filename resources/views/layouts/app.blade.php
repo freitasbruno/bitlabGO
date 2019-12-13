@@ -22,7 +22,7 @@
 		<script src="{{ asset('js/home.js') }}" defer></script>
 
 		<!-- Custom Styles -->
-		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+		{{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 		<!-- FontAwesome icons kit -->
