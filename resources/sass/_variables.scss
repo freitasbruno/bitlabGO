@@ -28,6 +28,9 @@ $link-color: rgb(66, 122, 136);
 $link-hover-color: rgba(66, 122, 136, 0.8);
 
 // Dimension constraints
-$width-sidebar: 15rem;
-$navbar-height: 8vh;
-$bottom-nav-height: 4vh;
+
+	// Navbar
+	$navbar-height: 40px;
+
+	// Display area
+	$main-container-height: calc(100vh - #{$navbar-height} - 20px);

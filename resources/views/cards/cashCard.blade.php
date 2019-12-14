@@ -2,10 +2,14 @@
 	<a href="#cash-moda-{{ $cash->id }}" uk-toggle>
 		<div class="uk-grid-small" uk-grid>
 			<div class="uk-width-auto">
-				@if ($cash -> type == 'expense')
-					<span class="icon-expense" uk-icon="icon: arrow-down; ratio: 2"></span>				
+				@if ($cash -> type == 'expense')					
+					<span class="icon-expense">
+						<img class="share-avatar" src="/images/prototype/cash-arrow-down.svg" alt="My SVG Icon"></a>
+					</span>				
 				@else
-					<span class="icon-income" uk-icon="icon: arrow-up; ratio: 2"></span>					
+				<span class="icon-expense">
+					<img class="share-avatar" src="/images/prototype/cash-arrow-up.svg" alt="My SVG Icon"></a>
+				</span>					
 				@endif
 			</div>
 			<div class="uk-width-expand uk-flex-middle">

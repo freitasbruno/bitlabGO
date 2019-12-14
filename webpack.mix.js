@@ -15,13 +15,9 @@ const mix = require("laravel-mix");
 mix.js("resources/js/app.js", "public/js");
 mix.copy("resources/js/app.js", "public/js/app.js")
     .copy("resources/js/home.js", "public/js/home.js")
-    .copy("resources/js/uikit/uikit.js", "public/js/uikit/uikit.js")
-    .copy("resources/js/uikit/uikit-icons.js", "public/js/uikit/uikit-icons.js")
     .minify([
 		"public/js/app.js", 
-		"public/js/home.js",
-		"public/js/uikit/uikit.js",
-		"public/js/uikit/uikit-icons.js"
+		"public/js/home.js"
 	])
     .version();
 

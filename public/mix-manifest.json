@@ -1,12 +1,8 @@
 {
     "/js/app.js": "/js/app.js?id=3331b63e7c1ef95275cf",
-    "/css/style.css": "/css/style.css?id=38ab05b799a9c4e1f487",
-    "/js/home.js": "/js/home.js?id=1d6d93d7579c60fdabc2",
-    "/js/uikit/uikit.js": "/js/uikit/uikit.js?id=396e9ae115a8461a0ce8",
-    "/js/uikit/uikit-icons.js": "/js/uikit/uikit-icons.js?id=a7c02b1edd4b834d55a5",
+    "/css/style.css": "/css/style.css?id=abd4eb8634237008635e",
+    "/js/home.js": "/js/home.js?id=99c2111f816da0ab289e",
     "/js/app.min.js": "/js/app.min.js?id=3331b63e7c1ef95275cf",
-    "/js/home.min.js": "/js/home.min.js?id=1d6d93d7579c60fdabc2",
-    "/js/uikit/uikit.min.js": "/js/uikit/uikit.min.js?id=396e9ae115a8461a0ce8",
-    "/js/uikit/uikit-icons.min.js": "/js/uikit/uikit-icons.min.js?id=a7c02b1edd4b834d55a5",
-    "/css/style.min.css": "/css/style.min.css?id=38ab05b799a9c4e1f487"
+    "/js/home.min.js": "/js/home.min.js?id=99c2111f816da0ab289e",
+    "/css/style.min.css": "/css/style.min.css?id=abd4eb8634237008635e"
 }

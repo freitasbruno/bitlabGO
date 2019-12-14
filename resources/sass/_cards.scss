@@ -72,14 +72,14 @@
 .card-deck {
 	
 	max-width: 480px;
-	margin-top: $bottom-nav-height / 2;
 	padding: 0em 0.5em 0em 1em;	
-	height: 100vh - $navbar-height - $bottom-nav-height * 2;
-	overflow: auto;
+	height: $main-container-height;
+	overflow: hidden;
+	margin: 0px auto;
 
 	.scrollbar {
 		float: right;
-		height: 100vh - $navbar-height - $bottom-nav-height * 2;
+		height: 100%;
 		width: 100%;
 		padding-right: 0.5em;
 		overflow-y: scroll;

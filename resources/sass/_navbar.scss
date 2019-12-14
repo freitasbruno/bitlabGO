@@ -1,0 +1,16 @@
+#main-navbar {
+	
+	height: $navbar-height;
+	line-height: $navbar-height;
+	background: rgba(255,255,255,0.3);
+	margin: 0;
+	padding: 0 1em;
+	width: calc(100% -2em);
+	text-align: center;
+	overflow: hidden;
+
+	.navbar-container {
+		display: grid;
+		grid-template-columns: 40px 1fr 40px;
+	}
+}

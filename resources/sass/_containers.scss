@@ -1,62 +1,9 @@
 // Groups container - Area where group cards are displayed
 body {
+	font-family: 'Nunito', sans-serif;
 	background: #55CFBF;
 }
 
-#main-navbar {
-	height: $navbar-height;
-	overflow: hidden;
-}
-
 #main-container {
-	height: 100vh - $navbar-height;
-}
-
-#cash-container {
-	
-}
-
-#main-container  > .bottom-nav {
-	height: $bottom-nav-height;
-	margin: 0px 15px;
-}
-
-#item-display-area > li > a.uk-accordion-title {
-	border-radius: 0.2em;
-	background: rgba(255, 255, 255, 0.2);
-	padding: 0.5em;
-	font-weight: 600;
-	color: #DDD;
-
-	&:hover, &:visited, &:active, &:focus {
-		background: rgba(255, 255, 255, 0.2);
-		color: $white;
-	}
-}
-
-.header-container {
-	text-transform: uppercase;
-}
-
-.uk-accordion-content {
-	margin-top: 0px;
-}
-
-.item-container {
-	background: $panel-background;
-
-	.grid {
-		margin: 0;
-	}
-}
-
-
-#main-navbar > .uk-navbar-container:not(.uk-navbar-transparent) {
-	background: rgba(255,255,255,0.3);
-	padding: 0 1em;
-	height: $navbar-height;
-}
-
-#main-navbar > nav > div > .uk-navbar-toggle {
-	min-height: $navbar-height;
+	height: $main-container-height;
 }

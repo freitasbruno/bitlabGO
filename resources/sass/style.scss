@@ -2,17 +2,10 @@
 
 // CUSTOM VARIABLES
 @import "variables";
+@import "global";
 @import "containers";
+@import "navbar";
 @import "cards";
-@import "uikit-override";
-
-// UIKIT DEFAULT VARIABLE AND MIXINS
-@import "uikit/variables-theme";
-@import "uikit/mixins-theme";
 
 // CUSTOM MIXINS
 @import "mixins";
-
-
-// UIKIT CORE
-@import "uikit/uikit-theme";
