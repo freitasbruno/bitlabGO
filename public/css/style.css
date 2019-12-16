@@ -32,19 +32,21 @@ body {
 
 #main-navbar .navbar-container {
   display: grid;
-  grid-template-columns: 40px 1fr 40px;
+  grid-template-columns: 200px 1fr 200px;
 }
 
 #main-navbar .navbar-container .navbar-left,
 #main-navbar .navbar-container .navbar-right {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 #main-navbar .navbar-container .navbar-center {
   font-size: 1.5em;
+  margin-top: 5px;
 }
 
 #main-navbar .navbar-container .navbar-right {
+  padding-left: 160px;
   position: relative;
   display: inline-block;
   cursor: pointer;
@@ -87,7 +89,7 @@ body {
   height: calc(100% - 6em);
   width: 100%;
   padding-right: 0.5em;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .card-deck .cardScrollbar::-webkit-scrollbar {
@@ -133,103 +135,122 @@ body {
   padding-left: 10px;
 }
 
-.cash-card,
-.cash-modal {
-  margin-bottom: 0.5em;
+.item-card,
+.item-modal {
+  margin-bottom: 0.75em;
   color: #787878;
   background: #FFF;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.cash-card:hover,
-.cash-card a:hover,
-.cash-modal:hover,
-.cash-modal a:hover {
+.item-card:hover,
+.item-card a:hover,
+.item-modal:hover,
+.item-modal a:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
   text-decoration: none;
 }
 
-.cash-card .icon-expense,
-.cash-modal .icon-expense {
+.item-card .icon-expense,
+.item-modal .icon-expense {
   color: #9b3330;
 }
 
-.cash-card .icon-income,
-.cash-modal .icon-income {
+.item-card .icon-income,
+.item-modal .icon-income {
   color: #609b30;
 }
 
-.cash-card p.card-text-xl,
-.cash-card p.card-text-l,
-.cash-card p.card-text-m,
-.cash-card p.card-text-s,
-.cash-card p.card-text-xs,
-.cash-modal p.card-text-xl,
-.cash-modal p.card-text-l,
-.cash-modal p.card-text-m,
-.cash-modal p.card-text-s,
-.cash-modal p.card-text-xs {
+.item-card p.card-text-xl,
+.item-card p.card-text-l,
+.item-card p.card-text-m,
+.item-card p.card-text-s,
+.item-card p.card-text-xs,
+.item-modal p.card-text-xl,
+.item-modal p.card-text-l,
+.item-modal p.card-text-m,
+.item-modal p.card-text-s,
+.item-modal p.card-text-xs {
   color: #787878;
   margin: 0px;
-}
-
-.cash-card .card-text-xl,
-.cash-modal .card-text-xl {
-  font-size: 1.5em;
-  font-weight: 700;
-}
-
-.cash-card .card-text-l,
-.cash-modal .card-text-l {
-  font-size: 1.3em;
-  font-weight: 600;
-}
-
-.cash-card .card-text-m,
-.cash-modal .card-text-m {
-  font-size: 1.1em;
-  font-weight: 500;
-}
-
-.cash-card .card-text-s,
-.cash-modal .card-text-s {
-  font-size: 0.9em;
-}
-
-.cash-card .card-text-xs,
-.cash-modal .card-text-xs {
-  font-size: 0.7em;
-}
-
-.cash-card .cash-card-icon-col,
-.cash-modal .cash-card-icon-col {
-  width: 50px;
-}
-
-.cash-card {
-  height: 110px;
-  margin-bottom: 1em;
-}
-
-.cash-card p.card-text-xl,
-.cash-card p.card-text-l,
-.cash-card p.card-text-m,
-.cash-card p.card-text-s,
-.cash-card p.card-text-xs {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.cash-card p.card-text-s {
+.item-card .card-text-xl,
+.item-modal .card-text-xl {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.item-card .card-text-l,
+.item-modal .card-text-l {
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.item-card .card-text-m,
+.item-modal .card-text-m {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.item-card .card-text-s,
+.item-modal .card-text-s {
+  font-size: 0.9em;
   font-weight: bold;
 }
 
-.cash-card .cash-card-grid {
+.item-card .card-text-xs,
+.item-modal .card-text-xs {
+  font-size: 0.7em;
+}
+
+.item-card .cash-card-icon-col,
+.item-modal .cash-card-icon-col {
+  width: 50px;
+}
+
+.cash-card {
+  height: 110px;
+}
+
+.cash-card-grid {
   padding: 1.5em 2em;
   display: grid;
   grid-template-columns: 3em minmax(100px, 1fr);
   grid-template-rows: 30px 1fr;
+}
+
+.task-card {
+  height: 70px;
+}
+
+.task-card-grid {
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-columns: 3em minmax(100px, 1fr);
+}
+
+.timer-card {
+  height: 70px;
+}
+
+.timer-card-grid {
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-columns: 3em minmax(1fr);
+}
+
+.bookmark-card {
+  height: 110px;
+}
+
+.bookmark-card-grid {
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-columns: 3em minmax(1fr);
 }
 
 .share-avatar {

@@ -18,6 +18,23 @@ class TaskController extends Controller
     {
         //
     }
+	
+    /**
+     * Return the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAll()
+    {
+		$tasks = Task::where('id_user', Auth::user()->id)
+			->with('item')->get();
+		
+		$returnHTML = view('panels.tasksPanel')->with('tasks', $tasks)->render();
+		return response()->json(array(
+			'success' => true,
+			'items' => $tasks->toJson(), 
+			'html' => $returnHTML));
+	}
 
     /**
      * Show the form for creating a new resource.

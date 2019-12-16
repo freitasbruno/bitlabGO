@@ -1,10 +1,7 @@
-<div class="card mb-2">
-	<div class="d-flex justify-content-between p-2">
-		<div class="col-sm-10 text-truncate p-0">
-			<a href="{{ $item->bookmark->url }}" target="_blank">{{ $item->name }}</a>			
+<div class="item-card bookmark-card">
+	<div class="bookmark-card-grid">
+		<div class="card-text-m">
+			<a href="{{ $bookmark->url }}" target="_blank">{{ $bookmark->item->name }}</a>			
 		</div>
-		@component('components/itemTools')
-		{{ 'bookmarks/' . $item->bookmark->id }}
-		@endcomponent
 	</div>
 </div>

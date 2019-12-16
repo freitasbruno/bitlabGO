@@ -14,7 +14,10 @@ const mix = require("laravel-mix");
 
 mix.js("resources/js/app.js", "public/js");
 
-mix.copy("resources/js/home.js", "public/js/home.js")
+mix.scripts([
+		"resources/js/home.js",
+		"resources/js/filter-type.js"
+	], "public/js/home.js")
     .minify([
 		"public/js/home.js"
 	]);

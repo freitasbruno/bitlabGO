@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
 	return view('welcome');
@@ -20,17 +22,22 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 	Route::resource('home', 'HomeController');
 	Route::resource('groups', 'GroupController');
-	Route::resource('accounts', 'AccountController');
-	//Route::resource('cash', 'CashController');
+	
+	Route::resource('cash', 'CashController');
+	Route::post('cash/getItem', 'CashController@getItem');
+
 	Route::resource('bookmarks', 'BookmarkController');
+	Route::post('bookmarks/getBookmarks', 'BookmarkController@getAll');
 	
 	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 	Route::resource('tasks', 'TaskController');
+	Route::post('tasks/getTasks', 'TaskController@getAll');
 	
 	Route::post('timers/stop', 'TimerController@stop');
 	Route::resource('timers', 'TimerController');
+	Route::post('timers/getTimers', 'TimerController@getAll');
 	
-	Route::post('cash/getItem', 'CashController@getItem');
+	Route::resource('accounts', 'AccountController');
 	Route::post('accounts/getAccount', 'AccountController@getAccount');
 });
 

@@ -1,4 +1,4 @@
-<div class="cash-card" data-id="{{ $cash->id }}" data-type="cash">
+<div class="item-card cash-card" data-id="{{ $cash->id }}" data-type="cash">
 	<div class="cash-card-grid">
 		<div>
 			@if ($cash -> type == 'expense')					

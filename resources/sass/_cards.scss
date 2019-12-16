@@ -11,7 +11,7 @@
 		height: calc(100% - 6em);
 		width: 100%;
 		padding-right: 0.5em;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 
 	.cardScrollbar::-webkit-scrollbar {
@@ -59,8 +59,8 @@
 	}
 }
 
-.cash-card, .cash-modal {
-	margin-bottom: 0.5em;
+.item-card, .item-modal {
+	margin-bottom: 0.75em;
 	color : $card-text-color;
 	background: $white;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
@@ -83,6 +83,9 @@
 	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
 		color : $card-text-color;
 		margin: 0px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.card-text-xl {
@@ -102,6 +105,7 @@
 
 	.card-text-s {
 		font-size: 0.9em;
+		font-weight: bold;
 	}
 
 	.card-text-xs {
@@ -111,29 +115,54 @@
 	.cash-card-icon-col {
 		width: 50px;
 	}
+
 }
 
+// Specific item properties
+
+// CASH
 .cash-card {	
 	height: 110px;
-	margin-bottom: 1em;	
-	
-	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+}
 
-	p.card-text-s {
-		font-weight: bold;
-	}
+.cash-card-grid {	
+	padding: 1.5em 2em;
+	display: grid;
+	grid-template-columns: 3em minmax(100px, 1fr);
+	grid-template-rows: 30px 1fr;	
+}
 
-	.cash-card-grid {	
-		padding: 1.5em 2em;
-		display: grid;
-		grid-template-columns: 3em minmax(100px, 1fr);
-		grid-template-rows: 30px 1fr;
-		
-	}
+// TASKS
+.task-card {	
+	height: 70px;
+}
+
+.task-card-grid {	
+	padding: 1.5em 2em;
+	display: grid;
+	grid-template-columns: 3em minmax(100px, 1fr);
+}
+
+// TIMERS
+.timer-card {	
+	height: 70px;
+}
+
+.timer-card-grid {	
+	padding: 1.5em 2em;
+	display: grid;
+	grid-template-columns: 3em minmax(1fr);
+}
+
+// BOOKMARKS
+.bookmark-card {	
+	height: 110px;
+}
+
+.bookmark-card-grid {	
+	padding: 1.5em 2em;
+	display: grid;
+	grid-template-columns: 3em minmax(1fr);
 }
 
 .share-avatar {

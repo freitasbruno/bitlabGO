@@ -11,16 +11,18 @@
 
 	.navbar-container {
 		display: grid;
-		grid-template-columns: 40px 1fr 40px;		
+		grid-template-columns: 200px 1fr 200px;		
 
 		.navbar-left, .navbar-right {
-			margin-top: 10px;
+			margin-top: 15px;
 		}
 		.navbar-center {
 			font-size: 1.5em;
+			margin-top: 5px;
 		}
 
 		.navbar-right {
+			padding-left: 160px;
 			position: relative;
 			display: inline-block;
 			cursor: pointer;

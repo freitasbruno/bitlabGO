@@ -18,6 +18,23 @@ class BookmarkController extends Controller
 	{
 		//
 	}
+	
+    /**
+     * Return the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAll()
+    {
+		$bookmarks = Bookmark::where('id_user', Auth::user()->id)
+			->with('item')->get();
+		
+		$returnHTML = view('panels.bookmarksPanel')->with('bookmarks', $bookmarks)->render();
+		return response()->json(array(
+			'success' => true,
+			'items' => $bookmarks->toJson(), 
+			'html' => $returnHTML));
+	}
 
 	/**
 	 * Show the form for creating a new resource.

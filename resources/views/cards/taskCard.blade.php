@@ -1,12 +1,9 @@
-<div class="card mb-2">
-	<div class="d-flex justify-content-between p-2">
-		<p class="m-0">
-			<input class="taskCheckbox {{ $item->task->complete ? 'taskComplete' : false}}" type="checkbox"
-				value="{{ $item->id }}" {{ $item->task->complete ? 'checked' : false}}>
-			{{ $item->name }}
+<div class="item-card task-card">
+	<div class="task-card-grid">
+		<input class="taskCheckbox {{ $task->complete ? 'taskComplete' : false}}" type="checkbox"
+			value="{{ $task->item->id }}" {{ $task->complete ? 'checked' : false}}>
+		<p class="card-text-m">
+			{{ $task->item->name }}
 		</p>
-		@component('components/itemTools')
-		{{ 'tasks/' . $item->task->id }}
-		@endcomponent
 	</div>
 </div>

@@ -1,23 +1,4 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-	
-	function getAccount (accountId) {		
-        return $.ajax({
-            url: "/accounts/getAccount/",
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-            data: {
-        		accountId: accountId
-			},
-			success: function(response) {
-				//
-			},
-			error: function(errorThrown) {
-                console.log("failed getting account");
-            }
-		});
-	}
 
 	function getItem (type, itemId) {		
         return $.ajax({
@@ -38,44 +19,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
-	function renderAccount(element, account) {
-		console.log($(element).find(".deck-title").first().children().first());
-		$(element).find(".deck-title").first().children().first().html(account.group.name);
-
-		let cardContainer = $(element).find(".card-container").first();
-		// account.cash.forEach(cash => {
-		// 	let html = '';
-		// 	html += 	'<div class="cash-card" data-id="' + cash.id + '" data-type="cash">';
-		// 	html += 		'<a href="#cash-modal-' + cash.id + '" uk-toggle>';
-		// 	html += 			'<div class="uk-grid-small" uk-grid>';
-		// 	html += 				'<div class="uk-width-auto">';
-		// 	if (cash.type == 'expense') {
-		// 		html += 				'<span class="icon-expense" uk-icon="icon: arrow-down; ratio: 2"></span>';	
-		// 	} else {
-		// 		html += 				'<span class="icon-income" uk-icon="icon: arrow-up; ratio: 2"></span>';
-		// 	}			
-		// 	html += 				'</div>';
-		// 	html += 				'<div class="uk-width-expand uk-flex-middle">';
-		// 	html += 					'<p class="card-text-xl">€' + cash.amount + '</p>';
-		// 	html += 					'<p class="card-text-m">' + cash.item.name + '</p>';
-		// 	html += 					'<p class="card-text-s"><time datetime="2016-04-01T19:00">' + cash.created_at + '</time></p>';
-		// 	html += '</div></div></a></div>';
-		
-		// 	$(cardContainer).append(html);
-		// });
-
-		$(element).show(1000);
-	}
-
-	let accountContainer = $("#account-container");
-	let accountId = 1;
-
-	getAccount(accountId).done(function(response) {
-		// let account = JSON.parse(response);
-		// console.log(account);
-		$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
-		// renderAccount(accountContainer, account);
-	}); 
 
 	// Get Cash item
 
@@ -188,4 +131,129 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$("#cash-container-" + $(this).attr('data-item')).fadeIn(1000);
         console.log($(this).attr('data-item'));
     });
+});
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	
+	let accountContainer = $("#account-container");
+	let accountId = 1;
+
+	function getAccount (accountId) {		
+        return $.ajax({
+            url: "/accounts/getAccount/",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            data: {
+        		accountId: accountId
+			},
+			success: function(response) {
+				//
+			},
+			error: function(errorThrown) {
+                console.log("failed getting account");
+            }
+		});
+	}
+	
+	function getTasks () {		
+        return $.ajax({
+            url: "/tasks/getTasks/",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            data: {
+        		//
+			},
+			success: function(response) {
+				//
+			},
+			error: function(errorThrown) {
+                console.log("failed getting tasks");
+            }
+		});
+	}
+		
+	function getTimers () {		
+        return $.ajax({
+            url: "/timers/getTimers/",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            data: {
+        		//
+			},
+			success: function(response) {
+				//
+			},
+			error: function(errorThrown) {
+                console.log("failed getting timers");
+            }
+		});
+	}
+		
+	function getBookmarks () {		
+        return $.ajax({
+            url: "/bookmarks/getBookmarks/",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            data: {
+        		//
+			},
+			success: function(response) {
+				//
+			},
+			error: function(errorThrown) {
+                console.log("failed getting bookmarks");
+            }
+		});
+	}
+
+	function render (response) {		
+        $("#main-container").html('');
+		$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
+		
+		console.log(JSON.parse(response.items));
+	}
+
+	// Listen to Btn click
+    $(".filter-link").click(function() {
+		let itemType = $(this).attr('data-url');
+		console.log(itemType);
+		
+		switch (itemType) {
+			case 'cash':
+				getAccount(accountId).done(function(response) {
+					render(response);
+				}); 
+				break;
+		
+			case 'tasks':
+				getTasks().done(function(response) {
+					render(response);
+				}); 
+				break;
+		
+			case 'timers':
+				getTimers().done(function(response) {
+					render(response);
+				}); 
+				break;
+		
+			case 'bookmarks':
+				getBookmarks().done(function(response) {
+					render(response);
+				}); 
+				break;
+		
+			default:
+				break;
+		}
+
+	});
 });
