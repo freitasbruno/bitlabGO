@@ -2,15 +2,55 @@
 	
 	height: $navbar-height;
 	line-height: $navbar-height;
-	background: rgba(255,255,255,0.3);
+	background: $navbar-color;
+	color: $white;
 	margin: 0;
 	padding: 0 1em;
 	width: calc(100% -2em);
 	text-align: center;
-	overflow: hidden;
 
 	.navbar-container {
 		display: grid;
-		grid-template-columns: 40px 1fr 40px;
+		grid-template-columns: 40px 1fr 40px;		
+
+		.navbar-left, .navbar-right {
+			margin-top: 10px;
+		}
+		.navbar-center {
+			font-size: 1.5em;
+		}
+
+		.navbar-right {
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+				
+			.navbar-menu {
+				display: none;
+				position: absolute;
+				background-color: $offwhite;
+				color: $dark-grey;
+				min-width: 160px;
+				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+				padding: 12px 16px;
+				z-index: 1;
+				right: 0px;
+				margin: 0;
+				list-style: none;
+			}
+		
+		}
+		
+		.navbar-right:hover .navbar-menu {
+			display: block;
+		}
 	}
 }
+
+@media only screen and (max-width: 600px) {
+
+	.navbar-center > a{
+	  display: none;
+	}
+
+  }

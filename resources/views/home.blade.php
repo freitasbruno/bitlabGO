@@ -3,7 +3,7 @@
 @section('content')
 
 <div id="main-container">
-	<example-component></example-component>
+	
 	@if(false)
 	<div class="header-container" uk-grid>
 		<div class="uk-width-expand">

@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
 
 // Theme colors
 $white: #FFF;
@@ -11,9 +11,7 @@ $dark-grey: #444;
 $primary: #2196f3;
 
 // Background colors
-$color-navbar: $offwhite;
-$color-sidebar: $dark-blue;
-$panel-background: $offwhite;
+$navbar-color: rgba(255,255,255,0.3);
 
 // Text colors
 $text-white: #FFF;
@@ -30,7 +28,7 @@ $link-hover-color: rgba(66, 122, 136, 0.8);
 // Dimension constraints
 
 	// Navbar
-	$navbar-height: 40px;
+	$navbar-height: 60px;
 
 	// Display area
 	$main-container-height: calc(100vh - #{$navbar-height} - 20px);

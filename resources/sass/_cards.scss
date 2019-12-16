@@ -1,74 +1,3 @@
-.group-deck {
-	background: $panel-background;
-	margin: 0.5em;
-	border-radius:0.2em;
-
-	& > div {
-		padding: 0.5em;
-		margin: 0;	
-	}
-
-	.card-header > a {
-		padding: 0;
-		text-transform: uppercase;
-		text-decoration: none;
-		font-weight: 500;
-		color: $link-color;
-
-		&:hover {
-			color: $link-hover-color;
-		}
-	}
-
-	.uk-card-body {
-		max-height: 400px;
-		overflow: auto;
-	}
-
-	.scrollbar {
-		float: right;
-		height: 300px;
-		margin-bottom: 25px;
-		margin-left: 22px;
-		margin-top: 10px;
-		width: 100%;
-		overflow-y: scroll;
-	}
-	
-	.force-overflow {
-		min-height: 10%;
-	}
-
-	.cardScrollbar::-webkit-scrollbar {
-		width: 6px;
-	} 
-
-	.cardScrollbar::-webkit-scrollbar-thumb {
-		background-color: rgba(0,0,0,0.3);
-		border-radius: 3px;
-	}
-
-	.cardScrollbar::-webkit-scrollbar-track {
-		box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		border-radius: 3px;
-		cursor: grab;
-	}
-}
-
-.item-container {
-
-	padding: 0.5em;
-	border-radius: 0px 0px 5px 5px;
-	
-	& > .card, .grid > .card {
-		background: $white;
-		padding: 0.5em;
-		margin-top: 0.5em;
-		border-radius: 0.2em;
-	}
-}
-
 .card-deck {
 	
 	max-width: 480px;
@@ -77,9 +6,9 @@
 	overflow: hidden;
 	margin: 0px auto;
 
-	.scrollbar {
+	.cardScrollbar {
 		float: right;
-		height: 100%;
+		height: calc(100% - 6em);
 		width: 100%;
 		padding-right: 0.5em;
 		overflow-y: scroll;
@@ -100,24 +29,33 @@
 		border-radius: 3px;
 		cursor: grab;
 	}
-}
 
-.card-deck > .deck-title {
-	color: $white;
-	font-size: 1.5em;
-	text-transform: uppercase;
-	height: 2.5em;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	margin-right: 0.5em;
-}
+	.force-overflow {
+		min-height: 10px;
+	}
 
-.uk-flex-top.uk-modal {
-	background: #55CFBF;
-	margin-top: $navbar-height;
+	.deck-title {
+		display: grid;
+		grid-template-columns: minmax(100px, 1fr) 40px;
+		height: 1.5em;
 
-	.uk-modal-dialog {
-		background: transparent;
+		color: $white;
+		font-size: 2em;
+		font-weight: 700;
+
+		padding-top: 0.75em;
+		margin-right: 0.5em;
+		
+		.deck-title-text {
+			text-transform: uppercase;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		
+		.deck-title-btn {
+			padding-left: 10px;
+		}
 	}
 }
 
@@ -175,22 +113,32 @@
 	}
 }
 
-.share-avatar {
-	width: 30px;
-}
-
 .cash-card {	
 	height: 110px;
-	margin-bottom: 1em;
-	padding: 1em 2em;
+	margin-bottom: 1em;	
 	
 	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
+
+	p.card-text-s {
+		font-weight: bold;
+	}
+
+	.cash-card-grid {	
+		padding: 1.5em 2em;
+		display: grid;
+		grid-template-columns: 3em minmax(100px, 1fr);
+		grid-template-rows: 30px 1fr;
+		
+	}
 }
 
+.share-avatar {
+	width: 30px;
+}
 .cash-modal {
 	padding: 2em;
 }

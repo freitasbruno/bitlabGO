@@ -1,8 +1,13 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito|Quicksand&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap);
 
 body {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 body {
@@ -11,18 +16,18 @@ body {
 }
 
 #main-container {
-  height: calc(100vh - 40px - 20px);
+  height: calc(100vh - 60px - 20px);
 }
 
 #main-navbar {
-  height: 40px;
-  line-height: 40px;
+  height: 60px;
+  line-height: 60px;
   background: rgba(255, 255, 255, 0.3);
+  color: #FFF;
   margin: 0;
   padding: 0 1em;
   width: calc(100% -2em);
   text-align: center;
-  overflow: hidden;
 }
 
 #main-navbar .navbar-container {
@@ -30,89 +35,56 @@ body {
   grid-template-columns: 40px 1fr 40px;
 }
 
-.group-deck {
-  background: #EEE;
-  margin: 0.5em;
-  border-radius: 0.2em;
-}
-
-.group-deck > div {
-  padding: 0.5em;
-  margin: 0;
-}
-
-.group-deck .card-header > a {
-  padding: 0;
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: 500;
-  color: #427a88;
-}
-
-.group-deck .card-header > a:hover {
-  color: rgba(66, 122, 136, 0.8);
-}
-
-.group-deck .uk-card-body {
-  max-height: 400px;
-  overflow: auto;
-}
-
-.group-deck .scrollbar {
-  float: right;
-  height: 300px;
-  margin-bottom: 25px;
-  margin-left: 22px;
+#main-navbar .navbar-container .navbar-left,
+#main-navbar .navbar-container .navbar-right {
   margin-top: 10px;
-  width: 100%;
-  overflow-y: scroll;
 }
 
-.group-deck .force-overflow {
-  min-height: 10%;
+#main-navbar .navbar-container .navbar-center {
+  font-size: 1.5em;
 }
 
-.group-deck .cardScrollbar::-webkit-scrollbar {
-  width: 6px;
+#main-navbar .navbar-container .navbar-right {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
 }
 
-.group-deck .cardScrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+#main-navbar .navbar-container .navbar-right .navbar-menu {
+  display: none;
+  position: absolute;
+  background-color: #EEE;
+  color: #444;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right: 0px;
+  margin: 0;
+  list-style: none;
 }
 
-.group-deck .cardScrollbar::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
-  cursor: -webkit-grab;
-  cursor: grab;
+#main-navbar .navbar-container .navbar-right:hover .navbar-menu {
+  display: block;
 }
 
-.item-container {
-  padding: 0.5em;
-  border-radius: 0px 0px 5px 5px;
-}
-
-.item-container > .card,
-.item-container .grid > .card {
-  background: #FFF;
-  padding: 0.5em;
-  margin-top: 0.5em;
-  border-radius: 0.2em;
+@media only screen and (max-width: 600px) {
+  .navbar-center > a {
+    display: none;
+  }
 }
 
 .card-deck {
   max-width: 480px;
   padding: 0em 0.5em 0em 1em;
-  height: calc(100vh - 40px - 20px);
+  height: calc(100vh - 60px - 20px);
   overflow: hidden;
   margin: 0px auto;
 }
 
-.card-deck .scrollbar {
+.card-deck .cardScrollbar {
   float: right;
-  height: 100%;
+  height: calc(100% - 6em);
   width: 100%;
   padding-right: 0.5em;
   overflow-y: scroll;
@@ -135,23 +107,30 @@ body {
   cursor: grab;
 }
 
-.card-deck > .deck-title {
+.card-deck .force-overflow {
+  min-height: 10px;
+}
+
+.card-deck .deck-title {
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 40px;
+  height: 1.5em;
   color: #FFF;
-  font-size: 1.5em;
-  text-transform: uppercase;
-  height: 2.5em;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  font-size: 2em;
+  font-weight: 700;
+  padding-top: 0.75em;
   margin-right: 0.5em;
 }
 
-.uk-flex-top.uk-modal {
-  background: #55CFBF;
-  margin-top: 40px;
+.card-deck .deck-title .deck-title-text {
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.uk-flex-top.uk-modal .uk-modal-dialog {
-  background: transparent;
+.card-deck .deck-title .deck-title-btn {
+  padding-left: 10px;
 }
 
 .cash-card,
@@ -227,14 +206,9 @@ body {
   width: 50px;
 }
 
-.share-avatar {
-  width: 30px;
-}
-
 .cash-card {
   height: 110px;
   margin-bottom: 1em;
-  padding: 1em 2em;
 }
 
 .cash-card p.card-text-xl,
@@ -247,8 +221,59 @@ body {
   text-overflow: ellipsis;
 }
 
+.cash-card p.card-text-s {
+  font-weight: bold;
+}
+
+.cash-card .cash-card-grid {
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-columns: 3em minmax(100px, 1fr);
+  grid-template-rows: 30px 1fr;
+}
+
+.share-avatar {
+  width: 30px;
+}
+
 .cash-modal {
   padding: 2em;
+}
+
+.icon-10 {
+  width: 10px;
+}
+
+.icon-15 {
+  width: 15px;
+}
+
+.icon-20 {
+  width: 20px;
+}
+
+.icon-25 {
+  width: 25px;
+}
+
+.icon-30 {
+  width: 30px;
+}
+
+.icon-35 {
+  width: 35px;
+}
+
+.icon-40 {
+  width: 40px;
+}
+
+.icon-45 {
+  width: 45px;
+}
+
+.icon-50 {
+  width: 50px;
 }
 
 .pl-0 {

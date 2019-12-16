@@ -1,3 +1,18 @@
+// Create classes for icon sizes from 10px to 50px
+$max: 50;
+@mixin icon_size() {
+	$i: 10;
+	@while $i <= $max {
+	  #{'.icon-' + $i} { 
+		width: #{$i + 'px'};
+	  }
+	  $i: $i + 5;
+	}
+}
+
+@include icon_size();
+
+// Create margin and padding utility classes
 $max: 50;
 $offset: 5;
 $unit: 'em';

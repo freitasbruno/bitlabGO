@@ -18,6 +18,7 @@
 
 		<!-- Custom Scripts -->
 		<script src="{{ asset('js/home.js') }}" defer></script>
+		<script src="{{ asset('js/app.js') }}" defer></script>
 
 		<!-- Custom Styles -->
 		{{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
@@ -31,29 +32,26 @@
 			<nav class="navbar-container">
 
 				<div class="navbar-left">						
-					<a href=""><img class="share-avatar" src="/images/prototype/boy.svg" alt="My SVG Icon"></a>					
+					<a href=""><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
 				</div>
 
 				<div class="navbar-center">
-					<a class="navbar--logo" href="#">BOLTFLOW</a>
+					<a class="navbar-logo" href="#">BOLTFLOW</a>
 				</div>
 
 				<!-- Authentication Links -->	
 				@auth					
 				<div class="navbar-right">
+					<img class="icon-30" src="/images/prototype/boy.svg" alt="User menu">
 					<ul class="navbar-menu">
-						<li><img class="share-avatar" src="/images/prototype/boy.svg" alt="My SVG Icon">
-							<div class="navbar-dropdown">
-								<ul>
-									<li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+						<li>
+							<a href="{{ route('logout') }}" onclick="event.preventDefault();
 										document.getElementById('logout-form').submit();">
-										{{ __('Logout') }}</a>
-									</li>								
-									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-										@csrf
-									</form>
-								</ul>
-							</div>						
+										{{ __('Logout') }}
+							</a>							
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+								@csrf
+							</form>						
 						</li>						
 					</ul>
 				</div>

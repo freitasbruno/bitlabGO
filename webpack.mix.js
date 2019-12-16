@@ -13,14 +13,17 @@ const mix = require("laravel-mix");
  */
 
 mix.js("resources/js/app.js", "public/js");
-mix.copy("resources/js/app.js", "public/js/app.js")
-    .copy("resources/js/home.js", "public/js/home.js")
+
+mix.copy("resources/js/home.js", "public/js/home.js")
     .minify([
-		"public/js/app.js", 
 		"public/js/home.js"
-	])
-    .version();
+	]);
 
 mix.sass("resources/sass/style.scss", "public/css/style.css")
-    .minify("public/css/style.css")
-    .version();
+    .minify("public/css/style.css");
+
+if (mix.inProduction()) {
+	mix.version();
+}
+
+mix.browserSync('localhost:8000');
