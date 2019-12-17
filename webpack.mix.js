@@ -16,7 +16,8 @@ mix.js("resources/js/app.js", "public/js");
 
 mix.scripts([
 		"resources/js/home.js",
-		"resources/js/filter-type.js"
+		"resources/js/filter-type.js",
+		"resources/js/cash.js"
 	], "public/js/home.js")
     .minify([
 		"public/js/home.js"

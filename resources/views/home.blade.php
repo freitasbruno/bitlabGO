@@ -184,8 +184,11 @@
 			</div>			
 		@endif
 	@endif
-	<!-- Modals -->
-	{{-- @include('forms.newItemModal') --}}
+	
 	
 </div>
+<!-- Modals -->
+{{-- @include('forms.newItemModal') --}}
+@include('cards.itemModal')
+
 @endsection

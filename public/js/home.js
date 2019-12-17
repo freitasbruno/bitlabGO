@@ -1,50 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	function getItem (type, itemId) {		
-        return $.ajax({
-            url: "/" + type + "/getItem/",
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-            data: {
-                itemId: itemId
-			},
-			success: function(response) {
-				//
-			},
-			error: function(errorThrown) {
-                console.log("failed getting item");
-            }
-		});
-	}
-
-
-	// Get Cash item
-
-    // $(".cash-card").click(function() {
-		
-	// 	let type = $(this).attr('data-type');
-	// 	let itemId = $(this).attr('data-id');
-		
-	// 	getItem(type, itemId).done(function(response) {
-	// 		console.log(response);
-	// 		$(response.html).hide().prependTo($(".card-container").first()).fadeIn("slow");
-	// 	}); 		       
-		
-	// });
-
-    // $(".cash-card").click(function() {
-		
-	// 	let type = $(this).attr('data-type');
-	// 	let itemId = $(this).attr('data-id');
-		
-	// 	getItem(type, itemId).done(function(item) {
-	// 		console.log(JSON.parse(item));
-	// 	}); 		       
-		
-	// });
-
     // Toggle Task
     $(".taskCheckbox").change(function() {
         var taskId = this.value;
@@ -133,6 +88,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     });
 });
 
+function render (response) {		
+	$("#main-container").html('');
+	$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
+	
+	console.log(JSON.parse(response.items));
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	
 	let accountContainer = $("#account-container");
@@ -214,20 +176,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
-	function render (response) {		
-        $("#main-container").html('');
-		$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
-		
-		console.log(JSON.parse(response.items));
-	}
-
 	// Listen to Btn click
     $(".filter-link").click(function() {
 		let itemType = $(this).attr('data-url');
 		console.log(itemType);
 		
 		switch (itemType) {
-			case 'cash':
+			case 'cash':				
 				getAccount(accountId).done(function(response) {
 					render(response);
 				}); 
@@ -254,6 +209,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			default:
 				break;
 		}
-
 	});
+});
+
+function openModal() {
+	$('#itemModal').fadeIn(500);
+	$(document).on('click.modal-dialog', function(e) {
+		
+		if (!$(e.target).closest('.modal-dialog').length) {
+			$('#itemModal').hide();
+			$(document).off('click.modal-dialog');
+		}
+	});
+}
+
+function renderModal (response) {		
+
+	$("#itemModalContent").html('');
+	$(response.html).appendTo($("#itemModalContent"));
+	openModal();
+	
+	console.log(JSON.parse(response.item));
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+
+	function getItem (type, itemId) {		
+        return $.ajax({
+            url: "/" + type + "/getItem/",
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            },
+            data: {
+                itemId: itemId
+			},
+			success: function(response) {
+				//
+			},
+			error: function(errorThrown) {
+                console.log("failed getting item");
+            }
+		});
+	}
+
+	// Get Cash item
+
+    $(document).on('click', '.cash-card', function() {
+		let type = $(this).attr('data-type');
+		let itemId = $(this).attr('data-id');
+		console.log(type + " item: " + itemId);
+		
+		getItem(type, itemId).done(function(response) {
+			renderModal(response);
+		}); 		       
+		
+	});
+
 });

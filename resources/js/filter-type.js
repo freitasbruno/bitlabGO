@@ -1,3 +1,10 @@
+function render (response) {		
+	$("#main-container").html('');
+	$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
+	
+	console.log(JSON.parse(response.items));
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	
 	let accountContainer = $("#account-container");
@@ -79,20 +86,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	}
 
-	function render (response) {		
-        $("#main-container").html('');
-		$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
-		
-		console.log(JSON.parse(response.items));
-	}
-
 	// Listen to Btn click
     $(".filter-link").click(function() {
 		let itemType = $(this).attr('data-url');
 		console.log(itemType);
 		
 		switch (itemType) {
-			case 'cash':
+			case 'cash':				
 				getAccount(accountId).done(function(response) {
 					render(response);
 				}); 
@@ -119,6 +119,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			default:
 				break;
 		}
-
 	});
 });

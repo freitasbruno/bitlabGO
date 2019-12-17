@@ -1,50 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	function getItem (type, itemId) {		
-        return $.ajax({
-            url: "/" + type + "/getItem/",
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-            data: {
-                itemId: itemId
-			},
-			success: function(response) {
-				//
-			},
-			error: function(errorThrown) {
-                console.log("failed getting item");
-            }
-		});
-	}
-
-
-	// Get Cash item
-
-    // $(".cash-card").click(function() {
-		
-	// 	let type = $(this).attr('data-type');
-	// 	let itemId = $(this).attr('data-id');
-		
-	// 	getItem(type, itemId).done(function(response) {
-	// 		console.log(response);
-	// 		$(response.html).hide().prependTo($(".card-container").first()).fadeIn("slow");
-	// 	}); 		       
-		
-	// });
-
-    // $(".cash-card").click(function() {
-		
-	// 	let type = $(this).attr('data-type');
-	// 	let itemId = $(this).attr('data-id');
-		
-	// 	getItem(type, itemId).done(function(item) {
-	// 		console.log(JSON.parse(item));
-	// 	}); 		       
-		
-	// });
-
     // Toggle Task
     $(".taskCheckbox").change(function() {
         var taskId = this.value;

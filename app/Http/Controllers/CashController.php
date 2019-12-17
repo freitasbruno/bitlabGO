@@ -82,11 +82,13 @@ class CashController extends Controller
     {
 		$cashId = $_POST['itemId'];
 		$cash = Cash::where('id', $cashId)
-			->with('parent')->first();
+			->with('item')->first();
 		
 		$returnHTML = view('cards.cashCard')->with('cash', $cash)->render();
-		return response()->json(array('success' => true, 'html'=>$returnHTML));
-		return $cash->toJson();
+		return response()->json(array(
+			'success' => true,
+			'item' => $cash->toJson(), 
+			'html' => $returnHTML));
 	}
 	
     /**

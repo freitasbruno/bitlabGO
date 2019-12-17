@@ -1,8 +1,8 @@
-<div class="modal" id="itemModal" uk-modal>
-	<div class="uk-modal-dialog uk-margin-auto-vertical">
-		<div class="uk-modal-header">
+<div class="modal" id="itemModal">
+	<div class="modal-dialog">
+		<div class="modal-header">
 			<h5 class="modal-title" id="itemModalTitle"></h5>
-			<button class="uk-modal-close-default" type="button" uk-close></button>
+			<button type="button"></button>
 		</div>
 		<form id="itemForm" action="#" method="post">
 			@csrf
@@ -14,8 +14,8 @@
 				@include('forms.timerForm')
 			</div>
 			<div class="uk-text-right uk-padding-small">
-				<button type="button" class="uk-button uk-button-default uk-modal-close">Close</button>
-				<button type="submit" class="uk-button uk-button-primary">Save</button>
+				<button type="button">Close</button>
+				<button type="submit">Save</button>
 			</div>
 		</form>
 	</div>
