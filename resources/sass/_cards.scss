@@ -59,7 +59,7 @@
 	}
 }
 
-.item-card, .item-modal {
+.item-card {
 	margin-bottom: 0.75em;
 	color : $card-text-color;
 	background: $white;
@@ -72,50 +72,11 @@
 		//margin: 1em 0em;
 	}
 
-	.icon-expense {
-		color : rgb(155, 51, 48);
-	}
-
-	.icon-income {
-		color : rgb(96, 155, 48);
-	}
-
 	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
-		color : $card-text-color;
-		margin: 0px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-
-	.card-text-xl {
-		font-size: 1.5em;
-		font-weight: 700;
-	}
-
-	.card-text-l {
-		font-size: 1.3em;
-		font-weight: 600;
-	}
-
-	.card-text-m {
-		font-size: 1.1em;
-		font-weight: 500;
-	}
-
-	.card-text-s {
-		font-size: 0.9em;
-		font-weight: bold;
-	}
-
-	.card-text-xs {
-		font-size: 0.7em;
-	}
-
-	.cash-card-icon-col {
-		width: 50px;
-	}
-
 }
 
 // Specific item properties
@@ -168,6 +129,7 @@
 .share-avatar {
 	width: 30px;
 }
+
 .cash-modal {
 	padding: 2em;
 }

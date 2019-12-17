@@ -84,7 +84,7 @@ class CashController extends Controller
 		$cash = Cash::where('id', $cashId)
 			->with('item')->first();
 		
-		$returnHTML = view('cards.cashCard')->with('cash', $cash)->render();
+		$returnHTML = view('cards.cashDetailCard')->with('cash', $cash)->render();
 		return response()->json(array(
 			'success' => true,
 			'item' => $cash->toJson(), 

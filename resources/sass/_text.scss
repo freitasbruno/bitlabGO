@@ -1,0 +1,29 @@
+
+p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
+	color : $card-text-color;
+	margin: 0px;
+}
+
+.card-text-xl {
+	font-size: 1.5em;
+	font-weight: 700;
+}
+
+.card-text-l {
+	font-size: 1.3em;
+	font-weight: 600;
+}
+
+.card-text-m {
+	font-size: 1.1em;
+	font-weight: 600;
+}
+
+.card-text-s {
+	font-size: 0.9em;
+	font-weight: bold;
+}
+
+.card-text-xs {
+	font-size: 0.8em;
+}

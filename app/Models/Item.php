@@ -20,6 +20,13 @@ class Item extends Model
 	];
 
 	/**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+	protected $with = ['group'];
+	
+	/**
      * Get the user who owns the item.
      */
     public function user()
@@ -30,7 +37,7 @@ class Item extends Model
 	/**
      * Get the parent group of a item.
      */
-    public function parent()
+    public function group()
     {
         return $this->belongsTo('App\Models\Group', 'id_parent');
 	}

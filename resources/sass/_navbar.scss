@@ -11,7 +11,7 @@
 
 	.navbar-container {
 		display: grid;
-		grid-template-columns: 200px 1fr 200px;		
+		grid-template-columns: 200px 1fr minmax(30px, 200px);		
 
 		.navbar-left, .navbar-right {
 			margin-top: 15px;
@@ -51,8 +51,17 @@
 
 @media only screen and (max-width: 600px) {
 
-	.navbar-center > a{
-	  display: none;
+	
+	#main-navbar > .navbar-container {
+		grid-template-columns: 200px 1fr 30px;
+
+		.navbar-center > a{
+			display: none;
+		}
+
+		.navbar-right {
+			padding-left: 0px;
+		}
 	}
 
   }
