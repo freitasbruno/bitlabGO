@@ -33,10 +33,10 @@
 
 				<div class="navbar-left">						
 					<a href="/home"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
-					<a href="#" data-url="cash" class="filter-link"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
-					<a href="#" data-url="tasks" class="filter-link"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
-					<a href="#" data-url="timers" class="filter-link"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
-					<a href="#" data-url="bookmarks" class="filter-link"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
+					<a href="#" data-url="cash" class="filter-link"><i class="material-icons">credit_card</i></a>					
+					<a href="#" data-url="tasks" class="filter-link"><i class="material-icons">done</i></a>					
+					<a href="#" data-url="timers" class="filter-link"><i class="material-icons">timer</i></a>					
+					<a href="#" data-url="bookmarks" class="filter-link"><i class="material-icons">bookmark_border</i></a>					
 				</div>
 
 				<div class="navbar-center">

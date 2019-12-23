@@ -1,9 +1,7 @@
 #main-navbar {
 	
-	height: $navbar-height;
 	line-height: $navbar-height;
-	background: $navbar-color;
-	color: $white;
+	background: $navbar-color;	
 	margin: 0;
 	padding: 0 1em;
 	width: calc(100% -2em);
@@ -11,14 +9,28 @@
 
 	.navbar-container {
 		display: grid;
-		grid-template-columns: 200px 1fr minmax(30px, 200px);		
+		grid-template-columns: 200px 1fr minmax(30px, 200px);
+		height: $navbar-height;
 
 		.navbar-left, .navbar-right {
-			margin-top: 10px;
+			color: $gray-98;
+			margin-top: 5px;
+			
+			a > i {
+				font-size: 24px;
+				border-radius: 50%;
+				padding: 5px;				
+				transition: 200ms ease all;
+
+				&:hover {
+					color: $white;
+					background-color: rgba(255,255,255,0.2);
+				}
+			}
 		}
 		.navbar-center {
+			color: $white;
 			font-size: 1.5em;
-			margin-top: 5px;
 		}
 
 		.navbar-right {
