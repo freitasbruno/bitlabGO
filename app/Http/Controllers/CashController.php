@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Item as Item;
@@ -27,8 +28,13 @@ class CashController extends Controller
      */
     public function create()
     {
-        //
-    }
+		$accounts = Account::where('id_user', Auth::user()->id)->get();
+		$html = view('forms.newItemForm')->with(['itemType' => 'cash', 'accounts' => $accounts])->render();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'cash item',
+			'modalHtml' => $html));
+	}
 
     /**
      * Store a newly created resource in storage.
@@ -37,28 +43,27 @@ class CashController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {	
 		$id_user = Auth::user()->id;
-		$currentGroup = session('currentGroup')->id;
 
 		$item = Item::create([
 			'id_user' => $id_user,
-			'id_parent' => $currentGroup,
-			'name' => $request->get('cashName')
+			'id_parent' => $request->group,
+			'name' => $request->name
 		]);
 
 		$cash = Cash::create([
 			'id_user' => $id_user,
 			'id_parent' => $item->id,
-			'id_account' => $request->get('id_account'),
-			'type' => $request->get('type'),
-			'amount' => $request->get('amount'),
-			'currency' => $request->get('currency'),
-			'recurring' => $request->get('recurring') ? $request->get('recurring') : false,
-			'interval' => $request->get('interval')
+			'id_account' => $request->id_account,
+			'type' => $request->type,
+			'amount' => $request->amount,
+			'currency' => $request->currency,
+			'recurring' => $request->recurring ? $request->recurring : false,
+			'interval' => $request->interval
 		]);
 
-        return back();
+        return response()->json($cash);
     }
 
     /**
@@ -68,27 +73,15 @@ class CashController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Cash $cash)
-    {
-		//
-	}
-
-    /**
-     * Return the specified resource.
-     *
-     * @param  \App\Cash  $cash
-     * @return \Illuminate\Http\Response
-     */
-    public function getItem()
-    {
-		$cashId = $_POST['itemId'];
-		$cash = Cash::where('id', $cashId)
-			->with('item')->first();
-		
-		$returnHTML = view('cards.cashDetailCard')->with('cash', $cash)->render();
+    {		
+		$cardHtml = view('cards.cashCard')->with('cash', $cash)->render();
+		$modalHtml = view('cards.cashDetailCard')->with('cash', $cash)->render();
 		return response()->json(array(
 			'success' => true,
 			'item' => $cash->toJson(), 
-			'html' => $returnHTML));
+			'cardHtml' => $cardHtml,
+			'modalHtml' => $modalHtml
+		));
 	}
 	
     /**
@@ -97,9 +90,8 @@ class CashController extends Controller
      * @param  \App\Cash  $cash
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cash $cash)
     {
-		$cash = Cash::find($id);
 		$item = Item::find($cash->id_parent);
 		$accounts = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
 

@@ -15,8 +15,8 @@ class CreateCashTable extends Migration
     {
         Schema::create('cash', function (Blueprint $table) {
 			$table->bigIncrements('id');
-			$table->integer('id_parent')->default(0);
-			$table->integer('id_account')->default(0);
+			$table->integer('id_parent');
+			$table->integer('id_account');
 			$table->integer('id_user');
 			$table->enum('type', ['expense', 'income']);
 			$table->float('amount', 20, 2);

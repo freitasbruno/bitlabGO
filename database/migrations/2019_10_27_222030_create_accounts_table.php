@@ -15,7 +15,7 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('id_parent')->default(0);
+            $table->integer('id_parent');
 			$table->integer('id_user');
 			$table->float('balance', 20, 2);
 			$table->enum('currency', ['EUR', 'USD']);

@@ -1,14 +1,34 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap');
 
+// Icons
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 // Theme colors
-$white: #FFF;
 $dark-blue: rgb(58, 84, 110);
 $dark-green: rgb(13, 59, 73);
 $offwhite: #EEE;
 $light-grey: #BBB;
 $dark-grey: #444;
-$primary: #2196f3;
+$primary-color: #55CFBF;
+
+$white: #ffffff;
+$gray-98: #f3f3f3;
+$gray-95: #EDEDED;
+$gray-90: #E3E3E3;
+$gray-85: #D9D9D9;
+$gray-80: #CCCCCC;
+$gray-75: #C0C0C0;
+$gray-70: #B0B0B0;
+$gray-60: #999999;
+$gray-50: #808080;
+$gray-45: #727272;
+$gray-40: #696969;
+$gray-30: #4D4D4D;
+$gray-20: #363636;
+$gray-15: #222222;
+$gray-10: #171717;
+$black: #000000;
 
 // Background colors
 $navbar-color: rgba(255,255,255,0.3);
@@ -31,4 +51,4 @@ $link-hover-color: rgba(66, 122, 136, 0.8);
 	$navbar-height: 60px;
 
 	// Display area
-	$main-container-height: calc(100vh - #{$navbar-height} - 20px);
+	$main-container-height: calc(100vh - #{$navbar-height});

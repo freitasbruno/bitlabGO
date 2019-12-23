@@ -8,7 +8,7 @@ function render (response) {
 document.addEventListener("DOMContentLoaded", function(event) {
 	
 	let accountContainer = $("#account-container");
-	let accountId = 1;
+	let accountId = 2;
 
 	function getAccount (accountId) {		
         return $.ajax({

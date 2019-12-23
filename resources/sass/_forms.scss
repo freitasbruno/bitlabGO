@@ -1,0 +1,189 @@
+.cash-form-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 0px;
+
+	.row {
+		grid-column-start: 1;
+		grid-column-end:   3;
+	}
+}
+
+$trans-time: 300ms;
+
+// CHECKBOXES // ============================== //
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] + label.checkboxLabel {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+	line-height: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"] + label.checkboxLabel:before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid $gray-50;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.6;
+    -webkit-transition: all 0.12s, border-color 0.08s;
+    transition: all 0.12s, border-color 0.08s;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + label.checkboxLabel:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border: 2px solid $primary-color;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+// FORM // ============================== //
+form {
+    *,
+    :before,
+    :after {
+        box-sizing: border-box;
+    }
+}
+
+.form-group {
+	position: relative;
+	margin: 15px 0;
+}
+
+// INPUTS // ============================== //
+textarea {
+	resize: none;
+}
+
+input,
+textarea,
+select {
+	background: none;
+	color: $gray-50;
+	font-size: 18px;
+	padding: 10px 10px 10px 5px;
+	display: block;
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid $gray-50;
+	&:focus {
+		outline: none;
+	}
+	&:focus ~ .label,
+	&:valid ~ .label {
+		top: -14px;
+		font-size: 12px;
+		color: $primary-color;
+	}
+	&:focus ~ .bar:before {
+		width: 100%;
+	}
+}
+
+/* Remove focus */
+select:focus {
+	outline: none;
+}
+
+input[type="password"] {
+	letter-spacing: 0.3em;
+}
+
+.label {
+	color: $gray-50;
+	font-size: 16px;
+	font-weight: normal;
+	pointer-events: none;
+
+	position: absolute;
+	left: 5px;
+	top: 10px;
+	transition: $trans-time ease all;
+}
+
+.bar {
+	position: relative;
+	display: block;
+	width: 100%;
+	&:before {
+		content: "";
+		height: 2px;
+		width: 0;
+		bottom: 0px;
+		position: absolute;
+		background: $primary-color;
+		transition: $trans-time ease all;
+		left: 0%;
+	}
+}
+
+// BUTTONS // ============================== //
+.btn {
+	background: #fff;
+	color: mix(black, $gray-50, 25%);
+	border: none;
+	padding: 10px 20px;
+	border-radius: 3px;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-decoration: none;
+	outline: none;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	&:hover {
+		color: mix(black, $gray-50, 30%);
+		box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18),
+			0 5px 5px rgba(0, 0, 0, 0.12);
+	}
+	&.btn-link {
+		background: $primary-color;
+		color: mix(white, $primary-color, 80%);
+		&:hover {
+			background: darken($primary-color, 5%);
+			color: mix(white, $primary-color, 85%);
+		}
+	}
+	&.btn-submit {
+		background: $primary-color;
+		color: mix(white, $primary-color, 70%);
+		&:hover {
+			background: darken($primary-color, 5%);
+			color: mix(white, $primary-color, 85%);
+		}
+	}
+	&.btn-cancel {
+		background: #eee;
+		&:hover {
+			background: darken(#eee, 5%);
+			color: mix(black, $gray-50, 30%);
+		}
+	}
+}
+
+.form-btns {
+	text-align: right;
+	margin: 15px 0;
+}
+

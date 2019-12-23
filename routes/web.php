@@ -24,7 +24,6 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('groups', 'GroupController');
 	
 	Route::resource('cash', 'CashController');
-	Route::post('cash/getItem', 'CashController@getItem');
 
 	Route::resource('bookmarks', 'BookmarkController');
 	Route::post('bookmarks/getBookmarks', 'BookmarkController@getAll');

@@ -187,8 +187,8 @@
 	
 	
 </div>
+
 <!-- Modals -->
-{{-- @include('forms.newItemModal') --}}
 @include('cards.itemModal')
 
 @endsection

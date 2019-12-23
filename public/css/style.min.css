@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap);@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 body {
   margin: 0;
@@ -16,7 +16,204 @@ body {
 }
 
 #main-container {
-  height: calc(100vh - 60px - 20px);
+  height: calc(100vh - 60px);
+}
+
+.cash-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+}
+
+.cash-form-grid .row {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label.checkboxLabel {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  line-height: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type=checkbox] + label.checkboxLabel:before {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #808080;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  transition: all 0.12s, border-color 0.08s;
+  cursor: pointer;
+}
+
+input[type=checkbox]:checked + label.checkboxLabel:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border: 2px solid #55CFBF;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+form *,
+form :before,
+form :after {
+  box-sizing: border-box;
+}
+
+.form-group {
+  position: relative;
+  margin: 15px 0;
+}
+
+textarea {
+  resize: none;
+}
+
+input,
+textarea,
+select {
+  background: none;
+  color: #808080;
+  font-size: 18px;
+  padding: 10px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid #808080;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+input:focus ~ .label,
+input:valid ~ .label,
+textarea:focus ~ .label,
+textarea:valid ~ .label,
+select:focus ~ .label,
+select:valid ~ .label {
+  top: -14px;
+  font-size: 12px;
+  color: #55CFBF;
+}
+
+input:focus ~ .bar:before,
+textarea:focus ~ .bar:before,
+select:focus ~ .bar:before {
+  width: 100%;
+}
+
+/* Remove focus */
+
+select:focus {
+  outline: none;
+}
+
+input[type=password] {
+  letter-spacing: 0.3em;
+}
+
+.label {
+  color: #808080;
+  font-size: 16px;
+  font-weight: normal;
+  pointer-events: none;
+  position: absolute;
+  left: 5px;
+  top: 10px;
+  transition: 300ms ease all;
+}
+
+.bar {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.bar:before {
+  content: "";
+  height: 2px;
+  width: 0;
+  bottom: 0px;
+  position: absolute;
+  background: #55CFBF;
+  transition: 300ms ease all;
+  left: 0%;
+}
+
+.btn {
+  background: #fff;
+  color: #606060;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn:hover {
+  color: #5a5a5a;
+  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
+}
+
+.btn.btn-link {
+  background: #55CFBF;
+  color: #ddf5f2;
+}
+
+.btn.btn-link:hover {
+  background: #41c9b8;
+  color: #e6f8f5;
+}
+
+.btn.btn-submit {
+  background: #55CFBF;
+  color: #ccf1ec;
+}
+
+.btn.btn-submit:hover {
+  background: #41c9b8;
+  color: #e6f8f5;
+}
+
+.btn.btn-cancel {
+  background: #eee;
+}
+
+.btn.btn-cancel:hover {
+  background: #e1e1e1;
+  color: #5a5a5a;
+}
+
+.form-btns {
+  text-align: right;
+  margin: 15px 0;
 }
 
 p.card-text-xl,
@@ -64,7 +261,7 @@ p.card-text-xs {
   height: 60px;
   line-height: 60px;
   background: rgba(255, 255, 255, 0.3);
-  color: #FFF;
+  color: #ffffff;
   margin: 0;
   padding: 0 1em;
   width: calc(100% -2em);
@@ -78,7 +275,7 @@ p.card-text-xs {
 
 #main-navbar .navbar-container .navbar-left,
 #main-navbar .navbar-container .navbar-right {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 #main-navbar .navbar-container .navbar-center {
@@ -128,7 +325,7 @@ p.card-text-xs {
 .card-deck {
   max-width: 480px;
   padding: 0em 0.5em 0em 1em;
-  height: calc(100vh - 60px - 20px);
+  height: calc(100vh - 60px);
   overflow: hidden;
   margin: 0px auto;
 }
@@ -166,8 +363,8 @@ p.card-text-xs {
   display: grid;
   grid-template-columns: minmax(100px, 1fr) 40px;
   height: 1.5em;
-  color: #FFF;
-  font-size: 2em;
+  color: #ffffff;
+  font-size: 1.5em;
   font-weight: 700;
   padding-top: 0.75em;
   margin-right: 0.5em;
@@ -187,14 +384,17 @@ p.card-text-xs {
 .item-card {
   margin-bottom: 0.75em;
   color: #787878;
-  background: #FFF;
+  background: #ffffff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: background-color 200ms;
 }
 
 .item-card:hover,
 .item-card a:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+  background: #EDEDED;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .item-card p.card-text-xl,
@@ -218,14 +418,14 @@ p.card-text-xs {
   grid-template-rows: 30px 1fr;
 }
 
-.task-card {
-  height: 70px;
-}
-
 .task-card-grid {
   padding: 1.5em 2em;
   display: grid;
-  grid-template-columns: 3em minmax(100px, 1fr);
+  grid-template-columns: 2em minmax(100px, 1fr);
+}
+
+.task-card-grid:hover {
+  cursor: pointer;
 }
 
 .timer-card {
@@ -272,7 +472,7 @@ p.card-text-xs {
 
 #itemModal .modal-dialog {
   color: #787878;
-  background: #FFF;
+  background: #ffffff;
   margin: calc(50vh - 60px - 200px) auto;
   border: 1px solid #888;
   width: 75%;

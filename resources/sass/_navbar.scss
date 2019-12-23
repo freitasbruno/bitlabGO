@@ -14,7 +14,7 @@
 		grid-template-columns: 200px 1fr minmax(30px, 200px);		
 
 		.navbar-left, .navbar-right {
-			margin-top: 15px;
+			margin-top: 10px;
 		}
 		.navbar-center {
 			font-size: 1.5em;
@@ -51,7 +51,6 @@
 
 @media only screen and (max-width: 600px) {
 
-	
 	#main-navbar > .navbar-container {
 		grid-template-columns: 200px 1fr 30px;
 

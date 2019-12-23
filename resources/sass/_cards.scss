@@ -40,7 +40,7 @@
 		height: 1.5em;
 
 		color: $white;
-		font-size: 2em;
+		font-size: 1.5em;
 		font-weight: 700;
 
 		padding-top: 0.75em;
@@ -64,12 +64,13 @@
 	color : $card-text-color;
 	background: $white;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
-	//transition: margin 200ms;
+	transition: background-color 200ms;
 
 	&:hover, a:hover {
-		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);		
-		text-decoration: none;
-		//margin: 1em 0em;
+		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);	
+		background: $gray-95;
+		text-decoration: none;		
+		cursor: pointer;
 	}
 
 	p.card-text-xl, p.card-text-l, p.card-text-m, p.card-text-s, p.card-text-xs {
@@ -84,6 +85,7 @@
 // CASH
 .cash-card {	
 	height: 110px;
+	
 }
 
 .cash-card-grid {	
@@ -95,13 +97,17 @@
 
 // TASKS
 .task-card {	
-	height: 70px;
+	//height: 70px;
 }
 
 .task-card-grid {	
 	padding: 1.5em 2em;
 	display: grid;
-	grid-template-columns: 3em minmax(100px, 1fr);
+	grid-template-columns: 2em minmax(100px, 1fr);
+
+	&:hover {
+		cursor: pointer;
+	}
 }
 
 // TIMERS

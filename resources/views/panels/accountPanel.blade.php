@@ -4,8 +4,8 @@
 			{{ $account->group->name }}
 		</div>
 		<div class="deck-title-btn">
-			<a class="newItemBtn" data-value="cash">
-				<img class="share-avatar" src="/images/prototype/plus-white.svg" alt="My SVG Icon">
+			<a href="#" class="newItemBtn" data-type="cash">
+				<img class="share-avatar" src="/images/prototype/plus-white.svg" alt="New item">
 			</a>
 		</div>
 	</div>

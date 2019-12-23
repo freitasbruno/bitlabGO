@@ -1,38 +1,46 @@
-<div class="uk-modal-body itemForm cashForm">
-	<div class="form-group">
-		<label for="id_group">Type</label>
-		<select name="type" class="form-control" id="type">
-			<option value="expense" @isset($cashItem) {{ $cashItem->type == 'expense' ? 'selected' : '' }} @endisset >Expense</option>
-			<option value="income" @isset($cashItem) {{ $cashItem->type == 'income' ? 'selected' : '' }} @endisset >Income</option>
+<div class="itemForm cash-form-grid">
+	<div class="form-group row">
+		<input type="text" name="name" value="{{ $item->name ?? '' }}" data-field="name" autocomplete="off" required>
+		<span class="highlight"></span><span class="bar"></span>
+		<label class="label">Name</label>
+	</div>
+	<div class="form-group">		
+		<select name="type" data-field="type" required>			
+			<option value="" disabled selected></option>
+			<option value="expense" @isset($cashItem) {{ $cashItem->type == 'expense' ? 'selected' : '' }} @endisset>
+				Expense</option>
+			<option value="income" @isset($cashItem) {{ $cashItem->type == 'income' ? 'selected' : '' }} @endisset>
+				Income</option>
 		</select>
+		<span class="highlight"></span><span class="bar"></span>
+		<label class="label">Type</label>
 	</div>
 	<div class="form-group">
-		<label for="name">Account</label>
-		<select name="id_account" class="form-control" id="account">
+		<select name="id_account" data-field="account" required>
+			<option value="" disabled selected></option>
 			@foreach ($accounts as $account)
-				<option value="{{ $account->group->id }}">{{ $account->group->name }}</option>				
+			<option value="{{ $account->group->id }}">{{ $account->group->name }}</option>
 			@endforeach
 		</select>
+		<span class="highlight"></span><span class="bar"></span>
+		<label class="label">Account</label>
 	</div>
 	<div class="form-group">
-		<label for="name">Name</label>
-		<input type="text" name="cashName" value="{{ $item->name ?? '' }}" class="form-control" id="name" placeholder="Coffee and biscuits..." autocomplete="off">
+		<input type="number" step=".01" name="amount" value="{{ $cashItem->amount ?? '' }}" data-field="amount" required>
+		<span class="highlight"></span><span class="bar"></span>
+		<label class="label">Amount</label>
 	</div>
-	<div class="form-row">
-		<div class="form-group col-8">
-			<label for="name">Amount</label>
-			<input type="number" step=".01" name="amount" value="{{ $cashItem->amount ?? '' }}" class="form-control" id="amount" placeholder="eg. 5.60">
-		</div>
-		<div class="form-group col-4">
-			<label for="currency">Currency</label>
-			<select name="currency" class="form-control" id="currency">
-				@isset($cashItem)
-					<option value="{{ $cashItem->currency }}" selected>{{ $cashItem->currency }}</option>
-				@endisset
-				<option value="EUR">EUR</option>
-				<option value="USD">USD</option>
-			</select>
-		</div>
+	<div class="form-group">
+		<select name="currency" data-field="currency" required>
+			@isset($cashItem)
+			<option value="{{ $cashItem->currency }}" selected>{{ $cashItem->currency }}</option>
+			@endisset
+			<option value="EUR">EUR</option>
+			<option value="USD">USD</option>
+		</select>
+		<span class="highlight"></span><span class="bar"></span>
+		<label class="label">Currency</label>
 	</div>
 	<input type="hidden" name="group" value="{{ session()->get('currentGroup')->id }}">
+	<input type="hidden" name="itemType" value="cash">
 </div>
