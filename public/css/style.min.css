@@ -278,18 +278,21 @@ p.card-text-xs {
   margin-top: 5px;
 }
 
-#main-navbar .navbar-container .navbar-left a > i,
-#main-navbar .navbar-container .navbar-right a > i {
+#main-navbar .navbar-container .navbar-left i,
+#main-navbar .navbar-container .navbar-right i {
   font-size: 24px;
   border-radius: 50%;
   padding: 5px;
+  cursor: pointer;
   transition: 200ms ease all;
 }
 
-#main-navbar .navbar-container .navbar-left a > i:hover,
-#main-navbar .navbar-container .navbar-right a > i:hover {
+#main-navbar .navbar-container .navbar-left i:hover,
+#main-navbar .navbar-container .navbar-left i.selected,
+#main-navbar .navbar-container .navbar-right i:hover,
+#main-navbar .navbar-container .navbar-right i.selected {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 #main-navbar .navbar-container .navbar-center {

@@ -32,11 +32,11 @@
 			<nav class="navbar-container">
 
 				<div class="navbar-left">						
-					<a href="/home"><img class="icon-30" src="/images/prototype/icon.svg" alt="Home"></a>					
-					<a href="#" data-url="cash" class="filter-link"><i class="material-icons">credit_card</i></a>					
-					<a href="#" data-url="tasks" class="filter-link"><i class="material-icons">done</i></a>					
-					<a href="#" data-url="timers" class="filter-link"><i class="material-icons">timer</i></a>					
-					<a href="#" data-url="bookmarks" class="filter-link"><i class="material-icons">bookmark_border</i></a>					
+					<a href="/home"><i class="material-icons">offline_bolt</i></a>					
+					<i class="material-icons filter-link" data-url="cash" class="">credit_card</i>					
+					<i class="material-icons filter-link" data-url="tasks" class="">done</i>					
+					<i class="material-icons filter-link" data-url="timers" class="">timer</i>					
+					<i class="material-icons filter-link" data-url="bookmarks" class="">bookmark_border</i>								
 				</div>
 
 				<div class="navbar-center">
