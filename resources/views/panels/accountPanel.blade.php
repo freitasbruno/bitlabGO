@@ -5,7 +5,7 @@
 		</div>
 		<div class="deck-title-btn">
 			<a href="#" class="newItemBtn" data-type="cash">
-				<img class="share-avatar" src="/images/prototype/plus-white.svg" alt="New item">
+				<i class="material-icons">add_circle</i>
 			</a>
 		</div>
 	</div>

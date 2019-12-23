@@ -15,7 +15,6 @@ function closeModal() {
 }
 
 function renderModal (response) {		
-	$("#itemModalTitle").children("p").html("New " + response.type)
 	$("#itemModalContent").html('');
 	$(response.modalHtml).appendTo($("#itemModalContent"));
 	openModal();
@@ -82,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(type + " item: " + itemId);
 		
 		getItem(type, itemId).done(function(response) {
+			let item = JSON.parse(response.item);			
+			$("#itemModalTitle").children("p").html(item.item.name);
 			renderModal(response);
 		}); 		       
 		
@@ -94,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if($('.itemForm').length) {
 			$('#itemModal').fadeIn(500); 
 		} else {
-			newItem(type).done(function(response) {
+			newItem(type).done(function(response) {				
+				$("#itemModalTitle").children("p").html("New " + response.type);
 				renderModal(response);
 			}); 		       
 		}
@@ -113,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		storeItem(type).done(function(item) {
 			getItem(type, item.id).done(function(response) {
+				$("#itemModalTitle").children("p").html(response.item.item.name);
 				renderModal(response);
 			});
 		});

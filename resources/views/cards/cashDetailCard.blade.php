@@ -16,8 +16,7 @@
 			<p class="card-text-l">€{{ $cash->amount }}</p>
 		</div>
 		<div></div>
-		<div>			
-			<p class="card-text-s">{{ $cash->item->name }}</p>
+		<div>
 			<p class="card-text-xs">{{ $cash->item->description }}</p>
 		</div>
 	</div>
@@ -26,13 +25,18 @@
 		<div></div>
 		<p class="card-text-xs"><time datetime="2016-04-01T19:00">{{ $cash->created_at }}</time></p>
 
-		<img class="icon-25" src="/images/prototype/icon.svg" alt="Expense"></a>
+		<i class="material-icons-outlined">label</i>
 		<p class="card-text-s">
 			<span class="card-tag">HOUSE</span>
 			<span class="card-tag">ESTORIL</span>
 		</p>
 
-		<img class="icon-25" src="/images/prototype/icon.svg" alt="Expense"></a>
+		<i class="material-icons-outlined">folder</i>
+		<p class="card-text-s">
+			{{ $cash->item->name }}
+		</p>
+
+		<i class="material-icons">share</i>
 		<p class="card-text-s">
 			<span class="card-avatar"><img class="icon-25" src="/images/prototype/boy.svg" alt=""></a></span>
 			<span class="card-avatar"><img class="icon-25" src="/images/prototype/girl.svg" alt=""></a></span>
