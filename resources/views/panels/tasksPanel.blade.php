@@ -4,8 +4,8 @@
 			TASKS
 		</div>
 		<div class="deck-title-btn">
-			<a class="newItemBtn" data-value="task">
-				<img class="share-avatar" src="/images/prototype/plus-white.svg" alt="My SVG Icon">
+			<a href="#" class="newItemBtn" data-type="tasks">
+				<i class="material-icons">add_circle</i>
 			</a>
 		</div>
 	</div>

@@ -1,4 +1,4 @@
-<div class="itemForm cash-form-grid">
+<div class="itemForm cashForm cash-form-grid">
 	<div class="form-group row">
 		<input type="text" name="name" value="{{ $item->name ?? '' }}" data-field="name" autocomplete="off" required>
 		<span class="highlight"></span><span class="bar"></span>

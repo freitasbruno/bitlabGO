@@ -12,17 +12,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function getAccount (accountId) {		
         return $.ajax({
-            url: "/accounts/getAccount/",
-            method: "POST",
+            url: "/accounts/" + accountId,
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		accountId: accountId
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting account");
             }
@@ -31,17 +25,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	function getTasks () {		
         return $.ajax({
-            url: "/tasks/getTasks/",
-            method: "POST",
+            url: "/tasks",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting tasks");
             }
@@ -50,17 +38,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	function getTimers () {		
         return $.ajax({
-            url: "/timers/getTimers/",
-            method: "POST",
+            url: "/timers",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting timers");
             }
@@ -69,17 +51,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	function getBookmarks () {		
         return $.ajax({
-            url: "/bookmarks/getBookmarks/",
-            method: "POST",
+            url: "/bookmarks",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting bookmarks");
             }

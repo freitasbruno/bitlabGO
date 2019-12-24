@@ -60,8 +60,8 @@ input[type=checkbox] + label.checkboxLabel:before {
   cursor: pointer;
 }
 
-input[type=checkbox]:checked + label.checkboxLabel:before {
-  width: 10px;
+input[type=checkbox]:checked + label:before {
+  width: 5px;
   top: -5px;
   left: 5px;
   border: 2px solid #55CFBF;
@@ -466,14 +466,13 @@ span.card-tag {
   grid-template-columns: 3em minmax(1fr);
 }
 
-.bookmark-card {
-  height: 110px;
+.bookmark-card-grid {
+  display: grid;
+  grid-template-columns: 100px minmax(100px, 1fr);
 }
 
-.bookmark-card-grid {
+.bookmark-card-grid .card-text {
   padding: 1.5em 2em;
-  display: grid;
-  grid-template-columns: 3em minmax(1fr);
 }
 
 .share-avatar {
@@ -529,7 +528,7 @@ span.card-tag {
 }
 
 .main-card-detail-grid {
-  padding: 1.5em 0em;
+  padding: 0em 0em 1.5em;
   display: grid;
   grid-template-columns: 2.5em minmax(100px, 1fr);
   grid-template-rows: 30px 1fr;

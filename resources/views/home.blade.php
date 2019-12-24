@@ -5,7 +5,7 @@
 <div id="main-container">
 	
 	@if(false)
-	<div class="header-container" uk-grid>
+	<div class="header-container">
 		<div class="uk-width-expand">
 			<ul class="uk-breadcrumb uk-padding-small uk-light">
 				@if (session('currentGroup'))

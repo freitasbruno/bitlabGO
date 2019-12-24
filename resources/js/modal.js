@@ -2,7 +2,6 @@ function openModal() {
 	$('#itemModal').fadeIn(500);
 
 	$(document).on('click', '#itemModal', function(e) {
-		
 		if (!$(e.target).closest('.modal-dialog').length) {
 			closeModal();
 			$(document).off('click.modal-dialog');
@@ -81,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(type + " item: " + itemId);
 		
 		getItem(type, itemId).done(function(response) {
-			let item = JSON.parse(response.item);			
-			$("#itemModalTitle").children("p").html(item.item.name);
+			let item = JSON.parse(response.item);
 			renderModal(response);
 		}); 		       
 		
@@ -91,8 +89,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET ITEM FORM
     $(document).on('click', '.newItemBtn', function() {		
 		let type = $(this).attr('data-type');
-		
-		if($('.itemForm').length) {
+		let formType = type === 'cash' ? 'cashForm' : type.substring(0, type.length - 1) + "Form";
+		console.log(type + " - " + formType); 
+		if($('.itemForm').length && $('.itemForm').hasClass(formType)) {
 			$('#itemModal').fadeIn(500); 
 		} else {
 			newItem(type).done(function(response) {				
@@ -114,8 +113,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let type = $(this).find('[name="itemType"]').val();
 
 		storeItem(type).done(function(item) {
+			// Reload modal with the created item
+			$("#itemModalTitle").children("p").html("");
 			getItem(type, item.id).done(function(response) {
-				$("#itemModalTitle").children("p").html(response.item.item.name);
 				renderModal(response);
 			});
 		});

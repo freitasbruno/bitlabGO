@@ -16,16 +16,6 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
-    }
-	
-    /**
-     * Return the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
 		$tasks = Task::where('id_user', Auth::user()->id)
 			->with('item')->get();
 		
@@ -34,7 +24,8 @@ class TaskController extends Controller
 			'success' => true,
 			'items' => $tasks->toJson(), 
 			'html' => $returnHTML));
-	}
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -43,7 +34,11 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+		$html = view('forms.newItemForm')->with(['itemType' => 'task'])->render();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'modalHtml' => $html));
     }
 
     /**
@@ -60,7 +55,7 @@ class TaskController extends Controller
 		$item = Item::create([
 			'id_user' => $id_user,
 			'id_parent' => $currentGroup,
-			'name' => $request->get('taskName')
+			'name' => $request->get('name')
 		]);
 		
 		$task = Task::create([
@@ -68,7 +63,7 @@ class TaskController extends Controller
 			'id_parent' => $item->id
 		]);
 
-        return back();
+        return response()->json($task);
     }
 
     /**
@@ -79,7 +74,14 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+		$cardHtml = view('cards.taskCard')->with('task', $task)->render();
+		$modalHtml = view('cards.taskDetailCard')->with('task', $task)->render();
+		return response()->json(array(
+			'success' => true,
+			'item' => $task->toJson(), 
+			'cardHtml' => $cardHtml,
+			'modalHtml' => $modalHtml
+		));
     }
 
     /**

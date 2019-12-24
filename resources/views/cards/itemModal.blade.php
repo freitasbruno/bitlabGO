@@ -1,5 +1,5 @@
 <div class="item-modal" id="itemModal">
-	<div class="modal-dialog modal-dialog-grid">
+	<div class="modal-dialog modal-dialog-grid">		
 		<div class="modal-title" id="itemModalTitle">
 			<p class="card-text-m"></p>
 		</div>

@@ -16,16 +16,6 @@ class TimerController extends Controller
      */
     public function index()
     {
-        //
-    }
-	
-    /**
-     * Return the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
 		$timers = Timer::where('id_user', Auth::user()->id)
 			->with('item')->get();
 		
@@ -34,7 +24,8 @@ class TimerController extends Controller
 			'success' => true,
 			'items' => $timers->toJson(), 
 			'html' => $returnHTML));
-	}
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -26,15 +26,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('cash', 'CashController');
 
 	Route::resource('bookmarks', 'BookmarkController');
-	Route::post('bookmarks/getBookmarks', 'BookmarkController@getAll');
 	
-	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 	Route::resource('tasks', 'TaskController');
-	Route::post('tasks/getTasks', 'TaskController@getAll');
+	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 	
-	Route::post('timers/stop', 'TimerController@stop');
 	Route::resource('timers', 'TimerController');
-	Route::post('timers/getTimers', 'TimerController@getAll');
+	Route::post('timers/stop', 'TimerController@stop');
 	
 	Route::resource('accounts', 'AccountController');
 	Route::post('accounts/getAccount', 'AccountController@getAccount');

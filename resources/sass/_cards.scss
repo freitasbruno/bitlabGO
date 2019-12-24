@@ -133,14 +133,17 @@ span.card-tag {
 }
 
 // BOOKMARKS
-.bookmark-card {	
-	height: 110px;
+.bookmark-card {
+
 }
 
-.bookmark-card-grid {	
-	padding: 1.5em 2em;
+.bookmark-card-grid {
 	display: grid;
-	grid-template-columns: 3em minmax(1fr);
+	grid-template-columns: 100px minmax(100px, 1fr);
+
+	.card-text {
+		padding: 1.5em 2em;
+	}
 }
 
 .share-avatar {

@@ -1,27 +1,25 @@
+function toggleTask (taskId) {		
+	return $.ajax({
+		url: "/tasks/toggleComplete/",
+		method: "POST",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			taskId: taskId
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
     // Toggle Task
-    $(".taskCheckbox").change(function() {
-        var taskId = this.value;
-        //this.form.submit();
-        $.ajax({
-            url: "/tasks/toggleComplete/",
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-            data: {
-                taskId: taskId
-            }
-        })
-            .done(function(response) {
-                $(this).toggleClass("taskComplete");
-                console.log("success");
-            })
-            .fail(function(errorThrown) {
-                console.log("failed");
-            });
-    });
+    $(document).on('change', ".taskCheckbox" , function() {
+		let taskId = $(this).closest(".task-card").attr('data-id');	
+		toggleTask(taskId).done(function(response) {
+			console.log($(this));	
+		});
+	});
 
     // Stop Timer
     $(".timerStopBtn").click(function() {
@@ -62,17 +60,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	function getAccount (accountId) {		
         return $.ajax({
-            url: "/accounts/getAccount/",
-            method: "POST",
+            url: "/accounts/" + accountId,
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		accountId: accountId
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting account");
             }
@@ -81,17 +73,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	function getTasks () {		
         return $.ajax({
-            url: "/tasks/getTasks/",
-            method: "POST",
+            url: "/tasks",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting tasks");
             }
@@ -100,17 +86,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	function getTimers () {		
         return $.ajax({
-            url: "/timers/getTimers/",
-            method: "POST",
+            url: "/timers",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting timers");
             }
@@ -119,17 +99,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	function getBookmarks () {		
         return $.ajax({
-            url: "/bookmarks/getBookmarks/",
-            method: "POST",
+            url: "/bookmarks",
+            method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
-            data: {
-        		//
-			},
-			success: function(response) {
-				//
-			},
 			error: function(errorThrown) {
                 console.log("failed getting bookmarks");
             }
@@ -179,7 +153,6 @@ function openModal() {
 	$('#itemModal').fadeIn(500);
 
 	$(document).on('click', '#itemModal', function(e) {
-		
 		if (!$(e.target).closest('.modal-dialog').length) {
 			closeModal();
 			$(document).off('click.modal-dialog');
@@ -258,8 +231,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(type + " item: " + itemId);
 		
 		getItem(type, itemId).done(function(response) {
-			let item = JSON.parse(response.item);			
-			$("#itemModalTitle").children("p").html(item.item.name);
+			let item = JSON.parse(response.item);
 			renderModal(response);
 		}); 		       
 		
@@ -268,8 +240,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET ITEM FORM
     $(document).on('click', '.newItemBtn', function() {		
 		let type = $(this).attr('data-type');
-		
-		if($('.itemForm').length) {
+		let formType = type === 'cash' ? 'cashForm' : type.substring(0, type.length - 1) + "Form";
+		console.log(type + " - " + formType); 
+		if($('.itemForm').length && $('.itemForm').hasClass(formType)) {
 			$('#itemModal').fadeIn(500); 
 		} else {
 			newItem(type).done(function(response) {				
@@ -291,8 +264,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let type = $(this).find('[name="itemType"]').val();
 
 		storeItem(type).done(function(item) {
+			// Reload modal with the created item
+			$("#itemModalTitle").children("p").html("");
 			getItem(type, item.id).done(function(response) {
-				$("#itemModalTitle").children("p").html(response.item.item.name);
 				renderModal(response);
 			});
 		});

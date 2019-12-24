@@ -16,16 +16,6 @@ class BookmarkController extends Controller
 	 */
 	public function index()
 	{
-		//
-	}
-	
-    /**
-     * Return the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAll()
-    {
 		$bookmarks = Bookmark::where('id_user', Auth::user()->id)
 			->with('item')->get();
 		
@@ -43,7 +33,11 @@ class BookmarkController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$html = view('forms.newItemForm')->with(['itemType' => 'bookmark'])->render();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'bookmark',
+			'modalHtml' => $html));
 	}
 
 	/**
@@ -72,7 +66,7 @@ class BookmarkController extends Controller
 		$item->name = $bookmark->findSiteTitle();
 		$item->save();
 
-		return back();
+        return response()->json($bookmark);
 	}
 
 	/**
@@ -83,7 +77,14 @@ class BookmarkController extends Controller
 	 */
 	public function show(Bookmark $bookmark)
 	{
-		//
+		$cardHtml = view('cards.bookmarkCard')->with('bookmark', $bookmark)->render();
+		$modalHtml = view('cards.bookmarkDetailCard')->with('bookmark', $bookmark)->render();
+		return response()->json(array(
+			'success' => true,
+			'item' => $bookmark->toJson(), 
+			'cardHtml' => $cardHtml,
+			'modalHtml' => $modalHtml
+		));
 	}
 
 	/**
