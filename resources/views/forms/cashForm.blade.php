@@ -19,7 +19,7 @@
 		<select name="id_account" data-field="account" required>
 			<option value="" disabled selected></option>
 			@foreach ($accounts as $account)
-			<option value="{{ $account->group->id }}">{{ $account->group->name }}</option>
+			<option value="{{ $account->id }}">{{ $account->group->name }}</option>
 			@endforeach
 		</select>
 		<span class="highlight"></span><span class="bar"></span>

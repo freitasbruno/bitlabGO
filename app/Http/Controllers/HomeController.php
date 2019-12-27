@@ -46,7 +46,8 @@ class HomeController extends Controller
 		
 		$group->cashTotals = $group->getCashTotals();
 
-		$accounts = Account::where('id_user', Auth::user()->id)->with('group', 'cash')->get();
+		$accounts = Account::where('id_user', Auth::user()->id)->get();
+
 		$n = 0;
 		
 		foreach ($accounts as $account) {
