@@ -1,7 +1,7 @@
-<div id="cash-container-{{ $account->id }}" data-id="{{ $account->id }}" class="card-deck">
+<div class="card-deck">
 	<div class="deck-title">
 		<div class="deck-title-text">
-			{{ $account->group->name }}
+			TRANSACTIONS
 		</div>
 		<div class="deck-title-btn">
 			<a href="#" class="newItemBtn" data-type="cash">
@@ -11,7 +11,7 @@
 	</div>
 	<div class="cardScrollbar">
 		<div class="card-container">
-			@each('cards.cashCard', $account->cash, 'cash')
+			@each('cards.cashCard', $cash, 'cash')
 		</div>
 		<div class="force-overflow"></div>	
 	</div>

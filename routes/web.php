@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Models\Items\Cash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,8 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 use App\Models\Items\Timer;
 
 Route::get('/test', function () {
-
-	$timer = Timer::find(1);
-	echo date_diff(date_create($timer->stop), date_create($timer->start))->format('%Y-%m-%d %H:%i:%s');
-	return;
+	$cash = Cash::where('id_user', Auth::user()->id)
+		->with('account.group')->get()->first();
+	dd($cash);
 });

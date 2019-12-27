@@ -17,7 +17,9 @@
 		</div>
 		<div></div>
 		<div>
-			<p class="card-text-s">{{ $cash->item->name }}</p>
+			<p class="card-text-s">{{ $cash->item->name }}</p>	
+			<br>		
+			<p class="card-text-s">{{ $cash->account->group->name }}</p>
 			<p class="card-text-xs">{{ $cash->item->description }}</p>
 		</div>
 	</div>

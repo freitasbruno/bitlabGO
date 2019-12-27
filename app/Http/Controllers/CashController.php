@@ -18,7 +18,14 @@ class CashController extends Controller
      */
     public function index()
     {
-        echo "hello from CashController";
+		$cash = Cash::where('id_user', Auth::user()->id)
+			->with('account.group')->get();
+			
+		$returnHTML = view('panels.cashPanel')->with('cash', $cash)->render();
+		return response()->json(array(
+			'success' => true,
+			'items' => $cash->toJson(), 
+			'html' => $returnHTML));
     }
 
     /**

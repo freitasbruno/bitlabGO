@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Account;
 use Illuminate\Database\Seeder;
 use App\Models\Group as Group;
 use App\Models\Item as Item;
@@ -14,7 +15,7 @@ class CashTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$accounts = Group::has('account')->get();
+		$accounts = Account::all();
 		$items = Item::all();
 
 		foreach ($items as $item) {

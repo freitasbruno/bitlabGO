@@ -23,7 +23,7 @@ class Cash extends Item
      *
      * @var array
      */
-    protected $with = ['item'];
+    protected $with = ['item', 'account'];
 
 	/**
      * Get the user who owns the group.
@@ -46,6 +46,6 @@ class Cash extends Item
      */
     public function account()
     {
-        return $this->belongsTo('App\Models\Group', 'id_account');
+        return $this->belongsTo('App\Models\Account', 'id_account');
 	}
 }

@@ -58,15 +58,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	let accountContainer = $("#account-container");
 	let accountId = 2;
 
-	function getAccount (accountId) {		
+	function getCash () {		
         return $.ajax({
-            url: "/accounts/" + accountId,
+            url: "/cash",
             method: "GET",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             },
 			error: function(errorThrown) {
-                console.log("failed getting account");
+                console.log("failed getting cash items");
             }
 		});
 	}
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 		switch (itemType) {
 			case 'cash':				
-				getAccount(accountId).done(function(response) {
+				getCash(accountId).done(function(response) {
 					render(response);
 				}); 
 				break;
