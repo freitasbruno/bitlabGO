@@ -1,48 +1,5 @@
-function toggleTask (taskId) {		
-	return $.ajax({
-		url: "/tasks/toggleComplete/",
-		method: "POST",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: {
-			taskId: taskId
-		}
-	});
-}
 
 document.addEventListener("DOMContentLoaded", function(event) {
-
-    // Toggle Task
-    $(document).on('change', ".taskCheckbox" , function() {
-		let taskId = $(this).closest(".task-card").attr('data-id');	
-		toggleTask(taskId).done(function(response) {
-			console.log($(this));	
-		});
-	});
-
-    // Stop Timer
-    $(".timerStopBtn").click(function() {
-        var itemId = this.value;
-        //this.form.submit();
-        $.ajax({
-            url: "/timers/stop/",
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-            data: {
-                itemId: itemId
-            }
-        })
-            .done(function(response) {
-                console.log("success");
-                console.log(response);
-            })
-            .fail(function(errorThrown) {
-                console.log("failed");
-            });
-    });
 
 });
 
@@ -226,6 +183,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET ITEM MODAL
     $(document).on('click', '.item-card', function(e) {
 		if ($(e.target).closest(".checkboxLabel").length) { return };
+		if ($(e.target).closest(".timerStopBtn").length) { return };
 		let type = $(this).attr('data-type');
 		let itemId = $(this).attr('data-id');
 		console.log(type + " item: " + itemId);
@@ -266,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		storeItem(type).done(function(item) {
 			// Reload modal with the created item
 			$("#itemModalTitle").children("p").html("");
+
+			$(".filter-link.selected").trigger("click");
 			getItem(type, item.id).done(function(response) {
 				renderModal(response);
 			});
@@ -273,4 +233,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		return false;
 	});
+
+});
+
+function toggleTask (taskId) {		
+	return $.ajax({
+		url: "/tasks/toggleComplete/",
+		method: "POST",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			taskId: taskId
+		}
+	});
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    // Toggle Task
+    $(document).on('change', ".taskCheckbox" , function() {
+		let taskId = $(this).closest(".task-card").attr('data-id');	
+		toggleTask(taskId).done(function(response) {
+			console.log($(this));	
+		});
+	});
+
+});
+
+function stopTimer (itemId) {
+	return $.ajax({
+		url: "/timers/stop/",
+		method: "POST",
+		dataType: 'json',
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			itemId: itemId
+		},
+		success: function(response) {
+			console.log(response);
+		},
+		error: function(error) {
+			console.log("failed getting item");
+			console.log(error);
+		}
+	});
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	// Stop Timer
+	$(document).on('click', ".timerStopBtn" , function() {
+		var itemId = $(this).attr('data-id');
+		stopTimer(itemId);
+		$(".filter-link.selected").trigger("click");
+	});
+
 });

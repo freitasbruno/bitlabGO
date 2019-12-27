@@ -106,7 +106,7 @@ class TaskController extends Controller
     {
 		$task = Task::find($id);
 		$item = Item::find($task->id_parent);
-		$item->name = $request->get('taskName');
+		$item->name = $request->get('name');
 		$item->save();
 
         return back();

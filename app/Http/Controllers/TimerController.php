@@ -34,7 +34,11 @@ class TimerController extends Controller
      */
     public function create()
     {
-        //
+		$html = view('forms.newItemForm')->with(['itemType' => 'timer'])->render();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'timer',
+			'modalHtml' => $html));
     }
 
     /**
@@ -51,7 +55,7 @@ class TimerController extends Controller
 		$item = Item::create([
 			'id_user' => $id_user,
 			'id_parent' => $currentGroup,
-			'name' => $request->get('timerName')
+			'name' => $request->get('name')
 		]);
 		
 		$timer = Timer::create([
@@ -60,7 +64,7 @@ class TimerController extends Controller
 			'start' => now()
 		]);
 
-        return back();
+        return response()->json($timer);
     }
 
     /**
@@ -71,7 +75,14 @@ class TimerController extends Controller
      */
     public function show(Timer $timer)
     {
-        //
+		$cardHtml = view('cards.timerCard')->with('timer', $timer)->render();
+		$modalHtml = view('cards.timerDetailCard')->with('timer', $timer)->render();
+		return response()->json(array(
+			'success' => true,
+			'item' => $timer->toJson(), 
+			'cardHtml' => $cardHtml,
+			'modalHtml' => $modalHtml
+		));
     }
 
     /**

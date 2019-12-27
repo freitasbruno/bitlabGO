@@ -75,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET ITEM MODAL
     $(document).on('click', '.item-card', function(e) {
 		if ($(e.target).closest(".checkboxLabel").length) { return };
+		if ($(e.target).closest(".timerStopBtn").length) { return };
 		let type = $(this).attr('data-type');
 		let itemId = $(this).attr('data-id');
 		console.log(type + " item: " + itemId);
@@ -115,6 +116,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		storeItem(type).done(function(item) {
 			// Reload modal with the created item
 			$("#itemModalTitle").children("p").html("");
+
+			$(".filter-link.selected").trigger("click");
 			getItem(type, item.id).done(function(response) {
 				renderModal(response);
 			});
@@ -122,4 +125,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		return false;
 	});
+
 });
