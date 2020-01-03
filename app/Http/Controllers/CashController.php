@@ -23,7 +23,12 @@ class CashController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('cash')->get();
 			
-		$returnHTML = view('panels.cashPanel')->with('items', $items)->render();
+		$returnHTML = view('panels.itemPanel')->with([
+			'itemType' => 'cash', 
+			'title' => 'TRANSACTIONS', 
+			'items' => $items])
+			->render();
+
 		return response()->json(array(
 			'success' => true,
 			'items' => $items, 

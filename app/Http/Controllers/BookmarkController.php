@@ -21,7 +21,12 @@ class BookmarkController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('bookmark')->get();
 		
-		$returnHTML = view('panels.bookmarksPanel')->with('items', $items)->render();
+		$returnHTML = view('panels.itemPanel')->with([
+			'itemType' => 'bookmark', 
+			'title' => 'BOOKMARKS', 
+			'items' => $items])
+			->render();
+
 		return response()->json(array(
 			'success' => true,
 			'items' => $items, 

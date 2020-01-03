@@ -21,7 +21,12 @@ class TimerController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('timer')->get();
 		
-		$returnHTML = view('panels.timersPanel')->with('items', $items)->render();
+		$returnHTML = view('panels.itemPanel')->with([
+			'itemType' => 'timer', 
+			'title' => 'TIMERS', 
+			'items' => $items])
+			->render();
+
 		return response()->json(array(
 			'success' => true,
 			'items' => $items, 

@@ -21,7 +21,12 @@ class TaskController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('task')->get();
 		
-		$returnHTML = view('panels.tasksPanel')->with('items', $items)->render();
+		$returnHTML = view('panels.itemPanel')->with([
+			'itemType' => 'task', 
+			'title' => 'TASKS', 
+			'items' => $items])
+			->render();
+
 		return response()->json(array(
 			'success' => true,
 			'items' => $items, 

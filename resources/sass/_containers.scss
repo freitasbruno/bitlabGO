@@ -7,7 +7,7 @@ body {
 #main-container {
 	height: $main-container-height;
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 2fr;
 }
 
 @media only screen and (max-width: 600px) {
