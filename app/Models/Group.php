@@ -114,6 +114,24 @@ class Group extends Model
 	}
 
 	/**
+	 * Recursively get an array of the full hierarchy of the user's Groups.
+	 * Return Null is no children exist, or an array of nested Group arrays.
+	 *
+	 * @return Group $group
+	 */
+	public static function getGroupTree(int $id)
+	{
+		$group = Group::find($id);
+		if ($group->has('children')) {
+			$group->groups = collect();
+			foreach ($group->children as $child) {
+				$group->groups->push(Group::getGroupTree($child->id));
+			}
+		}
+		return $group;
+	}
+
+	/**
 	 * Recursively get an array of the full hierarchy of the current Group's children.
 	 * Return Null is no children exist, or an array of Groups who's id_parent is set to the current Group id.
 	 *
@@ -176,14 +194,14 @@ class Group extends Model
 	 * @param  array  $groupHierarchy
 	 * @return array $groupHierarchy
 	 */
-	public function buildHierarchy($groupHierarchy = [])
+	public function getBreadcrumbs($breadcrumbs = [])
 	{
-		array_unshift($groupHierarchy, $this);
+		array_unshift($breadcrumbs, $this);
 
 		if ($this->id_parent == 0) {
-			return $groupHierarchy;
+			return $breadcrumbs;
 		} else {			
-			return $this->parent->buildHierarchy($groupHierarchy);
+			return $this->parent->getBreadcrumbs($breadcrumbs);
 		}
 	}
 }

@@ -17,28 +17,17 @@ class GroupController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index(Request $request)
+	public function index()
 	{		
 		$user = Auth::user();
-		if ($request->id) {
-			$currentGroup = Group::find($request->id);
-			$groups = Group::where('id_parent', $currentGroup->id)
-				->get();
-			session(['currentGroup' => $currentGroup]);			
-			
-		} else {
-			$groups = Group::where('id_parent', $user->id_home)
-				->get();
-		}
-
-		$groupHierarchy = session('currentGroup')->buildHierarchy();
-
-		$returnHTML = view('panels.groupPanel')->with(['groups' => $groups, 'breadcrumbs' => $groupHierarchy])->render();
+		$breadcrumbs = session('currentGroup')->getBreadcrumbs();
+		$groupTree = Group::getGroupTree($user->id_home);
+	
+		$returnHTML = view('panels.groupPanel')->with(['groups' => $groupTree->groups, 'breadcrumbs' => $breadcrumbs])->render();
 		return response()->json(array(
 			'success' => true,
-			'id' => $request->id,
-			'groups' => $groups,
-			'breadcrumbs' => $groupHierarchy,
+			'groups' => $groupTree,
+			'breadcrumbs' => $breadcrumbs,
 			'html' => $returnHTML));
 	}
 
@@ -85,50 +74,14 @@ class GroupController extends Controller
 	 */
 	public function show(Group $group)
 	{
-		$cardHtml = view('cards.groupCard')->with('group', $group)->render();
 		$modalHtml = view('cards.groupDetailCard')->with('group', $group)->render();
 		
 		return response()->json(array(
 			'success' => true,
 			'type' => 'group',
 			'group' => $group->toJson(),
-			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml
 		));
-
-		$groups = $group->getChildren();
-		$groupHierarchy = $group->buildHierarchy();
-
-		$items = Item::doesntHave('cash')->where('id_parent', $id)->get();
-		
-		$cash = $group->cash();
-		$tasks = $group->tasks();
-		$timers = $group->timers();
-		$bookmarks = $group->bookmarks();
-		
-		$group->cashTotals = $group->getCashTotals();
-		$accounts = Group::has('account')->where('id_user', Auth::user()->id)->with('account')->get();
-		foreach ($accounts as $account) {
-			$account->cashTotals = $account->getCashTotals();
-		}
-		
-		$totals = $group->getBalance();
-
-		// Change the currentGroup in the Session
-		session(['currentGroup' => Group::find($id)]);
-		
-		// load the view and pass the groups
-		return view('home', [
-			'groups' => $groups,
-			'groupHierarchy' => $groupHierarchy,
-			'items' => $items->isEmpty() ? null : $items,
-			'cash' => $cash->isEmpty() ? null : $cash,
-			'tasks' => $tasks->isEmpty() ? null : $tasks,
-			'timers' => $timers->isEmpty() ? null : $timers,
-			'bookmarks' => $bookmarks->isEmpty() ? null : $bookmarks,
-			'totals' => $totals,
-			'accounts' => $accounts
-		]);
 	}
 
 	/**

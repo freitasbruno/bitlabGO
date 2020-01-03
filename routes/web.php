@@ -11,8 +11,8 @@
 |
 */
 
+use App\Models\Group;
 use App\Models\Item;
-use App\Models\Items\Cash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,6 +49,8 @@ Route::group(['middleware' => ['auth']], function () {
 use App\Models\Items\Timer;
 
 Route::get('/test', function () {
+
+	dd(Group::getGroupTree(7));die;
 	$cash = Item::has('cash')
 			->where('id_user', Auth::user()->id)
 			->where('id_parent', session('currentGroup')->id)

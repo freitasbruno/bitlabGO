@@ -35,7 +35,7 @@ class HomeController extends Controller
 	{
 		$group = Group::find($id);
 		$groups = $group->getChildren();
-		$groupHierarchy = $group->buildHierarchy();
+		$breadcrumbs = $group->getBreadcrumbs();
 
 		$items = Item::doesntHave('cash')->where('id_parent', $id)->get();
 		
@@ -62,7 +62,7 @@ class HomeController extends Controller
 		// load the view and pass the groups
 		return view('home', [
 			'groups' => $groups,
-			'groupHierarchy' => $groupHierarchy,
+			'breadcrumbs' => $breadcrumbs,
 			'items' => $items->isEmpty() ? null : $items,
 			'cash' => $cash->isEmpty() ? null : $cash,
 			'tasks' => $tasks->isEmpty() ? null : $tasks,
