@@ -4,7 +4,7 @@
 			{{ $title }}
 		</div>
 		<div class="deck-title-btn">
-		<a href="#" class="newItemBtn" data-type="{{ $itemType }}">
+		<a href="#" class="newItemBtn" data-type="{{ $itemType == 'cash' ? $itemType : $itemType . 's' }}">
 				<i class="material-icons">add_circle</i>
 			</a>
 		</div>

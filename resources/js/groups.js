@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {
 
-		if ($(e.target).closest(".groupTools").length) { return };
+		if ($(e.target).closest(".group-card-action").length) { return };
 
 		let id = $(this).attr('data-id');
 		let groupCard = $(this);
@@ -118,12 +118,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	// GROUP ACTIONS
     $(document).on('click', '.group-card-action', function(e) {
+		let actionBtn = $(this);
 		let action = $(this).attr('data-action');
 		let groupCard = $(this).closest(".group-card");
 		let groupId = groupCard.attr('data-id');
 		console.log(action + " group " + groupId);
 
 		switch (action) {
+			case 'expand':
+				$("#nestedGroup-" + groupId).show(200);
+				actionBtn.html('arrow_drop_up');	       
+				actionBtn.attr('data-action', 'collapse');	       
+				break;
+			
+			case 'collapse':
+				$("#nestedGroup-" + groupId).hide(200);
+				actionBtn.html('arrow_right');	       
+				actionBtn.attr('data-action', 'expand');	       
+				break;
+
 			case 'open':
 				getGroup(groupId).done(function(response) {
 					renderModal(response);

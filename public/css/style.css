@@ -451,6 +451,10 @@ p.card-text-xs {
   font-size: 30px;
 }
 
+.card-deck .nestedGroup {
+  padding-left: 20px;
+}
+
 .item-card,
 .group-card {
   margin-bottom: 0.75em;
@@ -511,7 +515,7 @@ span.card-tag {
 
 .group-card .group-card-grid {
   display: grid;
-  grid-template-columns: minmax(100px, 1fr) 20px;
+  grid-template-columns: 25px minmax(100px, 1fr) 20px;
 }
 
 .group-card .groupTools {
@@ -536,7 +540,7 @@ span.card-tag {
 }
 
 .group-card:hover .group-card-grid {
-  grid-template-columns: minmax(100px, 1fr) auto;
+  grid-template-columns: 25px minmax(100px, 1fr) auto;
 }
 
 .group-card:hover .count-label {

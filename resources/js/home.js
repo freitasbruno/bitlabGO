@@ -3,6 +3,7 @@ function render (response) {
 	if (response.groups) {
 		$("#filter-container").html('');
 		$(response.html).hide().appendTo($("#filter-container")).fadeIn("slow");
+		$(".nestedGroup").hide();
 	} else if (response.items) {
 		$("#item-container").html('');
 		$(response.html).hide().appendTo($("#item-container")).fadeIn("slow");
