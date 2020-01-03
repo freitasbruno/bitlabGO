@@ -491,7 +491,8 @@ span.card-tag {
 
 .group-card {
   background: rgba(255, 255, 255, 0.4);
-  line-height: 20px;
+  line-height: 30px;
+  padding: 1em;
 }
 
 .group-card .count-label {
@@ -503,10 +504,38 @@ span.card-tag {
   line-height: 20px;
 }
 
-.group-card-grid {
-  padding: 1em;
+.group-card .group-card-grid {
   display: grid;
   grid-template-columns: minmax(100px, 1fr) 20px;
+}
+
+.group-card .groupTools {
+  display: none;
+}
+
+.group-card .groupTools i {
+  font-size: 16px;
+  border-radius: 20px;
+  padding: 5px;
+  cursor: pointer;
+  transition: 200ms ease all;
+}
+
+.group-card .groupTools i:hover {
+  color: #000000;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.group-card:hover .groupTools {
+  display: block;
+}
+
+.group-card:hover .group-card-grid {
+  grid-template-columns: minmax(100px, 1fr) auto;
+}
+
+.group-card:hover .count-label {
+  display: none;
 }
 
 .cash-card {

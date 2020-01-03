@@ -90,6 +90,7 @@ class GroupController extends Controller
 		
 		return response()->json(array(
 			'success' => true,
+			'type' => 'group',
 			'group' => $group->toJson(),
 			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml

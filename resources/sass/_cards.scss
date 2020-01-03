@@ -99,7 +99,8 @@ span.card-tag {
 // GROUPS
 .group-card {
 	background: rgba(255,255,255,0.4);
-	line-height: 20px;
+	line-height: 30px;
+	padding: 1em;
 
 	.count-label {
 		text-align: center;
@@ -109,11 +110,43 @@ span.card-tag {
 		border-radius: 10px;
 		line-height: 20px;
 	}
-}
-.group-card-grid {	
-	padding: 1em;
-	display: grid;
-	grid-template-columns: minmax(100px, 1fr) 20px;
+	
+	.group-card-grid {	
+		display: grid;
+		grid-template-columns: minmax(100px, 1fr) 20px;
+	}
+
+	.groupTools {
+		display: none;
+
+		i {
+			font-size: 16px;
+			border-radius: 20px;
+			padding: 5px;		
+			cursor: pointer;		
+			transition: 200ms ease all;
+
+			&:hover {
+				color: $black;
+				background-color: rgba(0,0,0,0.2);
+			}
+
+		}
+	}
+	
+	&:hover {
+		.groupTools {
+			display: block;
+		}
+
+		.group-card-grid {	
+			grid-template-columns: minmax(100px, 1fr) auto;
+		}
+
+		.count-label {
+			display: none;
+		}
+	}
 }
 
 // CASH

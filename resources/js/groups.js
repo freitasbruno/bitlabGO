@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {
+		if ($(e.target).closest(".groupTools").length) { return };
 		let type = $(this).attr('data-type');
 		let id = $(this).attr('data-id');
 		console.log(type + " group: " + id);
@@ -66,12 +67,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			render(response);
 			
 			let selected = $(".filter-link.selected");
-			let itemType = $(selected).attr('data-url');
-			console.log('itemType = ' + itemType);
-
-			getItems (itemType);
+			
+			if (selected.length) {
+				let itemType = $(selected).attr('data-url');
+				console.log('itemType = ' + itemType);
+	
+				getItems (itemType);
+			}
 		});
 
 	});
+	
+	// GROUP ACTIONS
+    $(document).on('click', '.group-card-action', function(e) {
+		let action = $(this).attr('data-action');
+		let groupId = $(this).closest(".group-card").attr('data-id');
+		console.log(action + " group " + groupId);
 
+		switch (action) {
+			case 'open':
+				getGroup(groupId).done(function(response) {
+					renderModal(response);
+				}); 		       
+				break;
+		
+			default:
+				break;
+		}
+	});
 });
