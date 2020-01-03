@@ -1,71 +1,105 @@
-
-document.addEventListener("DOMContentLoaded", function(event) {
-
-});
-
-function render (response) {		
-	$("#main-container").html('');
-	$(response.html).hide().appendTo($("#main-container")).fadeIn("slow");
+function render (response) {	
 	
-	console.log(JSON.parse(response.items));
+	if (response.groups) {
+		$("#filter-container").html('');
+		$(response.html).hide().appendTo($("#filter-container")).fadeIn("slow");
+	} else if (response.items) {
+		$("#item-container").html('');
+		$(response.html).hide().appendTo($("#item-container")).fadeIn("slow");
+	}
+		
+	console.log(response);
+}
+
+function getCash () {		
+	return $.ajax({
+		url: "/cash",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		error: function(errorThrown) {
+			console.log("failed getting cash items");
+		}
+	});
+}
+
+function getTasks () {		
+	return $.ajax({
+		url: "/tasks",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		error: function(errorThrown) {
+			console.log("failed getting tasks");
+		}
+	});
+}
+	
+function getTimers () {		
+	return $.ajax({
+		url: "/timers",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		error: function(errorThrown) {
+			console.log("failed getting timers");
+		}
+	});
+}
+	
+function getBookmarks () {		
+	return $.ajax({
+		url: "/bookmarks",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		error: function(errorThrown) {
+			console.log("failed getting bookmarks");
+		}
+	});
+}
+
+function getItems (type) {
+	switch (type) {
+		case 'cash':				
+			getCash().done(function(response) {
+				render(response);
+			}); 
+			break;
+	
+		case 'tasks':
+			getTasks().done(function(response) {
+				render(response);
+			}); 
+			break;
+	
+		case 'timers':
+			getTimers().done(function(response) {
+				render(response);
+			}); 
+			break;
+	
+		case 'bookmarks':
+			getBookmarks().done(function(response) {
+				render(response);
+			}); 
+			break;
+	
+		default:
+			break;
+	}
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-	
-	let accountContainer = $("#account-container");
-	let accountId = 2;
 
-	function getCash () {		
-        return $.ajax({
-            url: "/cash",
-            method: "GET",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-			error: function(errorThrown) {
-                console.log("failed getting cash items");
-            }
-		});
-	}
-	
-	function getTasks () {		
-        return $.ajax({
-            url: "/tasks",
-            method: "GET",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-			error: function(errorThrown) {
-                console.log("failed getting tasks");
-            }
-		});
-	}
-		
-	function getTimers () {		
-        return $.ajax({
-            url: "/timers",
-            method: "GET",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-			error: function(errorThrown) {
-                console.log("failed getting timers");
-            }
-		});
-	}
-		
-	function getBookmarks () {		
-        return $.ajax({
-            url: "/bookmarks",
-            method: "GET",
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-            },
-			error: function(errorThrown) {
-                console.log("failed getting bookmarks");
-            }
-		});
-	}
+
+});
+
+document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Listen to Btn click
     $(".filter-link").click(function() {
@@ -75,56 +109,57 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-url');
 		console.log(itemType);
 		
-		switch (itemType) {
-			case 'cash':				
-				getCash(accountId).done(function(response) {
-					render(response);
-				}); 
-				break;
-		
-			case 'tasks':
-				getTasks().done(function(response) {
-					render(response);
-				}); 
-				break;
-		
-			case 'timers':
-				getTimers().done(function(response) {
-					render(response);
-				}); 
-				break;
-		
-			case 'bookmarks':
-				getBookmarks().done(function(response) {
-					render(response);
-				}); 
-				break;
-		
-			default:
-				break;
-		}
+		getItems (itemType);
 	});
+	
 });
 
-function openModal() {
-	$('#itemModal').fadeIn(500);
+function openModal(type) {
+	$('#' + type + 'Modal').fadeIn(500);
 
-	$(document).on('click', '#itemModal', function(e) {
+	$(document).on('click', '#' + type + 'Modal', function(e) {
 		if (!$(e.target).closest('.modal-dialog').length) {
-			closeModal();
+			closeModal(type);
 			$(document).off('click.modal-dialog');
 		}
 	});
 }
 
-function closeModal() {
-	$('#itemModal').fadeOut(500); 
+function closeModal(type = null) {
+	if (type) {
+		$('#' + type + 'Modal').fadeOut(500);
+	} else {
+		$('.modal').fadeOut(500);
+	}
 }
 
-function renderModal (response) {		
-	$("#itemModalContent").html('');
-	$(response.modalHtml).appendTo($("#itemModalContent"));
-	openModal();
+function renderModal (response) {
+	
+	if (response.type == "group") {
+		$("#groupModalContent").html('');
+		$(response.modalHtml).appendTo($("#groupModalContent"));
+		openModal('group');
+	} else {
+		$("#itemModalContent").html('');
+		$(response.modalHtml).appendTo($("#itemModalContent"));
+		openModal('item');
+	}
+}
+
+function newGroup () {		
+	return $.ajax({
+		url: "/groups/create",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting group form");
+		}
+	});
 }
 
 function newItem (type) {		
@@ -159,6 +194,25 @@ function getItem (type, itemId) {
 	});
 }
 
+function storeGroup () {	
+	return $.ajax({
+		url: "/groups",
+		method: "POST",
+		dataType: 'json',
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: $("#newGroupForm").serialize(),
+		success: function(response) {
+			console.log(response);
+		},
+		error: function(error) {
+			console.log("failed getting item");
+			console.log(error);
+		}
+	});
+}
+
 function storeItem (type) {	
 	return $.ajax({
 		url: "/" + type,
@@ -189,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log(type + " item: " + itemId);
 		
 		getItem(type, itemId).done(function(response) {
-			let item = JSON.parse(response.item);
 			renderModal(response);
 		}); 		       
 		
@@ -211,12 +264,40 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		
 	});
 
+	// GET GROUP FORM
+    $(document).on('click', '.newGroupBtn', function() {
+		if($('.groupForm').length) {	
+			$('#groupModal').fadeIn(500); 
+		} else {
+			newGroup().done(function(response) {				
+				$("#groupModalTitle").children("p").html("New group");
+				renderModal(response);
+			}); 		       
+		}		
+	});
+
+	// GET LOGIN FORM
+    $(document).on('click', '#loginBtn', function() {
+		openModal('login'); 		       
+	});
+
 	// CLOSE MODAL
     $(document).on('click', '.closeModalBtn', function() {
 		closeModal();		
 	});
 	
-	// SUBMIT FORM
+	// SUBMIT GROUP FORM
+    $(document).on('submit', '#newGroupForm', function() {
+		storeGroup().done(function(group) {
+			closeModal('group');
+			getGroups(group.id_parent).done(function(response) {
+				render(response);		
+			});
+		});
+		return false;
+	});
+	
+	// SUBMIT ITEM FORM
     $(document).on('submit', '#newItemForm', function() {
 
 		let type = $(this).find('[name="itemType"]').val();
@@ -232,6 +313,84 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 
 		return false;
+	});
+
+});
+
+
+function newGroup () {		
+	return $.ajax({
+		url: "/groups/create",
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting group form");
+		}
+	});
+}
+
+function getGroup (id) {		
+	return $.ajax({
+		url: "/groups/" + id,
+		method: "GET",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting group");
+		}
+	});
+}
+
+function getGroups (id = 0) {		
+	return $.ajax({
+		url: "/groups",
+		method: "GET",
+		data: {
+			id : id
+		},
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting groups");
+		}
+	});
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	getGroups().done(function(response) {
+		render(response);		
+	});
+	
+	// GET GROUP
+    $(document).on('click', '.group-card', function(e) {
+		let type = $(this).attr('data-type');
+		let id = $(this).attr('data-id');
+		console.log(type + " group: " + id);
+		
+		getGroups(id).done(function(response) {
+			render(response);
+			
+			let selected = $(".filter-link.selected");
+			let itemType = $(selected).attr('data-url');
+			console.log('itemType = ' + itemType);
+
+			getItems (itemType);
+		});
+
 	});
 
 });

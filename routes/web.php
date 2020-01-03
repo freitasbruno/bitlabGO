@@ -11,6 +11,7 @@
 |
 */
 
+use App\Models\Item;
 use App\Models\Items\Cash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -37,13 +38,21 @@ Route::group(['middleware' => ['auth']], function () {
 	
 	Route::resource('accounts', 'AccountController');
 	Route::post('accounts/getAccount', 'AccountController@getAccount');
+
+	Route::get('/session', function () {
+		$session = session()->all();
+		dd($session);
+	});
 });
 
 
 use App\Models\Items\Timer;
 
 Route::get('/test', function () {
-	$cash = Cash::where('id_user', Auth::user()->id)
-		->with('account.group')->get()->first();
+	$cash = Item::has('cash')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('cash')->get();
+			
 	dd($cash);
 });

@@ -1,12 +1,12 @@
-<div class="item-card task-card" data-id="{{ $task->id }}" data-type="tasks">
+<div class="item-card task-card" data-id="{{ $item->task->id }}" data-type="tasks">
 	<div class="task-card-grid">
 		<label class="checkboxLabel">
-			<input class="taskCheckbox {{ $task->complete ? 'taskComplete' : false}}" type="checkbox"
-				id="task-{{ $task->id }}" {{ $task->complete ? 'checked' : false}}>
-			<label class="checkboxLabel" for="task-{{ $task->id }}"></label>
+			<input class="taskCheckbox {{ $item->task->complete ? 'taskComplete' : false}}" type="checkbox"
+				id="task-{{ $item->task->id }}" {{ $item->task->complete ? 'checked' : false}}>
+			<label class="checkboxLabel" for="task-{{ $item->task->id }}"></label>
 		</label>
 		<p class="card-text-s">
-			{{ $task->item->name }}
+			{{ $item->name }}
 		</p>
 	</div>
 </div>

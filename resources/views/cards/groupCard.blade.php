@@ -1,8 +1,10 @@
-<div class="card mb-2">
-	<div class="d-flex justify-content-between p-2">
-		<a href="/home/{{ $group->id }}">{{ strToUpper($group->name) }}</a>
-		@component('components/itemTools')
-		{{ 'home/' . $group -> id }}
-		@endcomponent
+<div class="group-card"  data-id="{{ $group->id }}" data-type="groups">
+	<div class="group-card-grid">
+		<p class="card-text-s">
+			{{ strToUpper($group->name) }}
+		</p>
+		@if ($group->children->count() > 0)
+			<div class="count-label">{{ $group->children->count() }}</div>
+		@endif
 	</div>
 </div>

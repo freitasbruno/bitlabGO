@@ -69,7 +69,7 @@ class AccountController extends Controller
 		$returnHTML = view('panels.accountPanel')->with('account', $account)->render();
 		return response()->json(array(
 			'success' => true,
-			'items' => $account->cash->toJson(), 
+			'items' => $account->cash, 
 			'html' => $returnHTML));
 	}
 

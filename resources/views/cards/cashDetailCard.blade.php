@@ -1,8 +1,8 @@
-<div class="container" data-id="{{ $cash->id }}" data-type="cash">
+<div class="container" data-id="{{ $item->cash->id }}" data-type="cash">
 
 	<div class="main-card-detail-grid">
 		<div>
-			@if ($cash -> type == 'expense')					
+			@if ($item->cash -> type == 'expense')					
 				<span class="icon-expense">
 					<img class="icon-25" src="/images/prototype/cash-arrow-down.svg" alt="Expense"></a>
 				</span>				
@@ -13,17 +13,17 @@
 			@endif
 		</div>
 		<div>
-			<p class="card-text-l">€{{ $cash->amount }}</p>
+			<p class="card-text-l">€{{ $item->cash->amount }}</p>
 		</div>
 		<div></div>
 		<div>
-			<p class="card-text-s">{{ $cash->item->name }}</p>	
+			<p class="card-text-s">{{ $item->name }}</p>	
 			<br>		
-			<p class="card-text-s">{{ $cash->account->group->name }}</p>
-			<p class="card-text-xs">{{ $cash->item->description }}</p>
+			<p class="card-text-s">{{ $item->cash->account->group->name }}</p>
+			<p class="card-text-xs">{{ $item->description }}</p>
 		</div>
 	</div>
 
-	@include('cards.cardDetails', ['item' => $cash->item])
+	@include('cards.itemCardDetails', ['item' => $item])
 	
 </div>

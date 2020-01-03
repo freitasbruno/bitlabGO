@@ -16,13 +16,15 @@ class TaskController extends Controller
      */
     public function index()
     {
-		$tasks = Task::where('id_user', Auth::user()->id)
-			->with('item')->get();
+		$items = Item::has('task')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('task')->get();
 		
-		$returnHTML = view('panels.tasksPanel')->with('tasks', $tasks)->render();
+		$returnHTML = view('panels.tasksPanel')->with('items', $items)->render();
 		return response()->json(array(
 			'success' => true,
-			'items' => $tasks->toJson(), 
+			'items' => $items, 
 			'html' => $returnHTML));
     }
 
@@ -74,11 +76,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-		$cardHtml = view('cards.taskCard')->with('task', $task)->render();
-		$modalHtml = view('cards.taskDetailCard')->with('task', $task)->render();
+		$cardHtml = view('cards.taskCard')->with('item', $task->item)->render();
+		$modalHtml = view('cards.taskDetailCard')->with('item', $task->item)->render();
 		return response()->json(array(
 			'success' => true,
-			'item' => $task->toJson(), 
+			'item' => $task->item, 
 			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml
 		));

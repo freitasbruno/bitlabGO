@@ -11,7 +11,7 @@
 	</div>
 	<div class="cardScrollbar">
 		<div class="card-container">
-			@each('cards.cashCard', $cash, 'cash')
+			@each('cards.cashCard', $items, 'item')
 		</div>
 		<div class="force-overflow"></div>	
 	</div>

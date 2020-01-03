@@ -57,6 +57,7 @@
 								@csrf
 							</form>						
 						</li>						
+						<li id="session-details"><a href="/session">Session</a></li>						
 					</ul>
 				</div>
 				@endauth

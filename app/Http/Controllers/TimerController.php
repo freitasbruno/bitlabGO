@@ -16,13 +16,15 @@ class TimerController extends Controller
      */
     public function index()
     {
-		$timers = Timer::where('id_user', Auth::user()->id)
-			->with('item')->get();
+		$items = Item::has('timer')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('timer')->get();
 		
-		$returnHTML = view('panels.timersPanel')->with('timers', $timers)->render();
+		$returnHTML = view('panels.timersPanel')->with('items', $items)->render();
 		return response()->json(array(
 			'success' => true,
-			'items' => $timers->toJson(), 
+			'items' => $items, 
 			'html' => $returnHTML));
     }
 
@@ -75,11 +77,11 @@ class TimerController extends Controller
      */
     public function show(Timer $timer)
     {
-		$cardHtml = view('cards.timerCard')->with('timer', $timer)->render();
-		$modalHtml = view('cards.timerDetailCard')->with('timer', $timer)->render();
+		$cardHtml = view('cards.timerCard')->with('item', $timer->item)->render();
+		$modalHtml = view('cards.timerDetailCard')->with('item', $timer->item)->render();
 		return response()->json(array(
 			'success' => true,
-			'item' => $timer->toJson(), 
+			'item' => $timer->item, 
 			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml
 		));

@@ -1,4 +1,4 @@
-#main-navbar {
+#main-navbar, #welcome-navbar {
 	
 	line-height: $navbar-height;
 	background: $navbar-color;	
@@ -59,6 +59,26 @@
 		
 		.navbar-right:hover .navbar-menu {
 			display: block;
+		}
+	}
+}
+
+#welcome-navbar {
+
+	.navbar-container {
+		display: grid;
+		grid-template-columns: 500px 1fr 500px;
+
+		.navbar-left {
+			text-align: left;
+		}
+
+		.navbar-right {
+			text-align: right;
+
+			a {
+				padding-left: 0.5em;
+			}
 		}
 	}
 }

@@ -18,13 +18,15 @@ class CashController extends Controller
      */
     public function index()
     {
-		$cash = Cash::where('id_user', Auth::user()->id)
-			->with('account.group')->get();
+		$items = Item::has('cash')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('cash')->get();
 			
-		$returnHTML = view('panels.cashPanel')->with('cash', $cash)->render();
+		$returnHTML = view('panels.cashPanel')->with('items', $items)->render();
 		return response()->json(array(
 			'success' => true,
-			'items' => $cash->toJson(), 
+			'items' => $items, 
 			'html' => $returnHTML));
     }
 
@@ -81,11 +83,11 @@ class CashController extends Controller
      */
     public function show(Cash $cash)
     {		
-		$cardHtml = view('cards.cashCard')->with('cash', $cash)->render();
-		$modalHtml = view('cards.cashDetailCard')->with('cash', $cash)->render();
+		$cardHtml = view('cards.cashCard')->with('item', $cash->item)->render();
+		$modalHtml = view('cards.cashDetailCard')->with('item', $cash->item)->render();
 		return response()->json(array(
 			'success' => true,
-			'item' => $cash->toJson(), 
+			'item' => $cash->item, 
 			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml
 		));

@@ -16,13 +16,15 @@ class BookmarkController extends Controller
 	 */
 	public function index()
 	{
-		$bookmarks = Bookmark::where('id_user', Auth::user()->id)
-			->with('item')->get();
+		$items = Item::has('bookmark')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('bookmark')->get();
 		
-		$returnHTML = view('panels.bookmarksPanel')->with('bookmarks', $bookmarks)->render();
+		$returnHTML = view('panels.bookmarksPanel')->with('items', $items)->render();
 		return response()->json(array(
 			'success' => true,
-			'items' => $bookmarks->toJson(), 
+			'items' => $items, 
 			'html' => $returnHTML));
 	}
 
@@ -77,11 +79,11 @@ class BookmarkController extends Controller
 	 */
 	public function show(Bookmark $bookmark)
 	{
-		$cardHtml = view('cards.bookmarkCard')->with('bookmark', $bookmark)->render();
-		$modalHtml = view('cards.bookmarkDetailCard')->with('bookmark', $bookmark)->render();
+		$cardHtml = view('cards.bookmarkCard')->with('item', $bookmark->item)->render();
+		$modalHtml = view('cards.bookmarkDetailCard')->with('item', $bookmark->item)->render();
 		return response()->json(array(
 			'success' => true,
-			'item' => $bookmark->toJson(), 
+			'item' => $bookmark->item, 
 			'cardHtml' => $cardHtml,
 			'modalHtml' => $modalHtml
 		));

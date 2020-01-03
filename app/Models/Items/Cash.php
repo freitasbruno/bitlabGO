@@ -42,10 +42,11 @@ class Cash extends Item
 	}
 	
 	/**
-     * Get the parent group of a group.
+     * Get the parent account of a cash item.
      */
     public function account()
     {
         return $this->belongsTo('App\Models\Account', 'id_account');
 	}
+
 }

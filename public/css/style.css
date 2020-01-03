@@ -17,6 +17,18 @@ body {
 
 #main-container {
   height: calc(100vh - 60px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media only screen and (max-width: 600px) {
+  #main-container {
+    grid-template-columns: 1fr;
+  }
+
+  #filter-container {
+    display: none;
+  }
 }
 
 .cash-form-grid {
@@ -137,7 +149,7 @@ input[type=password] {
 
 .label {
   color: #808080;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: normal;
   pointer-events: none;
   position: absolute;
@@ -257,7 +269,8 @@ p.card-text-xs {
   color: #609b30;
 }
 
-#main-navbar {
+#main-navbar,
+#welcome-navbar {
   line-height: 60px;
   background: rgba(255, 255, 255, 0.3);
   margin: 0;
@@ -266,20 +279,25 @@ p.card-text-xs {
   text-align: center;
 }
 
-#main-navbar .navbar-container {
+#main-navbar .navbar-container,
+#welcome-navbar .navbar-container {
   display: grid;
   grid-template-columns: 200px 1fr minmax(30px, 200px);
   height: 60px;
 }
 
 #main-navbar .navbar-container .navbar-left,
-#main-navbar .navbar-container .navbar-right {
+#main-navbar .navbar-container .navbar-right,
+#welcome-navbar .navbar-container .navbar-left,
+#welcome-navbar .navbar-container .navbar-right {
   color: #f3f3f3;
   margin-top: 5px;
 }
 
 #main-navbar .navbar-container .navbar-left i,
-#main-navbar .navbar-container .navbar-right i {
+#main-navbar .navbar-container .navbar-right i,
+#welcome-navbar .navbar-container .navbar-left i,
+#welcome-navbar .navbar-container .navbar-right i {
   font-size: 24px;
   border-radius: 50%;
   padding: 5px;
@@ -290,24 +308,31 @@ p.card-text-xs {
 #main-navbar .navbar-container .navbar-left i:hover,
 #main-navbar .navbar-container .navbar-left i.selected,
 #main-navbar .navbar-container .navbar-right i:hover,
-#main-navbar .navbar-container .navbar-right i.selected {
+#main-navbar .navbar-container .navbar-right i.selected,
+#welcome-navbar .navbar-container .navbar-left i:hover,
+#welcome-navbar .navbar-container .navbar-left i.selected,
+#welcome-navbar .navbar-container .navbar-right i:hover,
+#welcome-navbar .navbar-container .navbar-right i.selected {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-#main-navbar .navbar-container .navbar-center {
+#main-navbar .navbar-container .navbar-center,
+#welcome-navbar .navbar-container .navbar-center {
   color: #ffffff;
   font-size: 1.5em;
 }
 
-#main-navbar .navbar-container .navbar-right {
+#main-navbar .navbar-container .navbar-right,
+#welcome-navbar .navbar-container .navbar-right {
   padding-left: 160px;
   position: relative;
   display: inline-block;
   cursor: pointer;
 }
 
-#main-navbar .navbar-container .navbar-right .navbar-menu {
+#main-navbar .navbar-container .navbar-right .navbar-menu,
+#welcome-navbar .navbar-container .navbar-right .navbar-menu {
   display: none;
   position: absolute;
   background-color: #EEE;
@@ -321,8 +346,26 @@ p.card-text-xs {
   list-style: none;
 }
 
-#main-navbar .navbar-container .navbar-right:hover .navbar-menu {
+#main-navbar .navbar-container .navbar-right:hover .navbar-menu,
+#welcome-navbar .navbar-container .navbar-right:hover .navbar-menu {
   display: block;
+}
+
+#welcome-navbar .navbar-container {
+  display: grid;
+  grid-template-columns: 500px 1fr 500px;
+}
+
+#welcome-navbar .navbar-container .navbar-left {
+  text-align: left;
+}
+
+#welcome-navbar .navbar-container .navbar-right {
+  text-align: right;
+}
+
+#welcome-navbar .navbar-container .navbar-right a {
+  padding-left: 0.5em;
 }
 
 @media only screen and (max-width: 600px) {
@@ -340,6 +383,7 @@ p.card-text-xs {
 }
 
 .card-deck {
+  width: 90%;
   max-width: 480px;
   padding: 0em 0.5em 0em 1em;
   height: calc(100vh - 60px);
@@ -402,7 +446,8 @@ p.card-text-xs {
   font-size: 30px;
 }
 
-.item-card {
+.item-card,
+.group-card {
   margin-bottom: 0.75em;
   color: #787878;
   background: #ffffff;
@@ -411,7 +456,11 @@ p.card-text-xs {
 }
 
 .item-card:hover,
-.item-card a:hover {
+.item-card a:hover,
+.item-card.selected,
+.group-card:hover,
+.group-card a:hover,
+.group-card.selected {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
   background: #EDEDED;
   text-decoration: none;
@@ -422,7 +471,12 @@ p.card-text-xs {
 .item-card p.card-text-l,
 .item-card p.card-text-m,
 .item-card p.card-text-s,
-.item-card p.card-text-xs {
+.item-card p.card-text-xs,
+.group-card p.card-text-xl,
+.group-card p.card-text-l,
+.group-card p.card-text-m,
+.group-card p.card-text-s,
+.group-card p.card-text-xs {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -433,6 +487,26 @@ span.card-tag {
   background: #55CFBF;
   border-radius: 10px;
   padding: 2px 10px;
+}
+
+.group-card {
+  background: rgba(255, 255, 255, 0.4);
+  line-height: 20px;
+}
+
+.group-card .count-label {
+  text-align: center;
+  background: #ffffff;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  line-height: 20px;
+}
+
+.group-card-grid {
+  padding: 1em;
+  display: grid;
+  grid-template-columns: minmax(100px, 1fr) 20px;
 }
 
 .cash-card {
@@ -454,10 +528,6 @@ span.card-tag {
 
 .task-card-grid:hover {
   cursor: pointer;
-}
-
-.timer-card {
-  height: auto;
 }
 
 .timer-card-grid {
@@ -484,7 +554,9 @@ span.card-tag {
   padding: 2em;
 }
 
-#itemModal {
+#itemModal,
+#groupModal,
+#loginModal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -498,7 +570,9 @@ span.card-tag {
   /* Modal Content/Box */
 }
 
-#itemModal .modal-dialog {
+#itemModal .modal-dialog,
+#groupModal .modal-dialog,
+#loginModal .modal-dialog {
   color: #787878;
   background: #ffffff;
   margin: calc(50vh - 60px - 200px) auto;
@@ -507,12 +581,16 @@ span.card-tag {
   max-width: 600px;
 }
 
-#itemModal .modal-title {
+#itemModal .modal-title,
+#groupModal .modal-title,
+#loginModal .modal-title {
   line-height: 30px;
   vertical-align: middle;
 }
 
-#itemModal .close-modal-btn {
+#itemModal .close-modal-btn,
+#groupModal .close-modal-btn,
+#loginModal .close-modal-btn {
   float: right;
 }
 

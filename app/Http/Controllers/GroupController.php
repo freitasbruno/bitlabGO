@@ -7,8 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Group as Group;
 use App\Models\Item as Item;
 use App\Models\Items\Cash as Cash;
-use Auth;
-
+use Illuminate\Support\Facades\Auth;
 
 class GroupController extends Controller
 {
@@ -18,10 +17,29 @@ class GroupController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
-	{
+	public function index(Request $request)
+	{		
 		$user = Auth::user();
-		return redirect('home/' . $user->id_home);
+		if ($request->id) {
+			$currentGroup = Group::find($request->id);
+			$groups = Group::where('id_parent', $currentGroup->id)
+				->get();
+			session(['currentGroup' => $currentGroup]);			
+			
+		} else {
+			$groups = Group::where('id_parent', $user->id_home)
+				->get();
+		}
+
+		$groupHierarchy = session('currentGroup')->buildHierarchy();
+
+		$returnHTML = view('panels.groupPanel')->with(['groups' => $groups, 'breadcrumbs' => $groupHierarchy])->render();
+		return response()->json(array(
+			'success' => true,
+			'id' => $request->id,
+			'groups' => $groups,
+			'breadcrumbs' => $groupHierarchy,
+			'html' => $returnHTML));
 	}
 
 	/**
@@ -31,7 +49,11 @@ class GroupController extends Controller
 	 */
 	public function create()
 	{
-		//
+		$html = view('forms.groupForm')->render();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'group',
+			'modalHtml' => $html));
 	}
 
 	/**
@@ -42,14 +64,17 @@ class GroupController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$group = new Group;
-		$group->id_parent = session('currentGroup')->id ?? 0;
-		$group->id_user = Auth::user()->id;
-		$group->name = $request->get('groupName');
-		$group->description = $request->get('groupDescription');
-		$group->save();
+		$id_user = Auth::user()->id;
+		$currentGroup = session('currentGroup')->id;
 
-		return back();
+		$group = Group::create([
+			'id_user' => $id_user,
+			'id_parent' => $currentGroup,
+			'name' => $request->name,
+			'description' => $request->description
+		]);
+
+		return response()->json($group);
 	}
 
 	/**
@@ -58,9 +83,18 @@ class GroupController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show($id)
+	public function show(Group $group)
 	{
-		$group = Group::find($id);
+		$cardHtml = view('cards.groupCard')->with('group', $group)->render();
+		$modalHtml = view('cards.groupDetailCard')->with('group', $group)->render();
+		
+		return response()->json(array(
+			'success' => true,
+			'group' => $group->toJson(),
+			'cardHtml' => $cardHtml,
+			'modalHtml' => $modalHtml
+		));
+
 		$groups = $group->getChildren();
 		$groupHierarchy = $group->buildHierarchy();
 
