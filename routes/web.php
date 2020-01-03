@@ -25,6 +25,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 	Route::resource('home', 'HomeController');
 	Route::resource('groups', 'GroupController');
+	Route::post('groups/current', 'GroupController@updateCurrentGroup');
 	
 	Route::resource('cash', 'CashController');
 

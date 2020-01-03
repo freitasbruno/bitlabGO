@@ -51,13 +51,19 @@
 						<li>
 							<a href="{{ route('logout') }}" onclick="event.preventDefault();
 										document.getElementById('logout-form').submit();">
+										<i class="material-icons-outlined group-card-action" data-action="logout">exit_to_app</i>
 										{{ __('Logout') }}
 							</a>							
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 								@csrf
 							</form>						
 						</li>						
-						<li id="session-details"><a href="/session">Session</a></li>						
+						<li id="session-details">
+							<a href="/session">
+								<i class="material-icons-outlined group-card-action" data-action="session">data_usage</i>
+								Session
+							</a>
+						</li>						
 					</ul>
 				</div>
 				@endauth

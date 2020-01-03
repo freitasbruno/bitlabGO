@@ -121,10 +121,30 @@ class GroupController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Group $group)
 	{
-		$group = Group::find($id);
 		$group->delete();
-		return back();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'group',
+			'group' => $group->toJson()
+		));
 	}
+	
+	/**
+     * Update the current group.
+     *
+     */	
+    public function updateCurrentGroup()
+    {
+		$groupId = $_POST['id'];
+
+		$group = Group::find($groupId);
+		session(['currentGroup' => $group]);
+
+        return response()->json(array(
+			'success' => true,
+			'group' => $group->toJson()
+		));
+    }
 }

@@ -31,6 +31,41 @@ function getGroup (id) {
 	});
 }
 
+function deleteGroup (id) {		
+	return $.ajax({
+		url: "/groups/" + id,
+		method: "DELETE",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed deleting group");
+		}
+	});
+}
+
+function updateCurrentGroup (id) {		
+	return $.ajax({
+		url: "/groups/current",
+		method: "POST",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			id : id
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed updating current group");
+		}
+	});
+}
+
 function getGroups (id = 0) {		
 	return $.ajax({
 		url: "/groups",
@@ -58,13 +93,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {
+
 		if ($(e.target).closest(".groupTools").length) { return };
-		let type = $(this).attr('data-type');
+
 		let id = $(this).attr('data-id');
-		console.log(type + " group: " + id);
-		
-		getGroups(id).done(function(response) {
-			render(response);
+		let groupCard = $(this);
+		console.log("group: " + id);
+
+		updateCurrentGroup(id).done(function(response) {
+			$(".group-card").removeClass("selected");
+			groupCard.addClass("selected");
 			
 			let selected = $(".filter-link.selected");
 			
@@ -81,13 +119,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GROUP ACTIONS
     $(document).on('click', '.group-card-action', function(e) {
 		let action = $(this).attr('data-action');
-		let groupId = $(this).closest(".group-card").attr('data-id');
+		let groupCard = $(this).closest(".group-card");
+		let groupId = groupCard.attr('data-id');
 		console.log(action + " group " + groupId);
 
 		switch (action) {
 			case 'open':
 				getGroup(groupId).done(function(response) {
 					renderModal(response);
+				}); 		       
+				break;
+
+			case 'delete':
+				deleteGroup(groupId).done(function(response) {
+					groupCard.remove();
 				}); 		       
 				break;
 		
