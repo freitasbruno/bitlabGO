@@ -11,6 +11,32 @@ class Item extends Model
 	use SoftDeletes;
 	
 	/**
+	 * The class names of item types.
+	 *
+	 * @var array
+	 */
+	public static function getClassName($type) {
+		$className = null;
+		switch ($type) {
+			case 'bookmarks':
+				$className = 'Bookmark';
+				break;
+			case 'cash':
+				$className = 'Cash';
+				break;
+			case 'tasks':
+				$className = 'Task';
+				break;
+			case 'timers':
+				$className = 'Timer';
+				break;			
+			default:
+				break;
+		}
+		return $className;
+	}
+	
+	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array

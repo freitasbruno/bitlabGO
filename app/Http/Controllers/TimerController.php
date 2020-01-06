@@ -110,9 +110,27 @@ class TimerController extends Controller
      * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Timer $timer)
-    {
-        //
+	public function update(Request $request, Timer $timer)
+	{		
+		$field = $request->get('field');
+		$content = $request->get($field);
+
+		if ($field == 'name' || $field == 'description') {
+			$timer->item->$field = $content;
+			$timer->item->save();
+		} else {
+			$timer->$field = $content;
+			$timer->save();
+		}
+
+		$modalHtml = view('cards.timerDetailCard')->with('item', $timer->item)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'timer' => $timer->toJson(),
+			'modalHtml' => $modalHtml
+		));
 	}
 	
 	/**
@@ -136,12 +154,35 @@ class TimerController extends Controller
      * @param  \App\Timer  $timer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Timer $timer)
     {
-        $timer = Timer::find($id);
-        $item = Item::find($timer->id_parent);
 		$timer->delete();
-		$item->delete();
-        return back();
-    }
+		return response()->json(array(
+			'success' => true,
+			'type' => 'timer',
+			'timer' => $timer->toJson()
+		));
+	}
+	
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm(Timer $timer)
+    {
+		$field = $_POST['field'];
+
+		if ($field == 'name' || $field == 'description') {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $timer->item->$field])->render();
+		} else {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $timer->$field])->render();
+		}
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'timer',
+			'field' => $field,
+			'html' => $html
+		));
+	}
 }

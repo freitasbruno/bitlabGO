@@ -15,8 +15,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Toggle Task
     $(document).on('change', ".taskCheckbox" , function() {
-		let taskId = $(this).closest(".task-card").attr('data-id');	
+		let element = $(this);
+		let taskId = $(this).attr('data-id');	
 		toggleTask(taskId).done(function(response) {
+			if (!element.closest(".task-card").length) {
+				getItems('tasks');
+			}	
 			console.log($(this));	
 		});
 	});

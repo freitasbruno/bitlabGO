@@ -112,15 +112,27 @@ class BookmarkController extends Controller
 	 * @param  \App\Bookmark  $bookmark
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, int $id)
-	{
-		$item = Bookmark::find($id);
-		$item->url = $request->get('url');
-		$item->save();
+	public function update(Request $request, Bookmark $bookmark)
+	{		
+		$field = $request->get('field');
+		$content = $request->get($field);
 
-		$id_parent = session('currentGroup')->id ?? null;
-		// load the view and pass the groups
-		return redirect('home/' . $id_parent);
+		if ($field == 'name' || $field == 'description') {
+			$bookmark->item->$field = $content;
+			$bookmark->item->save();
+		} else {
+			$bookmark->$field = $content;
+			$bookmark->save();
+		}
+
+		$modalHtml = view('cards.bookmarkDetailCard')->with('item', $bookmark->item)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'bookmark',
+			'bookmark' => $bookmark->toJson(),
+			'modalHtml' => $modalHtml
+		));
 	}
 
 	/**
@@ -128,12 +140,35 @@ class BookmarkController extends Controller
 	 *
      * @param  int  $id
 	 */
-	public function destroy(int $id)
+	public function destroy(Bookmark $bookmark)
 	{
-		$bookmark = Bookmark::find($id);
-		$item = Item::find($bookmark->id_parent);
 		$bookmark->delete();
-		$item->delete();
-		return back();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'bookmark',
+			'bookmark' => $bookmark->toJson()
+		));
+	}
+
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm(Bookmark $bookmark)
+    {
+		$field = $_POST['field'];
+
+		if ($field == 'name' || $field == 'description') {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $bookmark->item->$field])->render();
+		} else {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $bookmark->$field])->render();
+		}
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'bookmark',
+			'field' => $field,
+			'html' => $html
+		));
 	}
 }

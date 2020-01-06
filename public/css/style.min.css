@@ -686,6 +686,34 @@ span.card-tag {
   vertical-align: middle;
 }
 
+.modal-menu-container {
+  position: relative;
+}
+
+.itemTools {
+  display: none;
+  position: absolute;
+  width: 120px;
+  text-align: left;
+  background-color: #EEE;
+  color: #808080;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 1;
+  right: 0px;
+  margin: 0;
+  list-style: none;
+  cursor: pointer;
+}
+
+.itemTools li {
+  padding: 10px;
+}
+
+.itemTools li:hover {
+  color: #000000;
+}
+
 .icon-10 {
   width: 10px;
 }

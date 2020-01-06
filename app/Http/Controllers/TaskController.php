@@ -109,14 +109,27 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id)
-    {
-		$task = Task::find($id);
-		$item = Item::find($task->id_parent);
-		$item->name = $request->get('name');
-		$item->save();
+	public function update(Request $request, Task $task)
+	{		
+		$field = $request->get('field');
+		$content = $request->get($field);
 
-        return back();
+		if ($field == 'name' || $field == 'description') {
+			$task->item->$field = $content;
+			$task->item->save();
+		} else {
+			$task->$field = $content;
+			$task->save();
+		}
+
+		$modalHtml = view('cards.taskDetailCard')->with('item', $task->item)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'task' => $task->toJson(),
+			'modalHtml' => $modalHtml
+		));
 	}
 
 	/**
@@ -139,12 +152,35 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Task $task)
     {
-		$task = Task::find($id);
-		$item = Item::find($task->id_parent);
 		$task->delete();
-		$item->delete();
-        return back();
-    }
+		return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'task' => $task->toJson()
+		));
+	}
+			
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm(Task $task)
+    {
+		$field = $_POST['field'];
+
+		if ($field == 'name' || $field == 'description') {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $task->item->$field])->render();
+		} else {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $task->$field])->render();
+		}
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'field' => $field,
+			'html' => $html
+		));
+	}
 }

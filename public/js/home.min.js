@@ -116,12 +116,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function openModal(type) {
+	$('.itemTools').hide();
 	$('#' + type + 'Modal').fadeIn(500);
 
 	$(document).on('click', '#' + type + 'Modal', function(e) {
+		
 		if (!$(e.target).closest('.modal-dialog').length) {
 			closeModal(type);
 			$(document).off('click.modal-dialog');
+		}
+		if (!$(e.target).closest('.modal-menu-container').length) {
+			$('.itemTools').hide();
 		}
 	});
 }
@@ -132,7 +137,7 @@ function closeModal(type = null) {
 	} else {
 		$('.modal').fadeOut(500);
 	}
-	$('.modal-title').html('');
+	$('.modal-title').html('');	
 }
 
 function renderModal (response) {
@@ -196,6 +201,26 @@ function getItem (type, itemId) {
 	});
 }
 
+function moveItem (type, id) {		
+	console.log("Move " + type + " with ID: " + id);
+}
+
+function deleteItem (type, id) {		
+	return $.ajax({
+		url: "/" + type + "/" + id,
+		method: "DELETE",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting item");
+		}
+	});
+}
+
 function storeGroup () {	
 	return $.ajax({
 		url: "/groups",
@@ -236,14 +261,13 @@ function storeItem (type) {
 
 function getFieldForm (type, id, field) {		
 	return $.ajax({
-		url: "/" + type + "/getForm",
+		url: "/" + type + "/getForm/" + id,
 		method: "POST",
 		dataType: 'json',
 		headers: {
 			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
 		},
 		data: {
-			id : id,
 			field : field
 		},
 		success: function(response) {
@@ -255,7 +279,7 @@ function getFieldForm (type, id, field) {
 	});
 }
 
-function submitFieldForm (type, id, field) {		
+function submitFieldForm (type, id) {		
 	return $.ajax({
 		url: "/" + type + "/" + id,
 		method: "PUT",
@@ -366,13 +390,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		getFieldForm(type, id, field).done(function(response) {
 			element.replaceWith(response.html);
-			console.log(response);		
+			let input = container.find(".form-field-control");
+			let content = input.val();
+			input.focus();
+			input.val('');
+			input.val(content);
 		});
 		console.log("Edit " + field + " of " + type + " with id " + id);
 	});
 	
 	// SUBMIT FIELD FORM
-
     $(document).on('focusout', '.form-field-control', function() {
 		let element = $(this);
 		let container = element.closest('.container');
@@ -380,11 +407,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let type = container.attr('data-type');
 		let id = container.attr('data-id');
 
-		submitFieldForm(type, id, field).done(function(response) {
+		submitFieldForm(type, id).done(function(response) {
+			if (response.type == 'group') {
+				getGroups().done(function(response) {
+					render(response);		
+				});
+			} else {
+				getItems (type);
+			}
 			renderModal(response);
-			console.log(response);		
 		});
 		console.log("Submit " + field + " of " + type + " with id " + id);
+	});
+		
+	// SHOW MODAL TOOLS
+    $(document).on('click', '.itemToolsBtn', function() {
+		$(this).parent().children('.itemTools').toggle();
+	});
+		
+	// MODAL TOOLS ACTIONS
+    $(document).on('click', '.item-card-action', function() {
+		let container = $(this).closest("#itemModal").find('.container');
+		let type = container.attr('data-type');
+		let id = container.attr('data-id');
+		let action = $(this).attr('data-action');
+
+		switch (action) {
+			case 'move':
+				moveItem (type, id);
+				break;
+			case 'delete':
+				deleteItem (type, id).done( function(response) {
+					console.log(response);
+					getItems (type);
+					closeModal('item');
+				});
+				break;		
+			default:
+				break;
+		}
 	});
 });
 
@@ -562,8 +623,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     // Toggle Task
     $(document).on('change', ".taskCheckbox" , function() {
-		let taskId = $(this).closest(".task-card").attr('data-id');	
+		let element = $(this);
+		let taskId = $(this).attr('data-id');	
 		toggleTask(taskId).done(function(response) {
+			if (!element.closest(".task-card").length) {
+				getItems('tasks');
+			}	
 			console.log($(this));	
 		});
 	});

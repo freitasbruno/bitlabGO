@@ -112,37 +112,70 @@ class CashController extends Controller
 		return view('editCash', ['item' => $item, 'cash' => $cash, 'accounts' => $accounts]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cash  $cash
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-		$item = Cash::find($id);
-		$item->amount = $request->get('amount');
-		$item->type = $request->get('type');
-		$item->currency = $request->get('currency');
-		$item->save();
-		
-		$id_parent = session('currentGroup')->id ?? null;
-        // load the view and pass the groups
-        return redirect('home/' . $id_parent);
-    }
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, Cash $cash)
+	{		
+		$field = $request->get('field');
+		$content = $request->get($field);
+
+		if ($field == 'name' || $field == 'description') {
+			$cash->item->$field = $content;
+			$cash->item->save();
+		} else {
+			$cash->$field = $content;
+			$cash->save();
+		}
+
+		$modalHtml = view('cards.cashDetailCard')->with('item', $cash->item)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'cash',
+			'cash' => $cash->toJson(),
+			'modalHtml' => $modalHtml
+		));
+	}
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      */
-    public function destroy($id)
+    public function destroy(Cash $cash)
     {
-		$cash = Cash::find($id);
-		$item = Item::find($cash->id_parent);
 		$cash->delete();
-		$item->delete();
-		return back();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'cash',
+			'cash' => $cash->toJson()
+		));
+	}
+		
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm(Cash $cash)
+    {
+		$field = $_POST['field'];
+
+		if ($field == 'name' || $field == 'description') {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $cash->item->$field])->render();
+		} else {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $cash->$field])->render();
+		}
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'cash',
+			'field' => $field,
+			'html' => $html
+		));
 	}
 }

@@ -158,12 +158,9 @@ class GroupController extends Controller
      * Get a form to update a specific field.
      *
      */	
-    public function getForm()
+    public function getForm(Group $group)
     {
-		$id = $_POST['id'];
 		$field = $_POST['field'];
-
-		$group = Group::find($id);
 
 		$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $group->$field])->render();
 		

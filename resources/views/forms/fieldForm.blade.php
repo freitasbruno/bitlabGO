@@ -7,6 +7,9 @@
 				@case('description')
 				@include('forms.fields.description')
 					@break
+				@case('amount')
+				@include('forms.fields.amount')
+					@break
 				@default				
 			@endswitch	
 	</div>
