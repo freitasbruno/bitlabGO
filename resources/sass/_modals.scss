@@ -47,13 +47,12 @@
 	padding: 0em 0em 1.5em;
 	display: grid;
 	grid-template-columns: 2.5em minmax(100px, 1fr);
-	grid-template-rows: 30px 1fr;	
+	row-gap: 0.5em;
 }
 
 .card-detail-grid {
 	display: grid;
 	grid-template-columns: 2.5em minmax(100px, 1fr);
-	grid-template-rows: 30px 30px 30px;	
 	grid-row-gap: 10px;
 
 	p {

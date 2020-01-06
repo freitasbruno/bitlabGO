@@ -96,8 +96,18 @@ form :after {
   margin: 15px 0;
 }
 
-textarea {
-  resize: none;
+.formContent {
+  position: relative;
+}
+
+.fieldForm > .formContent > textarea {
+  padding-right: 40px;
+  height: 5em;
+  -ms-overflow-style: none;
+}
+
+.fieldForm > .formContent > textarea::-webkit-scrollbar {
+  display: none;
 }
 
 input,
@@ -112,6 +122,8 @@ select {
   border: none;
   border-radius: 0;
   border-bottom: 1px solid #808080;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 input:focus,
@@ -137,6 +149,22 @@ select:focus ~ .bar:before {
   width: 100%;
 }
 
+input:focus ~ .submitFormBtn,
+textarea:focus ~ .submitFormBtn,
+select:focus ~ .submitFormBtn {
+  display: block;
+}
+
+textarea {
+  resize: vertical;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.8em;
+}
+
+input.form-field-control {
+  padding: 0px;
+}
+
 /* Remove focus */
 
 select:focus {
@@ -155,7 +183,7 @@ input[type=password] {
   position: absolute;
   left: 5px;
   top: 10px;
-  transition: 300ms ease all;
+  transition: 1000ms ease all;
 }
 
 .bar {
@@ -171,7 +199,7 @@ input[type=password] {
   bottom: 0px;
   position: absolute;
   background: #55CFBF;
-  transition: 300ms ease all;
+  transition: 1000ms ease all;
   left: 0%;
 }
 
@@ -588,10 +616,6 @@ span.card-tag {
   width: 30px;
 }
 
-.cash-modal {
-  padding: 2em;
-}
-
 #itemModal,
 #groupModal,
 #loginModal {
@@ -648,13 +672,12 @@ span.card-tag {
   padding: 0em 0em 1.5em;
   display: grid;
   grid-template-columns: 2.5em minmax(100px, 1fr);
-  grid-template-rows: 30px 1fr;
+  row-gap: 0.5em;
 }
 
 .card-detail-grid {
   display: grid;
   grid-template-columns: 2.5em minmax(100px, 1fr);
-  grid-template-rows: 30px 30px 30px;
   grid-row-gap: 10px;
 }
 

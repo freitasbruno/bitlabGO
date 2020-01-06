@@ -103,16 +103,22 @@ class GroupController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
-	{
-		$group = Group::find($id);
-		$group->name = $request->get('groupName');
-		$group->description = $request->get('groupDescription');
+	public function update(Request $request, Group $group)
+	{		
+		$field = $request->get('field');
+		$content = $request->get($field);
+
+		$group->$field = $content;
 		$group->save();
 
-		$id_parent = session('currentGroup')->id ?? null;
-		// load the view and pass the groups
-		return redirect('home/' . $id_parent);
+		$modalHtml = view('cards.groupDetailCard')->with('group', $group)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'group',
+			'group' => $group->toJson(),
+			'modalHtml' => $modalHtml
+		));
 	}
 
 	/**
@@ -146,5 +152,28 @@ class GroupController extends Controller
 			'success' => true,
 			'group' => $group->toJson()
 		));
-    }
+	}
+	
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm()
+    {
+		$id = $_POST['id'];
+		$field = $_POST['field'];
+
+		$group = Group::find($id);
+
+		$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $group->$field])->render();
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'group',
+			'field' => $field,
+			'html' => $html
+		));
+	}
+	
+
 }

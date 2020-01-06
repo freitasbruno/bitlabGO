@@ -11,7 +11,7 @@
 	}
 }
 
-$trans-time: 300ms;
+$trans-time: 1000ms;
 
 // CHECKBOXES // ============================== //
 input[type="checkbox"] {
@@ -71,9 +71,20 @@ form {
 	margin: 15px 0;
 }
 
+.formContent {
+	position: relative;
+}
+
 // INPUTS // ============================== //
-textarea {
-	resize: none;
+
+.fieldForm > .formContent > textarea {
+	padding-right: 40px;	
+	height: 5em;
+
+	-ms-overflow-style: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }
 
 input,
@@ -88,6 +99,8 @@ select {
 	border: none;
 	border-radius: 0;
 	border-bottom: 1px solid $gray-50;
+	text-align: justify;
+  	text-justify: inter-word;
 	&:focus {
 		outline: none;
 	}
@@ -100,6 +113,19 @@ select {
 	&:focus ~ .bar:before {
 		width: 100%;
 	}
+	&:focus ~ .submitFormBtn {
+		display: block;
+	}
+}
+
+textarea {
+	resize: vertical;
+	font-family: "Nunito", sans-serif;
+	font-size: 0.8em;
+}
+
+input.form-field-control {
+	padding: 0px;
 }
 
 /* Remove focus */
@@ -186,4 +212,3 @@ input[type="password"] {
 	text-align: right;
 	margin: 15px 0;
 }
-

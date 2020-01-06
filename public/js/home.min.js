@@ -132,6 +132,7 @@ function closeModal(type = null) {
 	} else {
 		$('.modal').fadeOut(500);
 	}
+	$('.modal-title').html('');
 }
 
 function renderModal (response) {
@@ -233,6 +234,45 @@ function storeItem (type) {
 	});
 }
 
+function getFieldForm (type, id, field) {		
+	return $.ajax({
+		url: "/" + type + "/getForm",
+		method: "POST",
+		dataType: 'json',
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			id : id,
+			field : field
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting field form");
+		}
+	});
+}
+
+function submitFieldForm (type, id, field) {		
+	return $.ajax({
+		url: "/" + type + "/" + id,
+		method: "PUT",
+		dataType: 'json',
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: $(".fieldForm").serialize(),
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed submitting field form");
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// GET ITEM MODAL
@@ -289,7 +329,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	// SUBMIT GROUP FORM
     $(document).on('submit', '#newGroupForm', function() {
-		storeGroup().done(function(group) {
+		storeGroup().done(function(group) {			
 			closeModal('group');
 			getGroups(group.id_parent).done(function(response) {
 				render(response);		
@@ -300,7 +340,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 	// SUBMIT ITEM FORM
     $(document).on('submit', '#newItemForm', function() {
-
 		let type = $(this).find('[name="itemType"]').val();
 
 		storeItem(type).done(function(item) {
@@ -315,7 +354,38 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		return false;
 	});
+	
+	// GET FIELD FORM
+    $(document).on('click', '.editable', function() {
 
+		let element = $(this);
+		let container = element.closest('.container');
+		let field = element.attr('data-field');		
+		let type = container.attr('data-type');
+		let id = container.attr('data-id');
+
+		getFieldForm(type, id, field).done(function(response) {
+			element.replaceWith(response.html);
+			console.log(response);		
+		});
+		console.log("Edit " + field + " of " + type + " with id " + id);
+	});
+	
+	// SUBMIT FIELD FORM
+
+    $(document).on('focusout', '.form-field-control', function() {
+		let element = $(this);
+		let container = element.closest('.container');
+		let field = element.attr('data-field');		
+		let type = container.attr('data-type');
+		let id = container.attr('data-id');
+
+		submitFieldForm(type, id, field).done(function(response) {
+			renderModal(response);
+			console.log(response);		
+		});
+		console.log("Submit " + field + " of " + type + " with id " + id);
+	});
 });
 
 
