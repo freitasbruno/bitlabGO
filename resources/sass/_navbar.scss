@@ -91,7 +91,7 @@
 
 @media only screen and (max-width: 600px) {
 
-	#main-navbar > .navbar-container {
+	#main-navbar > .navbar-container, #welcome-navbar > .navbar-container {
 		grid-template-columns: 200px 1fr 30px;
 
 		.navbar-center > a{
@@ -103,4 +103,11 @@
 		}
 	}
 
+	#welcome-navbar > .navbar-container {
+		grid-template-columns: 200px 1fr;
+		
+		.navbar-center {
+			display: none;
+		}
+	}
   }

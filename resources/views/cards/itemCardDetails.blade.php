@@ -3,7 +3,7 @@
 	<p class="card-text-xs"><time datetime="2016-04-01T19:00">{{ $item->created_at }}</time></p>
 
 	<i class="material-icons-outlined">folder</i>
-	<p class="card-text-s">
+	<p class="card-text-s selectGroupBtn">
 		{{ $item->group->name }}
 	</p>
 

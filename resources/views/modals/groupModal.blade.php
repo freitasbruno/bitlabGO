@@ -1,4 +1,4 @@
-<div class="group-modal" id="groupModal">
+<div class="modal group-modal" id="groupModal" data-type="group">
 	<div class="modal-dialog modal-dialog-grid">		
 		<div class="modal-title" id="groupModalTitle">
 			<p class="card-text-m"></p>

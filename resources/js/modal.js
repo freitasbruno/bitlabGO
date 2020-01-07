@@ -1,6 +1,6 @@
 function openModal(type) {
 	$('.itemTools').hide();
-	$('#' + type + 'Modal').fadeIn(500);
+	$('#' + type + 'Modal').fadeIn(200);
 
 	$(document).on('click', '#' + type + 'Modal', function(e) {
 		
@@ -16,19 +16,35 @@ function openModal(type) {
 
 function closeModal(type = null) {
 	if (type) {
-		$('#' + type + 'Modal').fadeOut(500);
+		$('#' + type + 'Modal').fadeOut(200);
 	} else {
-		$('.modal').fadeOut(500);
+		$('.modal').fadeOut(200);
 	}
 	$('.modal-title').html('');	
 }
 
 function renderModal (response) {
 	
-	if (response.type == "group") {
+	let type = response.type;
+	if (type == "group") {
 		$("#groupModalContent").html('');
 		$(response.modalHtml).appendTo($("#groupModalContent"));
 		openModal('group');
+	} else if (type == "groupSelect") {
+
+		console.log(response);
+		let actionObjectType = response.actionObjectType;
+		let actionObjectId = response.actionObjectId;
+
+		$("#groupSelectModalContent").html('');
+		$(response.html).appendTo($("#groupSelectModalContent"));
+
+		$("#groupSelectModalContent").attr('data-type', actionObjectType);
+		$("#groupSelectModalContent").attr('data-id', actionObjectId);
+
+		$("#groupSelectModalContent").find(".nestedGroup").hide();
+		$("#groupSelectModalContent").find(".nestedGroup").first().show();
+		openModal('groupSelect');
 	} else {
 		$("#itemModalContent").html('');
 		$(response.modalHtml).appendTo($("#itemModalContent"));
@@ -202,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let formType = type === 'cash' ? 'cashForm' : type.substring(0, type.length - 1) + "Form";
 		console.log(type + " - " + formType); 
 		if($('.itemForm').length && $('.itemForm').hasClass(formType)) {
-			$('#itemModal').fadeIn(500); 
+			$('#itemModal').fadeIn(200); 
 		} else {
 			newItem(type).done(function(response) {				
 				$("#itemModalTitle").children("p").html("New " + response.type);
@@ -215,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET GROUP FORM
     $(document).on('click', '.newGroupBtn', function() {
 		if($('.groupForm').length) {	
-			$('#groupModal').fadeIn(500); 
+			$('#groupModal').fadeIn(200); 
 		} else {
 			newGroup().done(function(response) {				
 				$("#groupModalTitle").children("p").html("New group");
@@ -231,7 +247,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// CLOSE MODAL
     $(document).on('click', '.closeModalBtn', function() {
-		closeModal();		
+		let type = $(this).closest('.modal').attr('data-type');
+		closeModal(type);		
 	});
 	
 	// SUBMIT GROUP FORM

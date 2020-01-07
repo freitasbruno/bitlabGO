@@ -20,6 +20,13 @@ class Group extends Model
 	protected $fillable = [
 		'id_user', 'id_parent', 'name', 'description'
 	];
+	
+	/**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+	protected $with = ['parent'];
 
 	/**
      * Get the user who owns the group.

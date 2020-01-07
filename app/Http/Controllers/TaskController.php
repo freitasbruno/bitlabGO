@@ -183,4 +183,24 @@ class TaskController extends Controller
 			'html' => $html
 		));
 	}
+			
+	/**
+     * Move the specified resource to a new group.
+     *
+     */	
+    public function move(Task $task)
+    {
+		$targetId = $_POST['targetId'];
+		$item = $task->item;
+
+		$item->id_parent = $targetId;
+		$item->save();
+
+		session(['currentGroup' => $item->group]);
+
+        return response()->json(array(
+			'success' => true,
+			'task' => $task->toJson()
+		));
+	}
 }

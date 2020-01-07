@@ -2,11 +2,11 @@ function render (response) {
 	
 	if (response.groups) {
 		$("#filter-container").html('');
-		$(response.html).hide().appendTo($("#filter-container")).fadeIn("slow");
+		$(response.html).hide().appendTo($("#filter-container")).fadeIn(200);
 		$(".nestedGroup").hide();
 	} else if (response.items) {
 		$("#item-container").html('');
-		$(response.html).hide().appendTo($("#item-container")).fadeIn("slow");
+		$(response.html).hide().appendTo($("#item-container")).fadeIn(200);
 	}
 		
 	console.log(response);
@@ -93,6 +93,25 @@ function getItems (type) {
 		default:
 			break;
 	}
+}
+
+function getGroups (viewType = 'cardPanel') {		
+	return $.ajax({
+		url: "/groups",
+		method: "GET",
+		data: {
+			viewType : viewType,
+		},
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting groups");
+		}
+	});
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {

@@ -17,15 +17,22 @@ class GroupController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{		
+		$viewType = $request->get('viewType');
+
 		$user = Auth::user();
 		$breadcrumbs = session('currentGroup')->getBreadcrumbs();
 		$groupTree = Group::getGroupTree($user->id_home);
 	
-		$returnHTML = view('panels.groupPanel')->with(['groups' => $groupTree->groups, 'breadcrumbs' => $breadcrumbs])->render();
+		if ($viewType == 'cardPanel') {
+			$returnHTML = view('panels.groupPanel')->with(['groups' => $groupTree->groups, 'breadcrumbs' => $breadcrumbs])->render();
+		} else if ($viewType == 'groupSelect') {
+			$returnHTML = view('panels.groupSelectPanel')->with(['groups' => $groupTree])->render();
+		}
 		return response()->json(array(
 			'success' => true,
+			'type' => $viewType,
 			'groups' => $groupTree,
 			'breadcrumbs' => $breadcrumbs,
 			'html' => $returnHTML));
@@ -147,6 +154,25 @@ class GroupController extends Controller
 
 		$group = Group::find($groupId);
 		session(['currentGroup' => $group]);
+
+        return response()->json(array(
+			'success' => true,
+			'group' => $group->toJson()
+		));
+	}
+	
+	/**
+     * Move the specified resource to a new group.
+     *
+     */	
+    public function move(Group $group)
+    {
+		$targetId = $_POST['targetId'];
+
+		$group->id_parent = $targetId;
+		$group->save();
+
+		session(['currentGroup' => $group->parent]);
 
         return response()->json(array(
 			'success' => true,

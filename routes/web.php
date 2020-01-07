@@ -27,6 +27,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::resource('groups', 'GroupController');
 	Route::post('groups/current', 'GroupController@updateCurrentGroup');
+
+	Route::post('groups/move/{group}', 'GroupController@move');
+	Route::post('cash/move/{cash}', 'CashController@move');
+	Route::post('tasks/move/{task}', 'TaskController@move');
+	Route::post('timers/move/{timer}', 'TimerController@move');
+	Route::post('bookmarks/move/{bookmark}', 'BookmarkController@move');
 	
 	Route::post('groups/getForm/{group}', 'GroupController@getForm');
 	Route::post('cash/getForm/{cash}', 'CashController@getForm');

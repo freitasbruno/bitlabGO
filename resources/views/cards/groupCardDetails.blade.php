@@ -9,8 +9,8 @@
 	</p>
 
 	<i class="material-icons-outlined">folder</i>
-	<p class="card-text-s">
-		{{ $group->name }}
+	<p class="card-text-s selectGroupBtn">
+		{{ $group->parent->name }}
 	</p>
 
 	<i class="material-icons">share</i>

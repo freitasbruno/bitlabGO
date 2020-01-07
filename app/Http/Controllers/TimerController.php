@@ -185,4 +185,24 @@ class TimerController extends Controller
 			'html' => $html
 		));
 	}
+			
+	/**
+     * Move the specified resource to a new group.
+     *
+     */	
+    public function move(Timer $timer)
+    {
+		$targetId = $_POST['targetId'];
+		$item = $timer->item;
+
+		$item->id_parent = $targetId;
+		$item->save();
+
+		session(['currentGroup' => $item->group]);
+
+        return response()->json(array(
+			'success' => true,
+			'timer' => $timer->toJson()
+		));
+	}
 }

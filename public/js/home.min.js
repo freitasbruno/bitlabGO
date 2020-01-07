@@ -2,11 +2,11 @@ function render (response) {
 	
 	if (response.groups) {
 		$("#filter-container").html('');
-		$(response.html).hide().appendTo($("#filter-container")).fadeIn("slow");
+		$(response.html).hide().appendTo($("#filter-container")).fadeIn(200);
 		$(".nestedGroup").hide();
 	} else if (response.items) {
 		$("#item-container").html('');
-		$(response.html).hide().appendTo($("#item-container")).fadeIn("slow");
+		$(response.html).hide().appendTo($("#item-container")).fadeIn(200);
 	}
 		
 	console.log(response);
@@ -95,6 +95,25 @@ function getItems (type) {
 	}
 }
 
+function getGroups (viewType = 'cardPanel') {		
+	return $.ajax({
+		url: "/groups",
+		method: "GET",
+		data: {
+			viewType : viewType,
+		},
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting groups");
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
 
@@ -103,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Listen to Btn click
-    $(".filter-link").click(function() {
+    $(document).on('click', '.filter-link', function() {
 		$(".filter-link").removeClass("selected");
 		$(this).addClass("selected");
 
@@ -117,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 function openModal(type) {
 	$('.itemTools').hide();
-	$('#' + type + 'Modal').fadeIn(500);
+	$('#' + type + 'Modal').fadeIn(200);
 
 	$(document).on('click', '#' + type + 'Modal', function(e) {
 		
@@ -133,19 +152,35 @@ function openModal(type) {
 
 function closeModal(type = null) {
 	if (type) {
-		$('#' + type + 'Modal').fadeOut(500);
+		$('#' + type + 'Modal').fadeOut(200);
 	} else {
-		$('.modal').fadeOut(500);
+		$('.modal').fadeOut(200);
 	}
 	$('.modal-title').html('');	
 }
 
 function renderModal (response) {
 	
-	if (response.type == "group") {
+	let type = response.type;
+	if (type == "group") {
 		$("#groupModalContent").html('');
 		$(response.modalHtml).appendTo($("#groupModalContent"));
 		openModal('group');
+	} else if (type == "groupSelect") {
+
+		console.log(response);
+		let actionObjectType = response.actionObjectType;
+		let actionObjectId = response.actionObjectId;
+
+		$("#groupSelectModalContent").html('');
+		$(response.html).appendTo($("#groupSelectModalContent"));
+
+		$("#groupSelectModalContent").attr('data-type', actionObjectType);
+		$("#groupSelectModalContent").attr('data-id', actionObjectId);
+
+		$("#groupSelectModalContent").find(".nestedGroup").hide();
+		$("#groupSelectModalContent").find(".nestedGroup").first().show();
+		openModal('groupSelect');
 	} else {
 		$("#itemModalContent").html('');
 		$(response.modalHtml).appendTo($("#itemModalContent"));
@@ -319,7 +354,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let formType = type === 'cash' ? 'cashForm' : type.substring(0, type.length - 1) + "Form";
 		console.log(type + " - " + formType); 
 		if($('.itemForm').length && $('.itemForm').hasClass(formType)) {
-			$('#itemModal').fadeIn(500); 
+			$('#itemModal').fadeIn(200); 
 		} else {
 			newItem(type).done(function(response) {				
 				$("#itemModalTitle").children("p").html("New " + response.type);
@@ -332,7 +367,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	// GET GROUP FORM
     $(document).on('click', '.newGroupBtn', function() {
 		if($('.groupForm').length) {	
-			$('#groupModal').fadeIn(500); 
+			$('#groupModal').fadeIn(200); 
 		} else {
 			newGroup().done(function(response) {				
 				$("#groupModalTitle").children("p").html("New group");
@@ -348,7 +383,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// CLOSE MODAL
     $(document).on('click', '.closeModalBtn', function() {
-		closeModal();		
+		let type = $(this).closest('.modal').attr('data-type');
+		closeModal(type);		
 	});
 	
 	// SUBMIT GROUP FORM
@@ -517,28 +553,47 @@ function updateCurrentGroup (id) {
 	});
 }
 
-function getGroups (id = 0) {		
+function moveGroup (groupId, targetId) {		
 	return $.ajax({
-		url: "/groups",
-		method: "GET",
-		data: {
-			id : id
-		},
+		url: "/groups/move/" + groupId,
+		method: "POST",
 		headers: {
 			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			targetId : targetId
 		},
 		success: function(response) {
 			//
 		},
 		error: function(errorThrown) {
-			console.log("failed getting groups");
+			console.log("failed updating current group");
+		}
+	});
+}
+
+function moveItem (type, id, targetId) {		
+	return $.ajax({
+		url: "/" + type + "/move/" + id,
+		method: "POST",
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: {
+			targetId : targetId
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed updating current group");
 		}
 	});
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	getGroups().done(function(response) {
+	getGroups('cardPanel').done(function(response) {
 		render(response);		
 	});
 	
@@ -573,25 +628,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let action = $(this).attr('data-action');
 		let groupCard = $(this).closest(".group-card");
 		let groupId = groupCard.attr('data-id');
-		console.log(action + " group " + groupId);
+		let type = groupCard.closest('.modal').attr('data-type');
+		let target = type == 'groupSelect' ? '#nestedListGroup-' : '#nestedGroup-';
 
 		switch (action) {
 			case 'expand':
-				$("#nestedGroup-" + groupId).show(200);
+				$(target + groupId).show();
 				actionBtn.html('arrow_drop_up');	       
 				actionBtn.attr('data-action', 'collapse');	       
 				break;
 			
 			case 'collapse':
-				$("#nestedGroup-" + groupId).hide(200);
+				$(target + groupId).hide();
 				actionBtn.html('arrow_right');	       
 				actionBtn.attr('data-action', 'expand');	       
 				break;
 
 			case 'open':
 				getGroup(groupId).done(function(response) {
+					console.log(JSON.parse(response.group));
 					renderModal(response);
-				}); 		       
+				});	       
 				break;
 
 			case 'delete':
@@ -604,7 +661,54 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				break;
 		}
 	});
+	
+	// MOVE GROUP
+    $(document).on('click', '.selectGroupBtn', function(e) {
+
+		let container = $(this).closest('.modal').find('.container');
+		let id = container.attr('data-id');
+		let type = container.attr('data-type');
+		getGroups('groupSelect').done(function(response) {
+			response.actionObjectType = type;
+			response.actionObjectId = id;
+			renderModal(response);		
+		});
+		console.log("Move " + type + ": " + id);
+	});
+
+    $(document).on('click', '.group-list-card', function(e) {
+
+		if (!$(e.target).closest('.group-card-action').length) {
+
+			let type = $(this).closest('.container').attr('data-type');
+			let id = $(this).closest('.container').attr('data-id');
+			let targetId = $(this).attr('data-id');
+
+			switch (type) {
+				case 'groups':
+					moveGroup(id, targetId).done(function(response) {
+						let group = JSON.parse(response.group);	
+						closeModal('groupSelect');
+						getGroups('cardPanel').done(function(response) {
+							render(response);		
+						});
+						getGroup(group.id).done(function(response) {
+							renderModal(response);
+						});
+					});
+					break;					
+				default:
+					moveItem(type, id, targetId).done(function(response) {	
+						closeModal('groupSelect');
+						closeModal('item');
+						//getItems(type);
+					});
+					break;
+			}
+		}
+	});
 });
+
 
 function toggleTask (taskId) {		
 	return $.ajax({

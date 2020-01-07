@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Listen to Btn click
-    $(".filter-link").click(function() {
+    $(document).on('click', '.filter-link', function() {
 		$(".filter-link").removeClass("selected");
 		$(this).addClass("selected");
 

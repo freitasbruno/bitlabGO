@@ -10,6 +10,20 @@ a {
   color: inherit;
 }
 
+i {
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  transition: 200ms ease all;
+}
+
+i:hover,
+i.selected {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 body {
   font-family: "Nunito", sans-serif;
   background: #55CFBF;
@@ -403,28 +417,44 @@ p.card-text-xs {
 }
 
 @media only screen and (max-width: 600px) {
-  #main-navbar > .navbar-container {
+  #main-navbar > .navbar-container,
+  #welcome-navbar > .navbar-container {
     grid-template-columns: 200px 1fr 30px;
   }
 
-  #main-navbar > .navbar-container .navbar-center > a {
+  #main-navbar > .navbar-container .navbar-center > a,
+  #welcome-navbar > .navbar-container .navbar-center > a {
     display: none;
   }
 
-  #main-navbar > .navbar-container .navbar-right {
+  #main-navbar > .navbar-container .navbar-right,
+  #welcome-navbar > .navbar-container .navbar-right {
     padding-left: 0px;
+  }
+
+  #welcome-navbar > .navbar-container {
+    grid-template-columns: 200px 1fr;
+  }
+
+  #welcome-navbar > .navbar-container .navbar-center {
+    display: none;
   }
 }
 
 .card-deck {
   width: 90%;
-  padding: 0em 0.5em 0em 1em;
-  height: calc(100vh - 60px);
-  overflow: hidden;
   margin: 0px auto;
+  height: calc(100vh - 60px);
 }
 
-.card-deck .cardScrollbar {
+.card-deck,
+#groupSelectModalContent {
+  padding: 0em 0.5em 0em 1em;
+  overflow: hidden;
+}
+
+.card-deck .cardScrollbar,
+#groupSelectModalContent .cardScrollbar {
   float: right;
   height: calc(100% - 6em);
   width: 100%;
@@ -432,16 +462,19 @@ p.card-text-xs {
   overflow-y: auto;
 }
 
-.card-deck .cardScrollbar::-webkit-scrollbar {
+.card-deck .cardScrollbar::-webkit-scrollbar,
+#groupSelectModalContent .cardScrollbar::-webkit-scrollbar {
   width: 6px;
 }
 
-.card-deck .cardScrollbar::-webkit-scrollbar-thumb {
+.card-deck .cardScrollbar::-webkit-scrollbar-thumb,
+#groupSelectModalContent .cardScrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
 
-.card-deck .cardScrollbar::-webkit-scrollbar-track {
+.card-deck .cardScrollbar::-webkit-scrollbar-track,
+#groupSelectModalContent .cardScrollbar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
@@ -449,11 +482,13 @@ p.card-text-xs {
   cursor: grab;
 }
 
-.card-deck .force-overflow {
+.card-deck .force-overflow,
+#groupSelectModalContent .force-overflow {
   min-height: 10px;
 }
 
-.card-deck .deck-title {
+.card-deck .deck-title,
+#groupSelectModalContent .deck-title {
   display: grid;
   grid-template-columns: minmax(100px, 1fr) 40px;
   height: 1.5em;
@@ -464,23 +499,31 @@ p.card-text-xs {
   margin-right: 0.5em;
 }
 
-.card-deck .deck-title .deck-title-text {
+.card-deck .deck-title .deck-title-text,
+#groupSelectModalContent .deck-title .deck-title-text {
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.card-deck .deck-title .deck-title-btn {
+.card-deck .deck-title .deck-title-btn,
+#groupSelectModalContent .deck-title .deck-title-btn {
   padding-left: 10px;
 }
 
-.card-deck .deck-title .deck-title-btn i {
+.card-deck .deck-title .deck-title-btn i,
+#groupSelectModalContent .deck-title .deck-title-btn i {
   font-size: 30px;
 }
 
-.card-deck .nestedGroup {
+.card-deck .nestedGroup,
+#groupSelectModalContent .nestedGroup {
   padding-left: 20px;
+}
+
+#groupSelectModalContent .cardScrollbar {
+  height: calc(100%);
 }
 
 .item-card,
@@ -530,6 +573,10 @@ span.card-tag {
   background: rgba(255, 255, 255, 0.4);
   line-height: 30px;
   padding: 1em;
+}
+
+.group-card.group-list-card {
+  padding: 0.25em;
 }
 
 .group-card .count-label {
@@ -618,6 +665,7 @@ span.card-tag {
 
 #itemModal,
 #groupModal,
+#groupSelectModal,
 #loginModal {
   display: none;
   position: fixed;
@@ -634,6 +682,7 @@ span.card-tag {
 
 #itemModal .modal-dialog,
 #groupModal .modal-dialog,
+#groupSelectModal .modal-dialog,
 #loginModal .modal-dialog {
   color: #787878;
   background: #ffffff;
@@ -645,6 +694,7 @@ span.card-tag {
 
 #itemModal .modal-title,
 #groupModal .modal-title,
+#groupSelectModal .modal-title,
 #loginModal .modal-title {
   line-height: 30px;
   vertical-align: middle;
@@ -652,8 +702,19 @@ span.card-tag {
 
 #itemModal .close-modal-btn,
 #groupModal .close-modal-btn,
+#groupSelectModal .close-modal-btn,
 #loginModal .close-modal-btn {
   float: right;
+}
+
+#groupSelectModal {
+  /* Modal Content/Box */
+}
+
+#groupSelectModal .modal-dialog {
+  background: #55CFBF;
+  margin: 7vh auto;
+  height: calc(100% - 60px - 14vh);
 }
 
 .modal-dialog-grid {
@@ -669,7 +730,7 @@ span.card-tag {
 }
 
 .main-card-detail-grid {
-  padding: 0em 0em 1.5em;
+  padding: 1em 0em 1.5em;
   display: grid;
   grid-template-columns: 2.5em minmax(100px, 1fr);
   row-gap: 0.5em;

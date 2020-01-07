@@ -19,6 +19,7 @@ mix.scripts([
 		"resources/js/filter-type.js",
 		"resources/js/modal.js",
 		"resources/js/groups.js",
+		"resources/js/items.js",
 		"resources/js/tasks.js",
 		"resources/js/timers.js"
 	], "public/js/home.js")

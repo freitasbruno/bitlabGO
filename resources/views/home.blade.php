@@ -7,7 +7,8 @@
 </div>
 
 <!-- Modals -->
-@include('cards.itemModal')
-@include('cards.groupModal')
+@include('modals.itemModal')
+@include('modals.groupModal')
+@include('modals.groupSelectModal')
 
 @endsection

@@ -1,6 +1,10 @@
 <div class="card-deck">
 	<div class="deck-title">
 		<div class="deck-title-text">
+			{{-- <i class="material-icons filter-link" data-url="cash">attach_money</i>					
+			<i class="material-icons filter-link" data-url="tasks">done</i>					
+			<i class="material-icons filter-link" data-url="timers">timer</i>					
+			<i class="material-icons filter-link" data-url="bookmarks">bookmark_border</i> --}}
 			{{ $title }}
 		</div>
 		<div class="deck-title-btn">

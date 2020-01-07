@@ -171,4 +171,24 @@ class BookmarkController extends Controller
 			'html' => $html
 		));
 	}
+			
+	/**
+     * Move the specified resource to a new group.
+     *
+     */	
+    public function move(Bookmark $bookmark)
+    {
+		$targetId = $_POST['targetId'];
+		$item = $bookmark->item;
+
+		$item->id_parent = $targetId;
+		$item->save();
+
+		session(['currentGroup' => $item->group]);
+
+        return response()->json(array(
+			'success' => true,
+			'bookmark' => $bookmark->toJson()
+		));
+	}
 }

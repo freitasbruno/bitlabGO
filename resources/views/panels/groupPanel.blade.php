@@ -1,13 +1,14 @@
 <div class="card-deck">
 	<div class="deck-title">
 		<div class="deck-title-text">
-			@foreach ($breadcrumbs as $group)
+			FILTERS
+			{{-- @foreach ($breadcrumbs as $group)
 				@if($loop->last)
 					{{ $group->name }}
 				@else
 					{{ $group->name }} > 
 				@endif				
-			@endforeach
+			@endforeach --}}
 		</div>
 		<div class="deck-title-btn">
 			<a href="#" class="newGroupBtn" data-type="cash">

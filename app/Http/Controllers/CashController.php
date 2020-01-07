@@ -178,4 +178,24 @@ class CashController extends Controller
 			'html' => $html
 		));
 	}
+		
+	/**
+     * Move the specified resource to a new group.
+     *
+     */	
+    public function move(Cash $cash)
+    {
+		$targetId = $_POST['targetId'];
+		$item = $cash->item;
+
+		$item->id_parent = $targetId;
+		$item->save();
+
+		session(['currentGroup' => $item->group]);
+
+        return response()->json(array(
+			'success' => true,
+			'cash' => $cash->toJson()
+		));
+	}
 }
