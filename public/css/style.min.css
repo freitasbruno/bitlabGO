@@ -10,20 +10,6 @@ a {
   color: inherit;
 }
 
-i {
-  font-size: 24px;
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
-  transition: 200ms ease all;
-}
-
-i:hover,
-i.selected {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
 body {
   font-family: "Nunito", sans-serif;
   background: #55CFBF;
@@ -311,6 +297,20 @@ p.card-text-xs {
   color: #609b30;
 }
 
+i {
+  font-size: 24px;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  transition: 200ms ease all;
+}
+
+i:hover,
+i.selected {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
 #main-navbar,
 #welcome-navbar {
   line-height: 60px;
@@ -318,7 +318,6 @@ p.card-text-xs {
   margin: 0;
   padding: 0 1em;
   width: calc(100% -2em);
-  text-align: center;
 }
 
 #main-navbar .navbar-container,
@@ -336,33 +335,11 @@ p.card-text-xs {
   margin-top: 5px;
 }
 
-#main-navbar .navbar-container .navbar-left i,
-#main-navbar .navbar-container .navbar-right i,
-#welcome-navbar .navbar-container .navbar-left i,
-#welcome-navbar .navbar-container .navbar-right i {
-  font-size: 24px;
-  border-radius: 50%;
-  padding: 5px;
-  cursor: pointer;
-  transition: 200ms ease all;
-}
-
-#main-navbar .navbar-container .navbar-left i:hover,
-#main-navbar .navbar-container .navbar-left i.selected,
-#main-navbar .navbar-container .navbar-right i:hover,
-#main-navbar .navbar-container .navbar-right i.selected,
-#welcome-navbar .navbar-container .navbar-left i:hover,
-#welcome-navbar .navbar-container .navbar-left i.selected,
-#welcome-navbar .navbar-container .navbar-right i:hover,
-#welcome-navbar .navbar-container .navbar-right i.selected {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
 #main-navbar .navbar-container .navbar-center,
 #welcome-navbar .navbar-container .navbar-center {
   color: #ffffff;
   font-size: 1.5em;
+  text-align: center;
 }
 
 #main-navbar .navbar-container .navbar-right,
@@ -490,13 +467,14 @@ p.card-text-xs {
 .card-deck .deck-title,
 #groupSelectModalContent .deck-title {
   display: grid;
-  grid-template-columns: minmax(100px, 1fr) 40px;
+  grid-template-columns: auto minmax(100px, 1fr) 40px;
   height: 1.5em;
   color: #ffffff;
   font-size: 1.5em;
   font-weight: 700;
   padding-top: 0.75em;
   margin-right: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .card-deck .deck-title .deck-title-text,
@@ -505,6 +483,8 @@ p.card-text-xs {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 35px;
+  padding-left: 0.5em;
 }
 
 .card-deck .deck-title .deck-title-btn,

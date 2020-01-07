@@ -5,7 +5,6 @@
 	margin: 0;
 	padding: 0 1em;
 	width: calc(100% -2em);
-	text-align: center;
 
 	.navbar-container {
 		display: grid;
@@ -16,23 +15,11 @@
 			color: $gray-98;
 			margin-top: 5px;
 			
-			i {
-				font-size: 24px;
-				border-radius: 50%;
-				padding: 5px;		
-				cursor: pointer;		
-				transition: 200ms ease all;
-
-				&:hover, &.selected {
-					color: $white;
-					background-color: rgba(255,255,255,0.4);
-				}
-
-			}
 		}
 		.navbar-center {
 			color: $white;
 			font-size: 1.5em;
+			text-align: center;
 		}
 
 		.navbar-right {

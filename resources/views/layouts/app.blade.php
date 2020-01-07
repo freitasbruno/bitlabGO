@@ -33,10 +33,10 @@
 
 				<div class="navbar-left">						
 					<a href="/home"><i class="material-icons">offline_bolt</i></a>					
-					<i class="material-icons filter-link" data-url="cash">attach_money</i>					
+					{{-- <i class="material-icons filter-link" data-url="cash">attach_money</i>					
 					<i class="material-icons filter-link" data-url="tasks">done</i>					
 					<i class="material-icons filter-link" data-url="timers">timer</i>					
-					<i class="material-icons filter-link" data-url="bookmarks">bookmark_border</i>								
+					<i class="material-icons filter-link" data-url="bookmarks">bookmark_border</i> --}}
 				</div>
 
 				<div class="navbar-center">

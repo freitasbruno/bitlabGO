@@ -105,10 +105,6 @@ function moveItem (type, id, targetId) {
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
-
-	getGroups('cardPanel').done(function(response) {
-		render(response);		
-	});
 	
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {

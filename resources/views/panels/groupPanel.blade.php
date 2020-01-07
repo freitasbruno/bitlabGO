@@ -1,14 +1,10 @@
 <div class="card-deck">
 	<div class="deck-title">
+		<div class="filter">
+			<i class="material-icons-outlined filter-link">folder</i>
+		</div>
 		<div class="deck-title-text">
-			FILTERS
-			{{-- @foreach ($breadcrumbs as $group)
-				@if($loop->last)
-					{{ $group->name }}
-				@else
-					{{ $group->name }} > 
-				@endif				
-			@endforeach --}}
+			GROUPS			
 		</div>
 		<div class="deck-title-btn">
 			<a href="#" class="newGroupBtn" data-type="cash">

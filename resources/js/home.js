@@ -116,5 +116,8 @@ function getGroups (viewType = 'cardPanel') {
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-
+	getGroups('cardPanel').done(function(response) {
+		render(response);		
+	});
+	getItems('cash');
 });
