@@ -49,4 +49,23 @@ class Cash extends Item
         return $this->belongsTo('App\Models\Account', 'id_account');
 	}
 
+	public static function getTotals($items) {
+
+		$totals = [
+			'expense' => 0,
+			'income' => 0,
+			'balance' => 0,
+			'type' => 'cash'
+		];
+
+		foreach ($items as $item) {
+			$totals[$item->cash->type] += $item->cash->amount;
+		}
+
+		$totals['balance'] = $totals['income'] - $totals['expense'];
+		$totals['income'] = number_format($totals['income'], 2);
+		$totals['expense'] = number_format($totals['expense'], 2);
+		$totals['balance'] = number_format($totals['balance'], 2);
+		return $totals;
+	}
 }

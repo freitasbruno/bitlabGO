@@ -15,6 +15,21 @@
 			</a>
 		</div>
 	</div>
+	@if ($items->count() > 0)
+	<div class="deck-totals">
+		@if(isset($totals) && $totals['type'] == 'cash')
+			<div class="item-card total-card">
+				<p class="card-text-s">Total income: {{ $totals['income'] }}€</p>
+			</div>
+			<div class="item-card total-card">
+				<p class="card-text-s">Total expenses: {{ $totals['expense'] }}€</p>
+			</div>
+			<div class="item-card total-card">
+				<p class="card-text-s">Balance: {{ $totals['balance'] }}€</p>
+			</div>			
+		@endif
+	</div>
+	@endif
 	<div class="cardScrollbar">
 		<div class="card-container">
 			@if ($items->count() > 0)

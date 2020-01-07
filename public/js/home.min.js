@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Listen to Btn click
     $(document).on('click', '.item-filter-link', function() {
-		$(".filter-link").removeClass("selected");
+		$(".item-filter-link").removeClass("selected");
 		$(this).addClass("selected");
 
 		let itemType = $(this).attr('data-url');
@@ -409,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			// Reload modal with the created item
 			$("#itemModalTitle").children("p").html("");
 
-			$(".filter-link.selected").trigger("click");
+			$(".item-filter-link.selected").trigger("click");
 			getItem(type, item.id).done(function(response) {
 				renderModal(response);
 			});
@@ -609,7 +609,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			$(".group-card").removeClass("selected");
 			groupCard.addClass("selected");
 			
-			let selected = $(".filter-link.selected");
+			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
 				let itemType = $(selected).attr('data-url');
@@ -765,7 +765,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStopBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		stopTimer(itemId);
-		$(".filter-link.selected").trigger("click");
+		$(".item-filter-link.selected").trigger("click");
 	});
 
 });

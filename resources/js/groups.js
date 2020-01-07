@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			$(".group-card").removeClass("selected");
 			groupCard.addClass("selected");
 			
-			let selected = $(".filter-link.selected");
+			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
 				let itemType = $(selected).attr('data-url');

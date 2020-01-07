@@ -502,8 +502,27 @@ i.selected {
   padding-left: 20px;
 }
 
+#item-container > .card-deck > .cardScrollbar {
+  height: calc(100% - 6em - 60px);
+}
+
 #groupSelectModalContent .cardScrollbar {
   height: calc(100%);
+}
+
+.deck-totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  -moz-column-gap: 0.75em;
+       column-gap: 0.75em;
+  float: right;
+  width: calc(100% - 0.25em);
+  padding-right: 0.75em;
+  color: #55CFBF;
+}
+
+.deck-totals .total-card {
+  padding: 1em;
 }
 
 .item-card,

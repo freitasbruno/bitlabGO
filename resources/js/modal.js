@@ -270,7 +270,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			// Reload modal with the created item
 			$("#itemModalTitle").children("p").html("");
 
-			$(".filter-link.selected").trigger("click");
+			$(".item-filter-link.selected").trigger("click");
 			getItem(type, item.id).done(function(response) {
 				renderModal(response);
 			});

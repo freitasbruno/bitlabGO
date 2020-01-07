@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStopBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		stopTimer(itemId);
-		$(".filter-link.selected").trigger("click");
+		$(".item-filter-link.selected").trigger("click");
 	});
 
 });

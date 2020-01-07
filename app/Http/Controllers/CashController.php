@@ -22,16 +22,22 @@ class CashController extends Controller
 			->where('id_user', Auth::user()->id)
 			->where('id_parent', session('currentGroup')->id)
 			->with('cash')->get();
+		
+		$totals = Cash::getTotals($items);
 			
-		$returnHTML = view('panels.itemPanel')->with([
+		$returnHTML = view('panels.itemPanel')->with(
+			[
 			'itemType' => 'cash', 
 			'title' => 'TRANSACTIONS', 
-			'items' => $items])
-			->render();
+			'items' => $items,
+			'totals' => $totals,
+			])
+			->render();		
 
 		return response()->json(array(
 			'success' => true,
-			'items' => $items, 
+			'items' => $items,
+			'totals' => $totals, 
 			'html' => $returnHTML));
     }
 

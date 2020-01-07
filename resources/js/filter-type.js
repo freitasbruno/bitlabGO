@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Listen to Btn click
     $(document).on('click', '.item-filter-link', function() {
-		$(".filter-link").removeClass("selected");
+		$(".item-filter-link").removeClass("selected");
 		$(this).addClass("selected");
 
 		let itemType = $(this).attr('data-url');
