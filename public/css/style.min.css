@@ -511,8 +511,9 @@ i.selected {
 }
 
 .deck-totals {
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   -moz-column-gap: 0.75em;
        column-gap: 0.75em;
   float: right;

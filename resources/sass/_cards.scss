@@ -85,8 +85,9 @@
 }
 
 .deck-totals {
+	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
 	column-gap: 0.75em;
 	float: right;
 	width: calc(100% - 0.25em);

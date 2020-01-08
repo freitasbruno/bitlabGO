@@ -19,13 +19,16 @@
 	<div class="deck-totals">
 		@if(isset($totals) && $totals['type'] == 'cash')
 			<div class="item-card total-card">
-				<p class="card-text-s">Total income: {{ $totals['income'] }}€</p>
+				<p class="card-text-s">Income:</p>
+				<p class="card-text-m">{{ $totals['income'] }}€</p>
 			</div>
 			<div class="item-card total-card">
-				<p class="card-text-s">Total expenses: {{ $totals['expense'] }}€</p>
+				<p class="card-text-s">Expenses:</p>
+				<p class="card-text-m">{{ $totals['expense'] }}€</p>
 			</div>
 			<div class="item-card total-card">
-				<p class="card-text-s">Balance: {{ $totals['balance'] }}€</p>
+				<p class="card-text-s">Balance:</p>
+				<p class="card-text-m">{{ $totals['balance'] }}€</p>
 			</div>			
 		@endif
 	</div>

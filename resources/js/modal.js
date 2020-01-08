@@ -202,6 +202,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $(document).on('click', '.item-card', function(e) {
 		if ($(e.target).closest(".checkboxLabel").length) { return };
 		if ($(e.target).closest(".timerStopBtn").length) { return };
+		if ($(e.target).closest(".total-card").length) { return };
 		let type = $(this).attr('data-type');
 		let itemId = $(this).attr('data-id');
 		console.log(type + " item: " + itemId);
