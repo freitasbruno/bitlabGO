@@ -37,7 +37,7 @@ function getTasks () {
 		}
 	});
 }
-	
+
 function getTimers () {		
 	return $.ajax({
 		url: "/timers",
@@ -730,6 +730,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let element = $(this);
 		let taskId = $(this).attr('data-id');	
 		toggleTask(taskId).done(function(response) {
+			element.closest(".task-card").toggleClass('complete');
 			if (!element.closest(".task-card").length) {
 				getItems('tasks');
 			}	

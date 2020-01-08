@@ -21,10 +21,12 @@ class TaskController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('task')->get();
 		
+		$sortedItems = $items->sortBy('task.complete');
+
 		$returnHTML = view('panels.itemPanel')->with([
 			'itemType' => 'task', 
 			'title' => 'TASKS', 
-			'items' => $items])
+			'items' => $sortedItems])
 			->render();
 
 		return response()->json(array(

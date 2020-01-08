@@ -1,4 +1,4 @@
-<div class="item-card task-card" data-id="{{ $item->task->id }}" data-type="tasks">
+<div class="item-card task-card {{ $item->task->complete ? 'complete' : null}}" data-id="{{ $item->task->id }}" data-type="tasks">
 	<div class="task-card-grid">
 		<label class="checkboxLabel">
 			<input class="taskCheckbox {{ $item->task->complete ? 'taskComplete' : false}}" type="checkbox" data-id="{{ $item->task->id }}" 

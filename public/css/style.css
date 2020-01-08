@@ -562,6 +562,11 @@ i.selected {
   text-overflow: ellipsis;
 }
 
+.item-card.complete,
+.group-card.complete {
+  background: rgba(255, 255, 255, 0.4);
+}
+
 span.card-tag {
   color: #EDEDED;
   background: #55CFBF;

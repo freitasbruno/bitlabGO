@@ -37,7 +37,7 @@ function getTasks () {
 		}
 	});
 }
-	
+
 function getTimers () {		
 	return $.ajax({
 		url: "/timers",
