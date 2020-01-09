@@ -1,9 +1,19 @@
+.form-card {
+	display: none;
+	background: $white;
+	padding: 1.5em 1em 1em;
+	margin-bottom: 0.75em;
+	color : $card-text-color;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
+	transition: background-color 200ms;
+	position: relative;
+}
+
 .cash-form-grid {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: repeat(3, 1fr);
-	grid-column-gap: 10px;
-	grid-row-gap: 0px;
+	column-gap: 10px;
+	row-gap: 1em;
 
 	.row {
 		grid-column-start: 1;
@@ -11,7 +21,7 @@
 	}
 }
 
-$trans-time: 1000ms;
+$trans-time: 200ms;
 
 // CHECKBOXES // ============================== //
 input[type="checkbox"] {
@@ -68,7 +78,7 @@ form {
 
 .form-group {
 	position: relative;
-	margin: 15px 0;
+	margin: 0;
 }
 
 .formContent {
@@ -106,7 +116,7 @@ select {
 	}
 	&:focus ~ .label,
 	&:valid ~ .label {
-		top: -14px;
+		top: -5px;
 		font-size: 12px;
 		color: $primary-color;
 	}
@@ -176,6 +186,7 @@ input[type="password"] {
 	text-transform: uppercase;
 	text-decoration: none;
 	outline: none;
+	font-size: 0.9em;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 	&:hover {
@@ -193,16 +204,17 @@ input[type="password"] {
 	}
 	&.btn-submit {
 		background: $primary-color;
-		color: mix(white, $primary-color, 70%);
+		color: mix(white, $primary-color, 70%);		
+		font-weight: bold;
 		&:hover {
 			background: darken($primary-color, 5%);
 			color: mix(white, $primary-color, 85%);
 		}
 	}
 	&.btn-cancel {
-		background: #eee;
+		background: $gray-90;
 		&:hover {
-			background: darken(#eee, 5%);
+			background: darken($gray-90, 5%);
 			color: mix(black, $gray-50, 30%);
 		}
 	}
@@ -210,5 +222,11 @@ input[type="password"] {
 
 .form-btns {
 	text-align: right;
-	margin: 15px 0;
+	margin: 15px 0 0;
+}
+
+.closeFormBtn {
+	position: absolute;
+	right: 5px;
+	top: 5px;
 }

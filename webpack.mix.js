@@ -18,6 +18,7 @@ mix.scripts([
 		"resources/js/home.js",
 		"resources/js/filter-type.js",
 		"resources/js/modal.js",
+		"resources/js/forms.js",
 		"resources/js/groups.js",
 		"resources/js/items.js",
 		"resources/js/tasks.js",

@@ -24,7 +24,7 @@ class TaskController extends Controller
 		$sortedItems = $items->sortBy('task.complete');
 
 		$returnHTML = view('panels.itemPanel')->with([
-			'itemType' => 'task', 
+			'type' => 'tasks', 
 			'title' => 'TASKS', 
 			'items' => $sortedItems])
 			->render();

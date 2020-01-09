@@ -22,7 +22,7 @@ class BookmarkController extends Controller
 			->with('bookmark')->get();
 		
 		$returnHTML = view('panels.itemPanel')->with([
-			'itemType' => 'bookmark', 
+			'type' => 'bookmarks', 
 			'title' => 'BOOKMARKS', 
 			'items' => $items])
 			->render();

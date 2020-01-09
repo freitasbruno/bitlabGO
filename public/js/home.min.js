@@ -191,22 +191,6 @@ function renderModal (response) {
 	}
 }
 
-function newGroup () {		
-	return $.ajax({
-		url: "/groups/create",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting group form");
-		}
-	});
-}
-
 function newItem (type) {		
 	return $.ajax({
 		url: "/" + type + "/create",
@@ -259,26 +243,65 @@ function deleteItem (type, id) {
 	});
 }
 
-function storeGroup () {	
-	return $.ajax({
-		url: "/groups",
-		method: "POST",
-		dataType: 'json',
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: $("#newGroupForm").serialize(),
-		success: function(response) {
-			console.log(response);
-		},
-		error: function(error) {
-			console.log("failed getting item");
-			console.log(error);
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	// GET ITEM MODAL
+    $(document).on('click', '.item-card', function(e) {
+		if ($(e.target).closest(".checkboxLabel").length) { return };
+		if ($(e.target).closest(".timerStopBtn").length) { return };
+		if ($(e.target).closest(".total-card").length) { return };
+		let type = $(this).attr('data-type');
+		let itemId = $(this).attr('data-id');
+		console.log(type + " item: " + itemId);
+		
+		getItem(type, itemId).done(function(response) {
+			renderModal(response);
+		}); 		       
+		
+	});
+
+	// GET LOGIN FORM
+    $(document).on('click', '#loginBtn', function() {
+		openModal('login'); 		       
+	});
+
+	// CLOSE MODAL
+    $(document).on('click', '.closeModalBtn', function() {
+		let type = $(this).closest('.modal').attr('data-type');
+		closeModal(type);		
+	});
+		
+	// SHOW MODAL TOOLS
+    $(document).on('click', '.itemToolsBtn', function() {
+		$(this).parent().children('.itemTools').toggle();
+	});
+		
+	// MODAL TOOLS ACTIONS
+    $(document).on('click', '.item-card-action', function() {
+		let container = $(this).closest("#itemModal").find('.container');
+		let type = container.attr('data-type');
+		let id = container.attr('data-id');
+		let action = $(this).attr('data-action');
+
+		switch (action) {
+			case 'move':
+				moveItem (type, id);
+				break;
+			case 'delete':
+				deleteItem (type, id).done( function(response) {
+					console.log(response);
+					getItems (type);
+					closeModal('item');
+				});
+				break;		
+			default:
+				break;
 		}
 	});
-}
+	
+});
 
-function storeItem (type) {	
+function submitForm (type, form) {	
 	return $.ajax({
 		url: "/" + type,
 		method: "POST",
@@ -286,7 +309,7 @@ function storeItem (type) {
 		headers: {
 			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
 		},
-		data: $("#newItemForm").serialize(),
+		data: form.serialize(),
 		success: function(response) {
 			console.log(response);
 		},
@@ -335,92 +358,59 @@ function submitFieldForm (type, id) {
 	});
 }
 
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	// GET ITEM MODAL
-    $(document).on('click', '.item-card', function(e) {
-		if ($(e.target).closest(".checkboxLabel").length) { return };
-		if ($(e.target).closest(".timerStopBtn").length) { return };
-		if ($(e.target).closest(".total-card").length) { return };
-		let type = $(this).attr('data-type');
-		let itemId = $(this).attr('data-id');
-		console.log(type + " item: " + itemId);
-		
-		getItem(type, itemId).done(function(response) {
-			renderModal(response);
-		}); 		       
-		
+	// GET GROUP FORM
+	$(document).on('click', '.newGroupBtn', function() {
+		$('#filter-container').find('.form-card').show();	
 	});
 
 	// GET ITEM FORM
-    $(document).on('click', '.newItemBtn', function() {		
-		let type = $(this).attr('data-type');
-		let formType = type === 'cash' ? 'cashForm' : type.substring(0, type.length - 1) + "Form";
-		console.log(type + " - " + formType); 
-		if($('.itemForm').length && $('.itemForm').hasClass(formType)) {
-			$('#itemModal').fadeIn(200); 
-		} else {
-			newItem(type).done(function(response) {				
-				$("#itemModalTitle").children("p").html("New " + response.type);
-				renderModal(response);
-			}); 		       
+	$(document).on('click', '.newItemBtn', function() {	
+		$('#item-container').find('.form-card').show();	
+	});
+
+	// SUBMIT NEW GROUP/ITEM FORM
+	$(document).on('submit', '.form', function() {
+		let type = $(this).closest('.form-card').attr('data-type');
+		let form = $(this);
+
+		submitForm(type, form).done(function(model) {
+			if (type === 'groups') {
+				getGroup(model.id).done(function(response) {
+					renderModal(response);
+				});
+				getGroups().done(function(response) {
+					render(response);		
+				});
+			} else {
+				getItem(type, model.id).done(function(response) {
+					renderModal(response);
+				});
+				getItems(type);
+			}
+		});
+		return false;
+	});
+
+	// CLOSE FORM
+	$(document).mouseup(function(e) {
+		var container = $(".form-card");
+		if (!container.is(e.target) && container.has(e.target).length === 0) { 
+			container.hide();
 		}
-		
 	});
 
-	// GET GROUP FORM
-    $(document).on('click', '.newGroupBtn', function() {
-		if($('.groupForm').length) {	
-			$('#groupModal').fadeIn(200); 
-		} else {
-			newGroup().done(function(response) {				
-				$("#groupModalTitle").children("p").html("New group");
-				renderModal(response);
-			}); 		       
-		}		
+	$(document).on('click', '.closeFormBtn', function(e) {
+		console.log('click');
+		if ($(e.target).closest(".form-card").length) { 
+			$('.form-card').hide(200);
+		};
 	});
 
-	// GET LOGIN FORM
-    $(document).on('click', '#loginBtn', function() {
-		openModal('login'); 		       
-	});
-
-	// CLOSE MODAL
-    $(document).on('click', '.closeModalBtn', function() {
-		let type = $(this).closest('.modal').attr('data-type');
-		closeModal(type);		
-	});
-	
-	// SUBMIT GROUP FORM
-    $(document).on('submit', '#newGroupForm', function() {
-		storeGroup().done(function(group) {			
-			closeModal('group');
-			getGroups(group.id_parent).done(function(response) {
-				render(response);		
-			});
-		});
-		return false;
-	});
-	
-	// SUBMIT ITEM FORM
-    $(document).on('submit', '#newItemForm', function() {
-		let type = $(this).find('[name="itemType"]').val();
-
-		storeItem(type).done(function(item) {
-			// Reload modal with the created item
-			$("#itemModalTitle").children("p").html("");
-
-			$(".item-filter-link.selected").trigger("click");
-			getItem(type, item.id).done(function(response) {
-				renderModal(response);
-			});
-		});
-
-		return false;
-	});
-	
 	// GET FIELD FORM
-    $(document).on('click', '.editable', function() {
+	$(document).on('click', '.editable', function() {
 
 		let element = $(this);
 		let container = element.closest('.container');
@@ -438,9 +428,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		console.log("Edit " + field + " of " + type + " with id " + id);
 	});
-	
+
 	// SUBMIT FIELD FORM
-    $(document).on('focusout', '.form-field-control', function() {
+	$(document).on('focusout', '.form-field-control', function() {
 		let element = $(this);
 		let container = element.closest('.container');
 		let field = element.attr('data-field');		
@@ -459,36 +449,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 		console.log("Submit " + field + " of " + type + " with id " + id);
 	});
-		
-	// SHOW MODAL TOOLS
-    $(document).on('click', '.itemToolsBtn', function() {
-		$(this).parent().children('.itemTools').toggle();
-	});
-		
-	// MODAL TOOLS ACTIONS
-    $(document).on('click', '.item-card-action', function() {
-		let container = $(this).closest("#itemModal").find('.container');
-		let type = container.attr('data-type');
-		let id = container.attr('data-id');
-		let action = $(this).attr('data-action');
-
-		switch (action) {
-			case 'move':
-				moveItem (type, id);
-				break;
-			case 'delete':
-				deleteItem (type, id).done( function(response) {
-					console.log(response);
-					getItems (type);
-					closeModal('item');
-				});
-				break;		
-			default:
-				break;
-		}
-	});
+	
 });
-
 
 function newGroup () {		
 	return $.ajax({
@@ -597,18 +559,25 @@ function moveItem (type, id, targetId) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	
+	var pressTimer;
+	var selectMode = false;
+
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {
 
 		if ($(e.target).closest(".group-card-action").length) { return };
-
+		
 		let id = $(this).attr('data-id');
 		let groupCard = $(this);
 		console.log("group: " + id);
 
 		updateCurrentGroup(id).done(function(response) {
-			$(".group-card").removeClass("selected");
-			groupCard.addClass("selected");
+			if (selectMode) {
+				groupCard.addClass("selected highlight");
+			} else {
+				$(".group-card").removeClass("selected");
+				groupCard.addClass("selected");
+			}
 			
 			let selected = $(".item-filter-link.selected");
 			
@@ -706,6 +675,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					break;
 			}
 		}
+	});
+	
+	$(document).on('mouseup', '.group-card', function(){		
+		clearTimeout(pressTimer);
+		return false;
+	});
+	$(document).on('mousedown', '.group-card', function() {
+		let card = $(this);
+		pressTimer = window.setTimeout(function() {
+			selectMode = true;
+			card.addClass('selected highlight');
+		},1000);
+	 	return false; 
 	});
 });
 

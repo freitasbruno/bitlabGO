@@ -106,7 +106,7 @@
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
 	transition: background-color 200ms;
 
-	&:hover, a:hover, &.selected {
+	&:hover, &.selected {
 		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);	
 		background: $gray-95;
 		text-decoration: none;		
@@ -137,7 +137,7 @@ span.card-tag {
 // GROUPS
 .group-card {
 	background: rgba(255,255,255,0.4);
-	line-height: 30px;
+	line-height: 34px;
 	padding: 1em;
 
 	&.group-list-card {
@@ -155,7 +155,7 @@ span.card-tag {
 	
 	.group-card-grid {	
 		display: grid;
-		grid-template-columns: 25px minmax(100px, 1fr) 20px;
+		grid-template-columns: 34px minmax(100px, 1fr) 20px;
 	}
 
 	.groupTools {
@@ -182,7 +182,7 @@ span.card-tag {
 		}
 
 		.group-card-grid {	
-			grid-template-columns: 25px minmax(100px, 1fr) auto;
+			grid-template-columns: 34px minmax(100px, 1fr) auto;
 		}
 
 		.count-label {

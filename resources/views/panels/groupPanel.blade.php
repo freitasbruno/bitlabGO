@@ -8,12 +8,13 @@
 		</div>
 		<div class="deck-title-btn">
 			<a href="#" class="newGroupBtn" data-type="cash">
-				<i class="material-icons">add_circle</i>
+				<i class="material-icons white">add_circle</i>
 			</a>
 		</div>
-	</div>
+	</div>	
 	<div class="cardScrollbar">
 		<div class="card-container">
+			@include('forms.formCard', ['type' => 'groups', 'formName' => 'groupForm'])
 			@each('cards.groupCard', $groups, 'group')
 		</div>
 		<div class="force-overflow"></div>	

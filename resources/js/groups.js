@@ -106,18 +106,25 @@ function moveItem (type, id, targetId) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
 	
+	var pressTimer;
+	var selectMode = false;
+
 	// GET GROUP
     $(document).on('click', '.group-card', function(e) {
 
 		if ($(e.target).closest(".group-card-action").length) { return };
-
+		
 		let id = $(this).attr('data-id');
 		let groupCard = $(this);
 		console.log("group: " + id);
 
 		updateCurrentGroup(id).done(function(response) {
-			$(".group-card").removeClass("selected");
-			groupCard.addClass("selected");
+			if (selectMode) {
+				groupCard.addClass("selected highlight");
+			} else {
+				$(".group-card").removeClass("selected");
+				groupCard.addClass("selected");
+			}
 			
 			let selected = $(".item-filter-link.selected");
 			
@@ -215,5 +222,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					break;
 			}
 		}
+	});
+	
+	$(document).on('mouseup', '.group-card', function(){		
+		clearTimeout(pressTimer);
+		return false;
+	});
+	$(document).on('mousedown', '.group-card', function() {
+		let card = $(this);
+		pressTimer = window.setTimeout(function() {
+			selectMode = true;
+			card.addClass('selected highlight');
+		},1000);
+	 	return false; 
 	});
 });

@@ -24,11 +24,13 @@ class CashController extends Controller
 			->with('cash')->get();
 		
 		$totals = Cash::getTotals($items);
-			
+		$accounts = Account::where('id_user', Auth::user()->id)->get();
+
 		$returnHTML = view('panels.itemPanel')->with(
 			[
-			'itemType' => 'cash', 
+			'type' => 'cash', 
 			'title' => 'TRANSACTIONS', 
+			'accounts' => $accounts,
 			'items' => $items,
 			'totals' => $totals,
 			])

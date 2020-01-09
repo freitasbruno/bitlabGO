@@ -14,7 +14,14 @@ i {
 	transition: 200ms ease all;
 
 	&:hover, &.selected {
-		color: $white;
-		background-color: rgba(255,255,255,0.4);
+		color: $primary-color;
+		background-color: rgba(0,0,0,0.05);
+	}
+
+	&.white {
+		&:hover, &.selected {
+			color: $white;
+			background-color: rgba(255,255,255,0.4);
+		}	
 	}
 }

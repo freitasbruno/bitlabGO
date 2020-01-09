@@ -10,6 +10,11 @@ a {
   color: inherit;
 }
 
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   font-family: "Nunito", sans-serif;
   background: #55CFBF;
@@ -31,12 +36,23 @@ body {
   }
 }
 
+.form-card {
+  display: none;
+  background: #ffffff;
+  padding: 1.5em 1em 1em;
+  margin-bottom: 0.75em;
+  color: #787878;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: background-color 200ms;
+  position: relative;
+}
+
 .cash-form-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 0px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+  row-gap: 1em;
 }
 
 .cash-form-grid .row {
@@ -93,7 +109,7 @@ form :after {
 
 .form-group {
   position: relative;
-  margin: 15px 0;
+  margin: 0;
 }
 
 .formContent {
@@ -138,7 +154,7 @@ textarea:focus ~ .label,
 textarea:valid ~ .label,
 select:focus ~ .label,
 select:valid ~ .label {
-  top: -14px;
+  top: -5px;
   font-size: 12px;
   color: #55CFBF;
 }
@@ -183,7 +199,7 @@ input[type=password] {
   position: absolute;
   left: 5px;
   top: 10px;
-  transition: 1000ms ease all;
+  transition: 200ms ease all;
 }
 
 .bar {
@@ -199,7 +215,7 @@ input[type=password] {
   bottom: 0px;
   position: absolute;
   background: #55CFBF;
-  transition: 1000ms ease all;
+  transition: 200ms ease all;
   left: 0%;
 }
 
@@ -213,6 +229,7 @@ input[type=password] {
   text-transform: uppercase;
   text-decoration: none;
   outline: none;
+  font-size: 0.9em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -235,6 +252,7 @@ input[type=password] {
 .btn.btn-submit {
   background: #55CFBF;
   color: #ccf1ec;
+  font-weight: bold;
 }
 
 .btn.btn-submit:hover {
@@ -243,17 +261,23 @@ input[type=password] {
 }
 
 .btn.btn-cancel {
-  background: #eee;
+  background: #E3E3E3;
 }
 
 .btn.btn-cancel:hover {
-  background: #e1e1e1;
+  background: #d6d6d6;
   color: #5a5a5a;
 }
 
 .form-btns {
   text-align: right;
-  margin: 15px 0;
+  margin: 15px 0 0;
+}
+
+.closeFormBtn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
 }
 
 p.card-text-xl,
@@ -307,6 +331,12 @@ i {
 
 i:hover,
 i.selected {
+  color: #55CFBF;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+i.white:hover,
+i.white.selected {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -536,10 +566,8 @@ i.selected {
 }
 
 .item-card:hover,
-.item-card a:hover,
 .item-card.selected,
 .group-card:hover,
-.group-card a:hover,
 .group-card.selected {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
   background: #EDEDED;
@@ -576,7 +604,7 @@ span.card-tag {
 
 .group-card {
   background: rgba(255, 255, 255, 0.4);
-  line-height: 30px;
+  line-height: 34px;
   padding: 1em;
 }
 
@@ -595,7 +623,7 @@ span.card-tag {
 
 .group-card .group-card-grid {
   display: grid;
-  grid-template-columns: 25px minmax(100px, 1fr) 20px;
+  grid-template-columns: 34px minmax(100px, 1fr) 20px;
 }
 
 .group-card .groupTools {
@@ -620,7 +648,7 @@ span.card-tag {
 }
 
 .group-card:hover .group-card-grid {
-  grid-template-columns: 25px minmax(100px, 1fr) auto;
+  grid-template-columns: 34px minmax(100px, 1fr) auto;
 }
 
 .group-card:hover .count-label {

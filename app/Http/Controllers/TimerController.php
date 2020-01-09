@@ -22,7 +22,7 @@ class TimerController extends Controller
 			->with('timer')->get();
 		
 		$returnHTML = view('panels.itemPanel')->with([
-			'itemType' => 'timer', 
+			'type' => 'timers', 
 			'title' => 'TIMERS', 
 			'items' => $items])
 			->render();
