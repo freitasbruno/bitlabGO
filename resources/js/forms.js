@@ -145,6 +145,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				getGroups().done(function(response) {
 					render(response);		
 				});
+			} else if (response.type == 'accounts') {
+				getAccounts().done(function(response) {
+					render(response);		
+				});
 			} else {
 				getItems (type);
 			}

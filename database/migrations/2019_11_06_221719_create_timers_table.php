@@ -17,7 +17,7 @@ class CreateTimersTable extends Migration
 			$table->bigIncrements('id');
 			$table->integer('id_parent');
 			$table->integer('id_user');
-			$table->dateTime('start')->default(now());
+			$table->dateTime('start');
 			$table->dateTime('stop')->nullable();
             $table->timestamps();
             $table->softDeletes();

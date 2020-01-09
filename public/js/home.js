@@ -139,6 +139,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		render(response);		
 	});
 	getItems('cash');
+
+	// TOGGLE FILTERS/ITEMS
+	$(document).on('click', '.toggleDisplayBtn', function() {
+		
+		$(".toggleDisplayBtn").toggle();
+		$("#filter-container").toggle();
+		$("#item-container").toggle();
+
+	});
 });
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -488,6 +497,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				getGroups().done(function(response) {
 					render(response);		
 				});
+			} else if (response.type == 'accounts') {
+				getAccounts().done(function(response) {
+					render(response);		
+				});
 			} else {
 				getItems (type);
 			}
@@ -780,7 +793,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		switch (action) {
 			case 'open':
 				getAccount(accountId).done(function(response) {
-					console.log(JSON.parse(response.account));
+					console.log(response);
 					renderModal(response);
 				});	       
 				break;
@@ -828,9 +841,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
-function stopTimer (itemId) {
+function updateTimer (itemId, action) {
 	return $.ajax({
-		url: "/timers/stop/",
+		url: "/timers/" + action,
 		method: "POST",
 		dataType: 'json',
 		headers: {
@@ -851,11 +864,37 @@ function stopTimer (itemId) {
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
+	// Start Timer
+	$(document).on('click', ".timerStartBtn" , function() {
+		var itemId = $(this).attr('data-id');
+		// updateTimer(itemId, 'start');
+		// getItems('timers');		
+		var minutesLabel = document.getElementById("minutes");
+		var secondsLabel = document.getElementById("seconds");
+		var totalSeconds = 0;
+		setInterval(setTime, 1000);
+
+		function setTime() {
+			++totalSeconds;
+			secondsLabel.innerHTML = pad(totalSeconds % 60);
+			minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+		}
+
+		function pad(val) {
+			var valString = val + "";
+			if (valString.length < 2) {
+				return "0" + valString;
+			} else {
+				return valString;
+			}
+		}
+	});
+
 	// Stop Timer
 	$(document).on('click', ".timerStopBtn" , function() {
 		var itemId = $(this).attr('data-id');
-		stopTimer(itemId);
-		$(".item-filter-link.selected").trigger("click");
+		updateTimer(itemId, 'stop');
+		getItems('timers');
 	});
 
 });

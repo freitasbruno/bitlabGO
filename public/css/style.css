@@ -26,6 +26,10 @@ body {
   grid-template-columns: 1fr 2fr;
 }
 
+.toggleDisplayBtn {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
   #main-container {
     grid-template-columns: 1fr;
@@ -33,6 +37,10 @@ body {
 
   #filter-container {
     display: none;
+  }
+
+  .toggleDisplayBtn {
+    display: inline;
   }
 }
 
@@ -339,6 +347,10 @@ i.white:hover,
 i.white.selected {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.4);
+}
+
+.hidden {
+  display: none;
 }
 
 #main-navbar,
@@ -825,6 +837,25 @@ span.card-tag {
 
 .itemTools li:hover {
   color: #000000;
+}
+
+.login-form-grid {
+  display: grid;
+  row-gap: 1em;
+}
+
+.login-form-grid .form-group {
+  margin-top: 0.5em;
+}
+
+.login-form-grid input:focus ~ .label,
+.login-form-grid input:valid ~ .label {
+  top: -15px;
+}
+
+.login-form-grid .form-check {
+  display: grid;
+  grid-template-columns: 30px 1fr;
 }
 
 .icon-10 {

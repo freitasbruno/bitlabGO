@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		switch (action) {
 			case 'open':
 				getAccount(accountId).done(function(response) {
-					console.log(JSON.parse(response.account));
+					console.log(response);
 					renderModal(response);
 				});	       
 				break;

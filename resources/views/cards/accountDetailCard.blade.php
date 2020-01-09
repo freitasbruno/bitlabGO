@@ -7,9 +7,11 @@
 		</p>
 		<div></div>
 		<div>		
-			<p class="card-text-xs editable" data-field="description">
-				{{ $account->group->description }}
-			</p>
+			@if ($account->group->description)		
+				<p class="card-text-xs editable" data-field="description">{{ $account->group->description }}</p>
+			@else
+				<p class="card-text-xs editable" data-field="description">Enter a description...</p>
+			@endif
 		</div>
 	</div>
 

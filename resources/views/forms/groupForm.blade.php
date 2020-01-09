@@ -3,9 +3,9 @@
 	<span class="highlight"></span><span class="bar"></span>
 	<label class="label">Enter a new group</label>
 </div>
-<br>
+{{-- <br>
 <div class="form-group">
-	<textarea type="text" name="description" class="form-control" data-field="description" autocomplete="off" required></textarea>
+	<textarea type="text" name="description" class="form-control" data-field="description" autocomplete="off"></textarea>
 	<span class="highlight"></span><span class="bar"></span>
 	<label class="label">Enter group description</label>
-</div>
+</div> --}}

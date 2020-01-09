@@ -86,24 +86,6 @@ class AccountController extends Controller
 			'modalHtml' => $modalHtml
 		));
 	}
-	
-    /**
-     * Return the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getAccount()
-    {
-		$accountId = $_POST['accountId'];
-		$account = Account::where('id', $accountId)
-			->with('cash')->first();
-		
-		$returnHTML = view('panels.accountPanel')->with('account', $account)->render();
-		return response()->json(array(
-			'success' => true,
-			'items' => $account->cash, 
-			'html' => $returnHTML));
-	}
 
     /**
      * Show the form for editing the specified resource.
@@ -125,7 +107,25 @@ class AccountController extends Controller
      */
     public function update(Request $request, Account $account)
     {
-        //
+		$field = $request->get('field');
+		$content = $request->get($field);
+
+		if ($field == 'name' || $field == 'description') {
+			$account->group->$field = $content;
+			$account->group->save();
+		} else {
+			$account->$field = $content;
+			$account->save();
+		}
+
+		$modalHtml = view('cards.accountDetailCard')->with('account', $account)->render();
+
+		return response()->json(array(
+			'success' => true,
+			'type' => 'account',
+			'account' => $account->toJson(),
+			'modalHtml' => $modalHtml
+		));
     }
 
     /**
@@ -142,6 +142,28 @@ class AccountController extends Controller
 			'success' => true,
 			'type' => 'account',
 			'account' => $account->toJson()
+		));
+	}
+			
+	/**
+     * Get a form to update a specific field.
+     *
+     */	
+    public function getForm(Account $account)
+    {
+		$field = $_POST['field'];
+
+		if ($field == 'name' || $field == 'description') {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $account->group->$field])->render();
+		} else {
+			$html = view('forms.fieldForm')->with(['field' => $field, 'content' => $account->$field])->render();
+		}
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'accounts',
+			'field' => $field,
+			'html' => $html
 		));
 	}
 }

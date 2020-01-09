@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('bookmarks/move/{bookmark}', 'BookmarkController@move');
 	
 	Route::post('groups/getForm/{group}', 'GroupController@getForm');
+	Route::post('accounts/getForm/{account}', 'AccountController@getForm');
 	Route::post('cash/getForm/{cash}', 'CashController@getForm');
 	Route::post('tasks/getForm/{task}', 'TaskController@getForm');
 	Route::post('timers/getForm/{timer}', 'TimerController@getForm');
@@ -48,6 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('tasks/toggleComplete', 'TaskController@toggleComplete');
 	
 	Route::resource('timers', 'TimerController');
+	Route::post('timers/start', 'TimerController@start');
 	Route::post('timers/stop', 'TimerController@stop');
 	
 	Route::resource('accounts', 'AccountController');
@@ -55,15 +57,20 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::get('/session', function () {
 		$session = session()->all();
-		dd($session);
+		dd($session['currentGroup']->toArray());
 	});
 });
 
 
 use App\Models\Items\Timer;
 
-Route::get('/test/{id}', function ($id) {
-	$group = Group::find($id);
-	dd($group->account());die;
+Route::get('/test', function () {
 
+	dd(Group::getGroupTree(7));die;
+	$cash = Item::has('cash')
+			->where('id_user', Auth::user()->id)
+			->where('id_parent', session('currentGroup')->id)
+			->with('cash')->get();
+			
+	dd($cash);
 });

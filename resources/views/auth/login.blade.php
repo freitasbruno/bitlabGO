@@ -1,7 +1,7 @@
-<form method="POST" action="{{ route('login') }}">
+<form class="login-form-grid" method="POST" action="{{ route('login') }}">
 	@csrf
 	<div class="form-group">
-		<input type="text" name="email" value="{{ $group->name ?? '' }}" class="form-control" data-field="name" required autofocus>
+		<input type="text" name="email" value="{{ $group->name ?? '' }}" class="form-control" data-field="name" autocomplete="off" required>
 		<span class="highlight"></span><span class="bar"></span>
 		<label class="label">Enter your login email</label>
 		@error('email')
@@ -11,7 +11,7 @@
 		@enderror
 	</div>
 	<div class="form-group">
-		<input type="password" name="password" value="{{ $group->name ?? '' }}" class="form-control" data-field="password" required autofocus>
+		<input type="password" name="password" value="{{ $group->name ?? '' }}" class="form-control" data-field="password" autocomplete="off" required>
 		<span class="highlight"></span><span class="bar"></span>
 		<label class="label">Enter your password</label>
 		@error('password')
@@ -20,12 +20,14 @@
 			</span>
 		@enderror
 	</div>
-	
 	<div class="form-check">
-		<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-		<label class="form-check-label" for="remember">
-			{{ __('Remember Me') }}
+		<label class="checkboxLabel">
+			<input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+			<label class="checkboxLabel" for="remember"></label>
 		</label>
+		<p class="card-text-s">
+			{{ __('Remember Me') }}
+		</p>
 	</div>
 	<a href="{{ route('password.request') }}">
 		{{ __('Forgot Your Password?') }}

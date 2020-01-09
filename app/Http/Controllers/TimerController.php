@@ -147,6 +147,21 @@ class TimerController extends Controller
 
         return $timer->stop;
     }
+	
+	/**
+     * Update the finish time of a timer.
+     *
+     */	
+    public function start()
+    {
+		$timerId = $_POST['itemId'];
+
+		$timer = Timer::find($timerId);
+		$timer->start = now();
+		$timer->save();
+
+        return $timer->start;
+    }
 
     /**
      * Remove the specified resource from storage.

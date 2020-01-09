@@ -6,10 +6,13 @@
 			{{ strToUpper($group->name) }}
 		</p>
 		<div></div>
-		<div>		
-			<p class="card-text-xs editable" data-field="description">
-				{{ $group->description }}
-			</p>
+		
+		<div>	
+			@if ($group->description)		
+				<p class="card-text-xs editable" data-field="description">{{ $group->description }}</p>
+			@else
+				<p class="card-text-xs editable" data-field="description">Enter a description...</p>
+			@endif
 		</div>
 	</div>
 

@@ -97,3 +97,23 @@
 		}
 	}
 }
+
+.login-form-grid {
+	display: grid;
+	row-gap: 1em;
+
+	.form-group {
+		margin-top: 0.5em;
+	}
+	input {			
+		&:focus ~ .label,
+		&:valid ~ .label {
+			top: -15px;
+		}
+	}
+
+	.form-check {
+		display: grid;
+		grid-template-columns: 30px 1fr;
+	}
+}
