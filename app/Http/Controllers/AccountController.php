@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Account;
+use App\Models\Group;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,10 +47,27 @@ class AccountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function store(Request $request)
+	{
+		$user = Auth::user();
+		$home = $user->id_home;
+
+		$group = Group::create([
+			'id_user' => $user->id,
+			'id_parent' => $home,
+			'name' => $request->name,
+			'description' => $request->description
+		]);
+
+		$account = Account::create([
+			'id_user' => $user->id,
+			'id_parent' => $group->id,
+			'balance' => 0,
+			'currency' => 'EUR'
+		]);
+
+		return response()->json($account);
+	}
 
     /**
      * Display the specified resource.
@@ -57,16 +75,17 @@ class AccountController extends Controller
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
-    {
-		$account = Account::find($id);
-
-        // load the view and pass the groups
-        return view('accounts', [
-			'account' => $account,
-			'cashItems' => $account->cashItems
-		]);
-	}	
+	public function show(Account $account)
+	{
+		$modalHtml = view('cards.accountDetailCard')->with('account', $account)->render();
+		
+		return response()->json(array(
+			'success' => true,
+			'type' => 'account',
+			'account' => $account->toJson(),
+			'modalHtml' => $modalHtml
+		));
+	}
 	
     /**
      * Return the specified resource.
@@ -115,8 +134,14 @@ class AccountController extends Controller
      * @param  \App\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account)
-    {
-        //
-    }
+	public function destroy(Account $account)
+	{
+		$account->group->delete();
+		$account->delete();
+		return response()->json(array(
+			'success' => true,
+			'type' => 'account',
+			'account' => $account->toJson()
+		));
+	}
 }

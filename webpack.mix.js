@@ -20,6 +20,7 @@ mix.scripts([
 		"resources/js/modal.js",
 		"resources/js/forms.js",
 		"resources/js/groups.js",
+		"resources/js/accounts.js",
 		"resources/js/items.js",
 		"resources/js/tasks.js",
 		"resources/js/timers.js"

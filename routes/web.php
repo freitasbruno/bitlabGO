@@ -62,13 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 use App\Models\Items\Timer;
 
-Route::get('/test', function () {
+Route::get('/test/{id}', function ($id) {
+	$group = Group::find($id);
+	dd($group->account());die;
 
-	dd(Group::getGroupTree(7));die;
-	$cash = Item::has('cash')
-			->where('id_user', Auth::user()->id)
-			->where('id_parent', session('currentGroup')->id)
-			->with('cash')->get();
-			
-	dd($cash);
 });

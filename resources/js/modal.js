@@ -30,6 +30,10 @@ function renderModal (response) {
 		$("#groupModalContent").html('');
 		$(response.modalHtml).appendTo($("#groupModalContent"));
 		openModal('group');
+	} else if (type == "account") {
+		$("#groupModalContent").html('');
+		$(response.modalHtml).appendTo($("#groupModalContent"));
+		openModal('group');
 	} else if (type == "groupSelect") {
 
 		console.log(response);

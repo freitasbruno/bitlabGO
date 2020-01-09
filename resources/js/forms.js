@@ -55,7 +55,6 @@ function submitFieldForm (type, id) {
 	});
 }
 
-
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// GET GROUP FORM
@@ -79,6 +78,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					renderModal(response);
 				});
 				getGroups().done(function(response) {
+					render(response);		
+				});
+			}else if (type === 'accounts') {
+				getAccount(model.id).done(function(response) {
+					renderModal(response);
+				});
+				getAccounts().done(function(response) {
 					render(response);		
 				});
 			} else {

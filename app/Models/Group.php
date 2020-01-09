@@ -132,7 +132,9 @@ class Group extends Model
 		if ($group->has('children')) {
 			$group->groups = collect();
 			foreach ($group->children as $child) {
-				$group->groups->push(Group::getGroupTree($child->id));
+				if (!$child->account) {
+					$group->groups->push(Group::getGroupTree($child->id));
+				}
 			}
 		}
 		return $group;

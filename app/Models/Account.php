@@ -7,6 +7,16 @@ use App\Models\Items\Cash;
 
 class Account extends Group
 {	
+
+	/**
+	 * The attributes that are mass assignable.
+	 *
+	 * @var array
+	 */
+	protected $fillable = [
+		'id_user', 'id_parent', 'balance', 'currency'
+	];
+	
 	/**
      * The relationships that should always be loaded.
      *
