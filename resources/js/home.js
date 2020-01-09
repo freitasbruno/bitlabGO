@@ -1,6 +1,6 @@
 function render (response) {	
 	
-	if (response.groups) {
+	if (response.groups || response.accounts) {
 		$("#filter-container").html('');
 		$(response.html).hide().appendTo($("#filter-container")).fadeIn(200);
 		$(".nestedGroup").hide();
@@ -110,6 +110,25 @@ function getGroups (viewType = 'cardPanel') {
 		},
 		error: function(errorThrown) {
 			console.log("failed getting groups");
+		}
+	});
+}
+
+function getAccounts (viewType = 'cardPanel') {		
+	return $.ajax({
+		url: "/accounts",
+		method: "GET",
+		data: {
+			viewType : viewType,
+		},
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting accounts");
 		}
 	});
 }

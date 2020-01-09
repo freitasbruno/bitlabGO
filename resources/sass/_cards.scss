@@ -99,7 +99,7 @@
 	}
 }
 
-.item-card, .group-card {
+.item-card, .group-card, .account-card {
 	margin-bottom: 0.75em;
 	color : $card-text-color;
 	background: $white;
@@ -135,7 +135,7 @@ span.card-tag {
 // Specific item properties
 
 // GROUPS
-.group-card {
+.group-card, .account-card {
 	background: rgba(255,255,255,0.4);
 	line-height: 34px;
 	padding: 1em;

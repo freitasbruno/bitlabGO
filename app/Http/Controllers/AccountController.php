@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
@@ -12,10 +13,22 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+	public function index(Request $request)
+	{		
+		$viewType = $request->get('viewType');
+
+		$user = Auth::user();
+		$accounts = Account::where('id_user', $user->id)->get();
+	
+		if ($viewType == 'cardPanel') {
+			$returnHTML = view('panels.groupPanel')->with(['filters' => $accounts, 'type' => 'accounts'])->render();
+		}
+		return response()->json(array(
+			'success' => true,
+			'type' => $viewType,
+			'accounts' => $accounts,
+			'html' => $returnHTML));
+	}
 
     /**
      * Show the form for creating a new resource.

@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
-				let itemType = $(selected).attr('data-url');
+				let itemType = $(selected).attr('data-type');
 				console.log('itemType = ' + itemType);
 	
 				getItems (itemType);
@@ -229,10 +229,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		return false;
 	});
 	$(document).on('mousedown', '.group-card', function() {
-		let card = $(this);
 		pressTimer = window.setTimeout(function() {
-			selectMode = true;
-			card.addClass('selected highlight');
+			// selectMode = true;
 		},1000);
 	 	return false; 
 	});

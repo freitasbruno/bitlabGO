@@ -1,6 +1,6 @@
 function render (response) {	
 	
-	if (response.groups) {
+	if (response.groups || response.accounts) {
 		$("#filter-container").html('');
 		$(response.html).hide().appendTo($("#filter-container")).fadeIn(200);
 		$(".nestedGroup").hide();
@@ -114,6 +114,25 @@ function getGroups (viewType = 'cardPanel') {
 	});
 }
 
+function getAccounts (viewType = 'cardPanel') {		
+	return $.ajax({
+		url: "/accounts",
+		method: "GET",
+		data: {
+			viewType : viewType,
+		},
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed getting accounts");
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	getGroups('cardPanel').done(function(response) {
@@ -129,10 +148,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$(".item-filter-link").removeClass("selected");
 		$(this).addClass("selected");
 
-		let itemType = $(this).attr('data-url');
+		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
 		getItems (itemType);
+	});
+
+	// Listen to Btn click
+    $(document).on('click', '.filter-link', function() {
+		$(".filter-link").removeClass("selected");
+		$(this).addClass("selected");
+
+		let type = $(this).attr('data-type');
+		if (type == 'groups') {
+			getGroups('cardPanel').done(function(response) {
+				render(response);		
+			});
+		} else if (type == 'accounts') {
+			getAccounts().done(function(response) {
+				render(response);		
+			});
+		}
 	});
 	
 });
@@ -582,7 +618,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
-				let itemType = $(selected).attr('data-url');
+				let itemType = $(selected).attr('data-type');
 				console.log('itemType = ' + itemType);
 	
 				getItems (itemType);
@@ -682,10 +718,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		return false;
 	});
 	$(document).on('mousedown', '.group-card', function() {
-		let card = $(this);
 		pressTimer = window.setTimeout(function() {
-			selectMode = true;
-			card.addClass('selected highlight');
+			// selectMode = true;
 		},1000);
 	 	return false; 
 	});

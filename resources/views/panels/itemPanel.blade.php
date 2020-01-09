@@ -1,10 +1,10 @@
 <div class="card-deck">
 	<div class="deck-title">
 		<div class="filter">
-			<i class="material-icons item-filter-link white {{ $type == 'cash' ? 'selected' : ''}}" data-url="cash">attach_money</i>					
-			<i class="material-icons item-filter-link white {{ $type == 'tasks' ? 'selected' : ''}}" data-url="tasks">done</i>					
-			<i class="material-icons item-filter-link white {{ $type == 'timers' ? 'selected' : ''}}" data-url="timers">timer</i>					
-			<i class="material-icons item-filter-link white {{ $type == 'bookmarks' ? 'selected' : ''}}" data-url="bookmarks">bookmark_border</i>
+			<i class="material-icons item-filter-link white {{ $type == 'cash' ? 'selected' : ''}}" data-type="cash">attach_money</i>					
+			<i class="material-icons item-filter-link white {{ $type == 'tasks' ? 'selected' : ''}}" data-type="tasks">done</i>					
+			<i class="material-icons item-filter-link white {{ $type == 'timers' ? 'selected' : ''}}" data-type="timers">timer</i>					
+			<i class="material-icons item-filter-link white {{ $type == 'bookmarks' ? 'selected' : ''}}" data-type="bookmarks">bookmark_border</i>
 		</div>
 		<div class="deck-title-text">
 			{{ $title }}

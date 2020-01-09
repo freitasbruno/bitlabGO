@@ -10,9 +10,7 @@
 			{{ strToUpper($group->name) }}
 		</p>
 		<div class="groupTools">
-			<i class="material-icons-outlined group-card-action" data-action="delete">delete</i>					
-			{{-- <i class="material-icons-outlined group-card-action" data-action="move">file_copy</i>					 --}}
-			{{-- <i class="material-icons-outlined group-card-action" data-action="share">share</i>					 --}}
+			<i class="material-icons-outlined group-card-action" data-action="delete">delete</i>
 			<i class="material-icons-outlined group-card-action" data-action="open">visibility</i>
 		</div>
 		@if ($group->children->count() > 0)

@@ -557,7 +557,8 @@ i.white.selected {
 }
 
 .item-card,
-.group-card {
+.group-card,
+.account-card {
   margin-bottom: 0.75em;
   color: #787878;
   background: #ffffff;
@@ -568,7 +569,9 @@ i.white.selected {
 .item-card:hover,
 .item-card.selected,
 .group-card:hover,
-.group-card.selected {
+.group-card.selected,
+.account-card:hover,
+.account-card.selected {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
   background: #EDEDED;
   text-decoration: none;
@@ -584,14 +587,20 @@ i.white.selected {
 .group-card p.card-text-l,
 .group-card p.card-text-m,
 .group-card p.card-text-s,
-.group-card p.card-text-xs {
+.group-card p.card-text-xs,
+.account-card p.card-text-xl,
+.account-card p.card-text-l,
+.account-card p.card-text-m,
+.account-card p.card-text-s,
+.account-card p.card-text-xs {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .item-card.complete,
-.group-card.complete {
+.group-card.complete,
+.account-card.complete {
   background: rgba(255, 255, 255, 0.4);
 }
 
@@ -602,17 +611,20 @@ span.card-tag {
   padding: 2px 10px;
 }
 
-.group-card {
+.group-card,
+.account-card {
   background: rgba(255, 255, 255, 0.4);
   line-height: 34px;
   padding: 1em;
 }
 
-.group-card.group-list-card {
+.group-card.group-list-card,
+.account-card.group-list-card {
   padding: 0.25em;
 }
 
-.group-card .count-label {
+.group-card .count-label,
+.account-card .count-label {
   text-align: center;
   background: #ffffff;
   width: 20px;
@@ -621,16 +633,19 @@ span.card-tag {
   line-height: 20px;
 }
 
-.group-card .group-card-grid {
+.group-card .group-card-grid,
+.account-card .group-card-grid {
   display: grid;
   grid-template-columns: 34px minmax(100px, 1fr) 20px;
 }
 
-.group-card .groupTools {
+.group-card .groupTools,
+.account-card .groupTools {
   display: none;
 }
 
-.group-card .groupTools i {
+.group-card .groupTools i,
+.account-card .groupTools i {
   font-size: 16px;
   border-radius: 20px;
   padding: 5px;
@@ -638,20 +653,24 @@ span.card-tag {
   transition: 200ms ease all;
 }
 
-.group-card .groupTools i:hover {
+.group-card .groupTools i:hover,
+.account-card .groupTools i:hover {
   color: #000000;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.group-card:hover .groupTools {
+.group-card:hover .groupTools,
+.account-card:hover .groupTools {
   display: block;
 }
 
-.group-card:hover .group-card-grid {
+.group-card:hover .group-card-grid,
+.account-card:hover .group-card-grid {
   grid-template-columns: 34px minmax(100px, 1fr) auto;
 }
 
-.group-card:hover .count-label {
+.group-card:hover .count-label,
+.account-card:hover .count-label {
   display: none;
 }
 

@@ -26,7 +26,7 @@ class GroupController extends Controller
 		$groupTree = Group::getGroupTree($user->id_home);
 	
 		if ($viewType == 'cardPanel') {
-			$returnHTML = view('panels.groupPanel')->with(['groups' => $groupTree->groups, 'breadcrumbs' => $breadcrumbs])->render();
+			$returnHTML = view('panels.groupPanel')->with(['filters' => $groupTree->groups, 'breadcrumbs' => $breadcrumbs, 'type' => 'groups'])->render();
 		} else if ($viewType == 'groupSelect') {
 			$returnHTML = view('panels.groupSelectPanel')->with(['groups' => $groupTree])->render();
 		}
