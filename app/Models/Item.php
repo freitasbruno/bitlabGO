@@ -9,33 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class Item extends Model
 {
 	use SoftDeletes;
-	
-	/**
-	 * The class names of item types.
-	 *
-	 * @var array
-	 */
-	public static function getClassName($type) {
-		$className = null;
-		switch ($type) {
-			case 'bookmarks':
-				$className = 'Bookmark';
-				break;
-			case 'cash':
-				$className = 'Cash';
-				break;
-			case 'tasks':
-				$className = 'Task';
-				break;
-			case 'timers':
-				$className = 'Timer';
-				break;			
-			default:
-				break;
-		}
-		return $className;
-	}
-	
+	protected $table = 'items';
+	protected $className = 'Item';
+
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -52,6 +29,24 @@ class Item extends Model
      */
 	protected $with = ['group'];
 	
+	/**
+	 * The class names of item types.
+	 *
+	 * @var array
+	 */
+	public function getClassName() {		
+		return $this->className;
+	}
+	
+	/**
+	 * The table names of item types.
+	 *
+	 * @var array
+	 */
+	public function getTable()
+    {
+        return $this->table;
+	}	
 	/**
      * Get the user who owns the item.
      */

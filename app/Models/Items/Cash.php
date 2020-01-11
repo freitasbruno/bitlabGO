@@ -8,6 +8,7 @@ class Cash extends Item
 {
 
 	protected $table = 'cash';
+	protected $className = 'Cash';
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +25,9 @@ class Cash extends Item
      * @var array
      */
     protected $with = ['item', 'account'];
-
+	
 	/**
-     * Get the user who owns the group.
+     * Get the user who owns the resource.
      */
     public function user()
     {
@@ -34,7 +35,7 @@ class Cash extends Item
 	}
 
 	/**
-     * Get the parent group of a group.
+     * Get the parent item of a resource.
      */
     public function item()
     {

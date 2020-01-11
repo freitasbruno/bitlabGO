@@ -7,7 +7,8 @@ use App\Models\Item as Item;
 class Task extends Item
 {
 	protected $table = 'tasks';
-
+	protected $className = 'Task';
+	
     /**
      * The attributes that are mass assignable.
      *
@@ -23,9 +24,9 @@ class Task extends Item
      * @var array
      */
     protected $with = ['item'];
-
+	
 	/**
-     * Get the user who owns the task.
+     * Get the user who owns the resource.
      */
     public function user()
     {
@@ -33,11 +34,10 @@ class Task extends Item
 	}
 
 	/**
-     * Get the parent group of a task.
+     * Get the parent item of a resource.
      */
     public function item()
     {
         return $this->belongsTo('App\Models\Item', 'id_parent');
 	}
-	
 }

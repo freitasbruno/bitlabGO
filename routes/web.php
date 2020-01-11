@@ -13,6 +13,8 @@
 
 use App\Models\Group;
 use App\Models\Item;
+use App\Models\Items\Cash;
+use App\Models\Items\Task;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,11 +68,6 @@ use App\Models\Items\Timer;
 
 Route::get('/test', function () {
 
-	dd(Group::getGroupTree(7));die;
-	$cash = Item::has('cash')
-			->where('id_user', Auth::user()->id)
-			->where('id_parent', session('currentGroup')->id)
-			->with('cash')->get();
-			
-	dd($cash);
+	$task = Cash::find(1);
+	dd($task->getTable());die;
 });

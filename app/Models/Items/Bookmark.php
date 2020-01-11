@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bookmark extends Model
 {
-	protected $table = 'bookmarks';
+	protected $table = 'bookmarks';	
+	protected $className = 'Bookmark';
 
     /**
      * The attributes that are mass assignable.
@@ -22,10 +23,10 @@ class Bookmark extends Model
      *
      * @var array
      */
-    protected $with = ['item'];
-
+	protected $with = ['item'];
+	
 	/**
-     * Get the user who owns the task.
+     * Get the user who owns the resource.
      */
     public function user()
     {
@@ -33,7 +34,7 @@ class Bookmark extends Model
 	}
 
 	/**
-     * Get the parent group of a task.
+     * Get the parent item of a resource.
      */
     public function item()
     {

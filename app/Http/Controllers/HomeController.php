@@ -22,22 +22,11 @@ class HomeController extends Controller
 	public function index()
 	{
 		$user = Auth::user();
-		return redirect('home/' . $user->id_home);
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show($id)
-	{
-		$group = Group::find($id);
+		$group = Group::find($user->id_home);
 		$groups = $group->getChildren();
 		$breadcrumbs = $group->getBreadcrumbs();
 
-		$items = Item::doesntHave('cash')->where('id_parent', $id)->get();
+		$items = Item::doesntHave('cash')->where('id_parent', $user->id_home)->get();
 		
 		$cash = $group->cash();
 		$tasks = $group->tasks();
@@ -46,7 +35,7 @@ class HomeController extends Controller
 		
 		$group->cashTotals = $group->getCashTotals();
 
-		$accounts = Account::where('id_user', Auth::user()->id)->get();
+		$accounts = Account::where('id_user', $user->id)->get();
 
 		$n = 0;
 		
@@ -57,7 +46,7 @@ class HomeController extends Controller
 		$totals = $group->getBalance();
 
 		// Change the currentGroup in the Session
-		session(['currentGroup' => Group::find($id)]);
+		session(['currentGroup' => Group::find($user->id_home)]);
 		
 		// load the view and pass the groups
 		return view('home', [
