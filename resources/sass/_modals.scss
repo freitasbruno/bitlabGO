@@ -54,10 +54,14 @@
 }
 
 .main-card-detail-grid {	
-	padding: 1em 0em 1.5em;
 	display: grid;
-	grid-template-columns: 2.5em minmax(100px, 1fr);
+	grid-template-columns: auto minmax(100px, 1fr);
 	row-gap: 0.5em;
+
+	& > div {
+		margin: auto 0;
+		padding-left: 0.5em;
+	}	
 }
 
 .card-detail-grid {

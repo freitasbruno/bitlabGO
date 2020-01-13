@@ -76,27 +76,26 @@ body {
 #group-modal-content .cardScrollbar {
   float: right;
   height: 100%;
-  width: calc(100% - 0.5em);
-  padding-right: 0.5em;
+  width: 100%;
   overflow-y: auto;
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar,
 #group-modal-content .cardScrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar-thumb,
 #group-modal-content .cardScrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar-track,
 #group-modal-content .cardScrollbar::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
   cursor: -webkit-grab;
   cursor: grab;
 }
@@ -656,12 +655,11 @@ i {
   padding: 1.5em 1.5em;
   display: grid;
   grid-template-columns: auto minmax(100px, 1fr);
-  -moz-column-gap: 0.5em;
-       column-gap: 0.5em;
 }
 
 .item-card > div {
   margin: auto 0;
+  padding-left: 0.5em;
 }
 
 .totals-card {
@@ -754,10 +752,14 @@ span.card-tag {
 }
 
 .main-card-detail-grid {
-  padding: 1em 0em 1.5em;
   display: grid;
-  grid-template-columns: 2.5em minmax(100px, 1fr);
+  grid-template-columns: auto minmax(100px, 1fr);
   row-gap: 0.5em;
+}
+
+.main-card-detail-grid > div {
+  margin: auto 0;
+  padding-left: 0.5em;
 }
 
 .card-detail-grid {

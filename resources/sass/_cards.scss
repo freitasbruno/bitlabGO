@@ -22,8 +22,7 @@
 .filter-card {	
 	display: grid;
 	grid-template-columns: 34px minmax(100px, 1fr) 20px;
-	background: $white-40;
-		
+	background: $white-40;		
 	line-height: 34px;
 	padding: $card-padding;
 
@@ -76,9 +75,10 @@
 	padding: 1.5em 1.5em;
 	display: grid;
 	grid-template-columns: auto minmax(100px, 1fr);
-	column-gap: 0.5em;
+
 	& > div {
 		margin: auto 0;
+		padding-left: 0.5em;
 	}
 }
 

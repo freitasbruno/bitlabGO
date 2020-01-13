@@ -19,7 +19,6 @@ body {
 #filter-nav, #item-nav {
 	display: grid;
 	grid-template-columns: auto minmax(50px, 1fr) 40px;
-
 	color: $white;
 	font-size: 1.5em;
 	font-weight: 700;
@@ -49,24 +48,23 @@ body {
 	.cardScrollbar {
 		float: right;
 		height: 100%;
-		width: calc(100% - 0.5em);
-		padding-right: 0.5em;
+		width: 100%;
 		overflow-y: auto;
 	}
 
 	.cardScrollbar::-webkit-scrollbar {
-		width: 6px;
+		width: 8px;
 	} 
 
 	.cardScrollbar::-webkit-scrollbar-thumb {
 		background-color: rgba(0,0,0,0.3);
-		border-radius: 3px;
+		border-radius: 4px;
 	}
 
 	.cardScrollbar::-webkit-scrollbar-track {
-		box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		border-radius: 3px;
+		box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+		-webkit-box-shadow: inset 0 0 8px rgba(0,0,0,0.3);
+		border-radius: 4px;
 		cursor: grab;
 	}
 
