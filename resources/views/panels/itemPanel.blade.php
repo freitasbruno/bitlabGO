@@ -35,7 +35,12 @@
 		</div>
 	@endif
 @endif
-<div class="item-container card-container">
+
+@if(isset($totals) && $totals['type'] == 'cash')
+	<div class="totals card-container">
+@else
+	<div class="card-container">
+@endif
 	<div class="cardScrollbar">
 		@include('forms.formCard', ['type' => $type, 'formName' => rtrim($type,'s') . 'Form', 'accounts' => $accounts ?? null])
 		@if ($items->count() > 0)

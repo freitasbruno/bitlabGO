@@ -21,15 +21,20 @@ class TimerController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('timer')->get();
 		
+		$totals = Timer::getTotals($items);
+
 		$returnHTML = view('panels.itemPanel')->with([
 			'type' => 'timers', 
 			'title' => 'TIMERS', 
-			'items' => $items])
+			'items' => $items,
+			'totals' => $totals,
+			])
 			->render();
 
 		return response()->json(array(
 			'success' => true,
-			'items' => $items, 
+			'items' => $items,
+			'totals' => $totals, 
 			'html' => $returnHTML));
     }
 

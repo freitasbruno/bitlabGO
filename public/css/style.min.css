@@ -33,7 +33,7 @@ body {
 #filter-container,
 #item-container {
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 50px auto 1fr;
   padding: 1em;
 }
 
@@ -110,11 +110,11 @@ body {
   padding-left: 20px;
 }
 
-.filter-container {
+.card-container {
   height: calc(calc(100vh - 50px) - 50px - 2 * 1em);
 }
 
-.item-container {
+.card-container.totals {
   height: calc(calc(100vh - 50px) - 50px - 2 * 1em - 80px);
 }
 

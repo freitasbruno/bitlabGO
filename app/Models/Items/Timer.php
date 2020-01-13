@@ -40,4 +40,14 @@ class Timer extends Model
     {
         return $this->belongsTo('App\Models\Item', 'id_parent');
 	}
+	
+	public static function getTotals($items) {
+
+		$totals = [
+			'time' => 100,
+			'type' => 'timers'
+		];
+
+		return $totals;
+	}
 }

@@ -12,7 +12,7 @@ body {
 
 #filter-container, #item-container {
 	display: grid;
-	grid-template-rows: $nav-height 1fr;
+	grid-template-rows: $nav-height auto 1fr;
 	padding: $container-padding;
 }
 
@@ -77,12 +77,12 @@ body {
 	}
 }
 
-.filter-container {
-	height: $filter-container-height;
+.card-container {
+	height: $card-container-height;
 }
 
-.item-container {
-	height: $item-container-height;
+.card-container.totals {
+	height: $card-container-totals-height;
 }
 
 .item-totals {
