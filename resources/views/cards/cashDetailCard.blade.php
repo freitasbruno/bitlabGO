@@ -1,6 +1,6 @@
 <div class="container" data-id="{{ $item->cash->id }}" data-type="cash">
 
-	<div class="main-card-detail-grid">
+	<div class="card-detail-grid">
 		@if ($item->cash -> type == 'expense')					
 			<i class="material-icons icon-36 icon-expense">arrow_upward</i>
 		@else
@@ -22,9 +22,10 @@
 		</div>
 		<i class="material-icons-outlined">credit_card</i>
 		<div>
-			</div>
+			<p class="card-text-s" data-field="acoount">{{ $item->cash->account->group->name }}</p>
+		</div>
+		
+		@include('cards.itemCardDetails', ['item' => $item])
 	</div>
-
-	@include('cards.itemCardDetails', ['item' => $item])
 	
 </div>

@@ -53,27 +53,17 @@
 	
 }
 
-.main-card-detail-grid {	
+.card-detail-grid {	
 	display: grid;
 	grid-template-columns: auto minmax(100px, 1fr);
+	column-gap: 0.25em;
 	row-gap: 0.5em;
 
 	& > div {
 		margin: auto 0;
-		padding-left: 0.5em;
 	}	
 }
 
-.card-detail-grid {
-	display: grid;
-	grid-template-columns: 2.5em minmax(100px, 1fr);
-	grid-row-gap: 10px;
-
-	p {
-		line-height: 30px;
-		vertical-align: middle;
-	}
-}
 
 .modal-menu-container {
 	position: relative;

@@ -21,7 +21,7 @@ a:hover {
 
 body {
   font-family: "Nunito", sans-serif;
-  background: #55CFBF;
+  background-image: linear-gradient(135deg, #6694d8 0%, #4fadb1 100%);
 }
 
 #main-container {
@@ -689,7 +689,7 @@ span.card-tag {
 }
 
 .bookmark-card .card-text {
-  padding: 1.5em;
+  margin: auto 10px;
 }
 
 #item-modal,
@@ -758,26 +758,16 @@ span.card-tag {
   grid-column-end: 3;
 }
 
-.main-card-detail-grid {
+.card-detail-grid {
   display: grid;
   grid-template-columns: auto minmax(100px, 1fr);
+  -moz-column-gap: 0.25em;
+       column-gap: 0.25em;
   row-gap: 0.5em;
 }
 
-.main-card-detail-grid > div {
+.card-detail-grid > div {
   margin: auto 0;
-  padding-left: 0.5em;
-}
-
-.card-detail-grid {
-  display: grid;
-  grid-template-columns: 2.5em minmax(100px, 1fr);
-  grid-row-gap: 10px;
-}
-
-.card-detail-grid p {
-  line-height: 30px;
-  vertical-align: middle;
 }
 
 .modal-menu-container {

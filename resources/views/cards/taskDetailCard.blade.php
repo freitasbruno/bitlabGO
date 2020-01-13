@@ -1,6 +1,6 @@
 <div class="container" data-id="{{ $item->task->id }}" data-type="tasks">
 
-	<div class="main-card-detail-grid">
+	<div class="card-detail-grid">
 		<label class="checkboxLabel">
 			<input class="taskCheckbox {{ $item->task->complete ? 'taskComplete' : false}}" type="checkbox" data-id="{{ $item->task->id }}" 
 				id="task-detail-{{ $item->task->id }}" {{ $item->task->complete ? 'checked' : false}}>
@@ -15,8 +15,8 @@
 		@else
 			<p class="card-text-xs editable" data-field="description">Enter a description...</p>
 		@endif
-	</div>
 
-	@include('cards.itemCardDetails', ['item' => $item])
+		@include('cards.itemCardDetails', ['item' => $item])
+	</div>
 	
 </div>

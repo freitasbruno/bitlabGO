@@ -1,6 +1,6 @@
 <div class="container" data-id="{{ $item->timer->id }}" data-type="timers">
 
-	<div class="main-card-detail-grid">
+	<div class="card-detail-grid">
 		@if (!$item->timer->stop)
 			<a href="#" class="timerStopBtn" data-id="{{ $item->timer->id }}">
 				<i class="material-icons icon-btn">stop</i>
@@ -20,8 +20,8 @@
 		@else
 			<p class="card-text-xs editable" data-field="description">Enter a description...</p>
 		@endif
+
+		@include('cards.itemCardDetails', ['item' => $item])
 	</div>
 
-	@include('cards.itemCardDetails', ['item' => $item])
-	
 </div>

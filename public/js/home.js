@@ -98,15 +98,13 @@ function closeModal(type = null) {
 }
 
 function renderModal (response) {
-	
+	console.log(response);
 	let type = response.type;
 	if (type == "group" || type == "account") {
 		$("#filter-modal-content").html('');
 		$(response.modalHtml).appendTo($("#filter-modal-content"));
 		openModal('filter');
-	} else if (type == "groupSelect") {
-
-		console.log(response);
+	} else if (type == "groupSelect") {		
 		let actionObjectType = response.actionObjectType;
 		let actionObjectId = response.actionObjectId;
 
@@ -137,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if ($(e.target).closest(".total-card").length) { return };
 		let type = $(this).attr('data-type');
 		let itemId = $(this).attr('data-id');
-		console.log(type + " item: " + itemId);
 		
 		get(type, itemId).done(function(response) {
 			renderModal(response);
