@@ -1,13 +1,8 @@
-.icon-expense {
-	color : rgb(155, 51, 48);
-}
-
-.icon-income {
-	color : rgb(96, 155, 48);
-}
-
 i {
 	font-size: 24px;
+}
+
+.icon-btn {
 	border-radius: 50%;
 	padding: 5px;		
 	cursor: pointer;		
@@ -24,6 +19,18 @@ i {
 			background-color: rgba(255,255,255,0.4);
 		}	
 	}
+}
+
+.icon-36 {
+	font-size: 36px;
+}
+
+.icon-expense {
+	color : rgb(155, 51, 48);
+}
+
+.icon-income {
+	color : rgb(96, 155, 48);
 }
 
 .share-avatar {

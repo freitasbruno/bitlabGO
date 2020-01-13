@@ -1,15 +1,9 @@
 <div class="card item-card cash-card" data-id="{{ $item->cash->id }}" data-type="cash">
-	<div>
-		@if ($item->cash -> type == 'expense')					
-			<span class="icon-expense">
-				<img class="icon-25" src="/images/prototype/cash-arrow-down.svg" alt="Expense"></a>
-			</span>				
-		@else
-		<span class="icon-income">
-			<img class="icon-25" src="/images/prototype/cash-arrow-up.svg" alt=Income"></a>
-		</span>					
-		@endif
-	</div>
+	@if ($item->cash -> type == 'expense')					
+		<i class="material-icons icon-36 icon-expense">arrow_upward</i>
+	@else
+		<i class="material-icons icon-36 icon-income">arrow_downward</i>
+	@endif
 	<div>
 		<p class="card-text-l">€{{ $item->cash->amount }}</p>
 	</div>

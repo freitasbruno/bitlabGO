@@ -16,8 +16,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if ($(e.target).closest(".filter-card-action").length) { return };
 		
 		let id = $(this).attr('data-id');
+		let type = $(this).attr('data-type');
 		let filterCard = $(this);
-		console.log("group: " + id);
+		console.log("Filter " + type + ": " + id);
 
 		updateCurrentGroup(id).done(function(response) {
 			if (selectMode) {
@@ -106,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				case 'groups':
 					move(type, id, targetId).done(function(response) {
 						let group = JSON.parse(response.group);	
-						closeModal('groupSelect');
+						closeModal('group');
 						index('groups', 'cardPanel').done(function(response) {
 							render(response);		
 						});
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					break;					
 				default:
 					move(type, id, targetId).done(function(response) {	
-						closeModal('groupSelect');
+						closeModal('group');
 						closeModal('item');
 						//index(type);
 					});
@@ -126,10 +127,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	});
 	
+	// MULTIPLE SELECT
 	$(document).on('mouseup', '.group-card', function(){		
 		clearTimeout(pressTimer);
 		return false;
 	});
+	
 	$(document).on('mousedown', '.group-card', function() {
 		pressTimer = window.setTimeout(function() {
 			// selectMode = true;

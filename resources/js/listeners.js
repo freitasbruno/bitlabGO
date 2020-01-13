@@ -24,4 +24,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	});
 	
+	// TOGGLE FILTERS/ITEMS
+	$(document).on('click', '.toggleDisplayBtn', function() {
+		
+		$(".toggleDisplayBtn").toggle();
+		$("#filter-container").toggle();
+		$("#item-container").toggle();
+
+	});
 });

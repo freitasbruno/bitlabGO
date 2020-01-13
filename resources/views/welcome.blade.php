@@ -30,7 +30,7 @@
 		<nav id="welcome-navbar" class="navbar-container">
 
 			<div class="navbar-left">						
-				<a href="/home"><i class="material-icons">offline_bolt</i></a>						
+				<a href="/home"><i class="material-icons icon-btn">offline_bolt</i></a>						
 			</div>
 
 			<div class="navbar-center">
@@ -54,7 +54,7 @@
 		@yield('content')
 				
 		<!-- Modals -->
-		@include('modal')
+		@include('modals.loginModal')
 	</body>
 
 </html>

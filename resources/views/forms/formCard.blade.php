@@ -1,5 +1,5 @@
 <div class="form-card" data-type="{{ $type }}">
-	<a href="#" class="closeFormBtn"><i class="medium material-icons">close</i></a>
+	<i class="medium material-icons icon-btn closeFormBtn">close</i>
 	<form class="form" action="#" method="post">	
 
 		@include('forms.' . $formName)

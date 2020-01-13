@@ -3,7 +3,7 @@
 	<div class="main-card-detail-grid">
 		@if (!$item->timer->stop)
 			<a href="#" class="timerStopBtn" data-id="{{ $item->timer->id }}">
-				<i class="material-icons">stop</i>
+				<i class="material-icons icon-btn">stop</i>
 			</a>
 			<p class="card-text-s editable" data-field="name">{{ $item->name }}</p>
 			<div></div>

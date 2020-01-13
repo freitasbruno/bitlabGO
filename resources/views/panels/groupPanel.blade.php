@@ -1,14 +1,14 @@
 <div id="filter-nav">
 	<div class="nav-left">
-		<i class="material-icons-outlined filter-link white {{ $type == 'groups' ? 'selected' : null }}" data-type="groups">folder</i>
-		<i class="material-icons-outlined filter-link white {{ $type == 'accounts' ? 'selected' : null }}" data-type="accounts">credit_card</i>
+		<i class="material-icons-outlined icon-btn filter-link white {{ $type == 'groups' ? 'selected' : null }}" data-type="groups">folder</i>
+		<i class="material-icons-outlined icon-btn filter-link white {{ $type == 'accounts' ? 'selected' : null }}" data-type="accounts">credit_card</i>
 	</div>
 	<div class="nav-center">
 		{{ $type }}			
 	</div>
 	<div class="nav-right">
 		<a href="#" class="newFilterBtn">
-			<i class="material-icons white">add_circle</i>
+			<i class="material-icons icon-btn white">add_circle</i>
 		</a>
 	</div>
 </div>	

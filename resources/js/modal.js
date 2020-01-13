@@ -1,22 +1,22 @@
 function openModal(type) {
-	$('.itemTools').hide();
-	$('#' + type + 'Modal').fadeIn(200);
-
-	$(document).on('click', '#' + type + 'Modal', function(e) {
+	$('.dropdown').hide();
+	$('#' + type + '-modal').fadeIn(200);
+	console.log('#' + type + '-modal');
+	$(document).on('click', '#' + type + '-modal', function(e) {
 		
 		if (!$(e.target).closest('.modal-dialog').length) {
 			closeModal(type);
 			$(document).off('click.modal-dialog');
 		}
 		if (!$(e.target).closest('.modal-menu-container').length) {
-			$('.itemTools').hide();
+			$('.dropdown').hide();
 		}
 	});
 }
 
 function closeModal(type = null) {
 	if (type) {
-		$('#' + type + 'Modal').fadeOut(200);
+		$('#' + type + '-modal').fadeOut(200);
 	} else {
 		$('.modal').fadeOut(200);
 	}
@@ -26,32 +26,28 @@ function closeModal(type = null) {
 function renderModal (response) {
 	
 	let type = response.type;
-	if (type == "group") {
-		$("#groupModalContent").html('');
-		$(response.modalHtml).appendTo($("#groupModalContent"));
-		openModal('group');
-	} else if (type == "account") {
-		$("#groupModalContent").html('');
-		$(response.modalHtml).appendTo($("#groupModalContent"));
-		openModal('group');
+	if (type == "group" || type == "account") {
+		$("#filter-modal-content").html('');
+		$(response.modalHtml).appendTo($("#filter-modal-content"));
+		openModal('filter');
 	} else if (type == "groupSelect") {
 
 		console.log(response);
 		let actionObjectType = response.actionObjectType;
 		let actionObjectId = response.actionObjectId;
 
-		$("#groupSelectModalContent").html('');
-		$(response.html).appendTo($("#groupSelectModalContent"));
+		$("#group-modal-content").html('');
+		$(response.html).appendTo($("#group-modal-content"));
 
-		$("#groupSelectModalContent").attr('data-type', actionObjectType);
-		$("#groupSelectModalContent").attr('data-id', actionObjectId);
+		$("#group-modal-content").attr('data-type', actionObjectType);
+		$("#group-modal-content").attr('data-id', actionObjectId);
 
-		$("#groupSelectModalContent").find(".nestedGroup").hide();
-		$("#groupSelectModalContent").find(".nestedGroup").first().show();
-		openModal('groupSelect');
+		$("#group-modal-content").find(".nestedGroup").hide();
+		$("#group-modal-content").find(".nestedGroup").first().show();
+		openModal('group');
 	} else {
-		$("#itemModalContent").html('');
-		$(response.modalHtml).appendTo($("#itemModalContent"));
+		$("#item-modal-content").html('');
+		$(response.modalHtml).appendTo($("#item-modal-content"));
 		openModal('item');
 	}
 }
@@ -80,19 +76,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	// CLOSE MODAL
-    $(document).on('click', '.closeModalBtn', function() {
+    $(document).on('click', '.modal-close-btn', function() {
 		let type = $(this).closest('.modal').attr('data-type');
 		closeModal(type);		
 	});
 		
 	// SHOW MODAL TOOLS
-    $(document).on('click', '.itemToolsBtn', function() {
-		$(this).parent().children('.itemTools').toggle();
+    $(document).on('click', '.modal-tools-btn', function() {
+		$(this).parent().children('.dropdown').toggle();
 	});
 		
 	// MODAL TOOLS ACTIONS
     $(document).on('click', '.item-card-action', function() {
-		let container = $(this).closest("#itemModal").find('.container');
+		let container = $(this).closest("#item-modal").find('.container');
 		let type = container.attr('data-type');
 		let id = container.attr('data-id');
 		let action = $(this).attr('data-action');

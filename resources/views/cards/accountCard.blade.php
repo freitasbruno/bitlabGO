@@ -3,8 +3,8 @@
 	<p class="card-text-s">
 		{{ strToUpper($account->group->name) }}
 	</p>
-	<div class="groupTools">
-		<i class="material-icons-outlined filter-card-action" data-action="delete">delete</i>					
-		<i class="material-icons-outlined filter-card-action" data-action="open">visibility</i>
+	<div class="filterTools">
+		<i class="material-icons-outlined icon-btn filter-card-action" data-action="delete">delete</i>					
+		<i class="material-icons-outlined icon-btn filter-card-action" data-action="open">visibility</i>
 	</div>
 </div>

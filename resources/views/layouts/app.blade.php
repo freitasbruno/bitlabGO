@@ -31,9 +31,9 @@
 		<nav id="main-navbar" class="navbar-container">
 
 			<div class="navbar-left">						
-				<a href="/home"><i class="material-icons white">offline_bolt</i></a>					
-				<i class="material-icons filter-link white toggleDisplayBtn">filter_list</i>	
-				<i class="material-icons filter-link white hidden toggleDisplayBtn">list</i>	
+				<a href="/home"><i class="material-icons icon-btn white">offline_bolt</i></a>					
+				<i class="material-icons icon-btn filter-link white toggleDisplayBtn">filter_list</i>	
+				<i class="material-icons icon-btn filter-link white hidden toggleDisplayBtn">list</i>	
 			</div>
 
 			<div class="navbar-center">

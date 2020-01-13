@@ -8,7 +8,7 @@
 
 <!-- Modals -->
 @include('modals.itemModal')
+@include('modals.filterModal')
 @include('modals.groupModal')
-@include('modals.groupSelectModal')
 
 @endsection

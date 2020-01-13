@@ -1,9 +1,9 @@
-<div class="modal group-modal" id="groupModal" data-type="group">
+<div class="modal" id="group-modal" data-type="groupSelect">
 	<div class="modal-dialog modal-dialog-grid">		
-		<div class="modal-title" id="groupModalTitle">
-			<p class="card-text-m"></p>
+		<div class="modal-title" id="group-modal-title">
+			<p class="card-text-m">Move to:</p>
 		</div>
-		<a href="#" class="groupTools"><i class="medium material-icons">more_horiz</i></a>		
-		<div class="modal-content" id="groupModalContent"></div>
+		<a href="#" class="modal-close-btn"><i class="medium material-icons icon-btn">close</i></a>		
+		<div class="modal-content container" id="group-modal-content"></div>
 	</div>
 </div>

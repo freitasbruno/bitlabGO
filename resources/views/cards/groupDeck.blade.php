@@ -4,7 +4,7 @@
 	<div class="card-header uk-grid">
 		<a class="uk-width-expand uk-text-truncate" href="/home/{{ $group->id }}">{{ $group->name }}</a>
 		<div class="uk-width-auto">
-			@component('components/groupTools', ['id' => $group->id])
+			@component('components/filterTools', ['id' => $group->id])
 				{{ 'home/' . $group->id }}
 			@endcomponent
 		</div>

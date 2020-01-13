@@ -1,9 +1,9 @@
 <div class="modal" id="loginModal">
 	<div class="modal-dialog modal-dialog-grid">		
-		<div class="modal-title" id="itemModalTitle">
+		<div class="modal-title" id="item-modal-title">
 			<p class="card-text-m"></p>
 		</div>
-		<a href="#" class="closeModalBtn"><i class="medium material-icons">close</i></a>		
+		<i class="medium material-icons icon-btn modal-close-btn">close</i>	
 		<div class="modal-content" id="authModalContent">
 			@include('auth.login')
 		</div>

@@ -67,13 +67,13 @@ body {
 }
 
 .card-container,
-#groupSelectModalContent {
+#group-modal-content {
   overflow: hidden;
   height: 100%;
 }
 
 .card-container .cardScrollbar,
-#groupSelectModalContent .cardScrollbar {
+#group-modal-content .cardScrollbar {
   float: right;
   height: 100%;
   width: calc(100% - 0.5em);
@@ -82,18 +82,18 @@ body {
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar,
-#groupSelectModalContent .cardScrollbar::-webkit-scrollbar {
+#group-modal-content .cardScrollbar::-webkit-scrollbar {
   width: 6px;
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar-thumb,
-#groupSelectModalContent .cardScrollbar::-webkit-scrollbar-thumb {
+#group-modal-content .cardScrollbar::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 3px;
 }
 
 .card-container .cardScrollbar::-webkit-scrollbar-track,
-#groupSelectModalContent .cardScrollbar::-webkit-scrollbar-track {
+#group-modal-content .cardScrollbar::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 3px;
@@ -102,12 +102,12 @@ body {
 }
 
 .card-container .force-overflow,
-#groupSelectModalContent .force-overflow {
+#group-modal-content .force-overflow {
   min-height: 10px;
 }
 
 .card-container .nestedGroup,
-#groupSelectModalContent .nestedGroup {
+#group-modal-content .nestedGroup {
   padding-left: 20px;
 }
 
@@ -120,20 +120,12 @@ body {
 }
 
 .item-totals {
-  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: 1fr 1fr 1fr;
   -moz-column-gap: 0.75em;
        column-gap: 0.75em;
-  float: right;
-  width: calc(100% - 0.25em);
-  padding-right: 0.75em;
   color: #55CFBF;
   height: 80px;
-}
-
-.item-totals .totals-card {
-  padding: 1em;
 }
 
 @media only screen and (max-width: 600px) {
@@ -441,32 +433,39 @@ p.card-text-xs {
   font-size: 0.8em;
 }
 
-.icon-expense {
-  color: #9b3330;
-}
-
-.icon-income {
-  color: #609b30;
-}
-
 i {
   font-size: 24px;
+}
+
+.icon-btn {
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;
   transition: 200ms ease all;
 }
 
-i:hover,
-i.selected {
+.icon-btn:hover,
+.icon-btn.selected {
   color: #55CFBF;
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-i.white:hover,
-i.white.selected {
+.icon-btn.white:hover,
+.icon-btn.white.selected {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.4);
+}
+
+.icon-36 {
+  font-size: 36px;
+}
+
+.icon-expense {
+  color: #9b3330;
+}
+
+.icon-income {
+  color: #609b30;
 }
 
 .share-avatar {
@@ -619,11 +618,11 @@ i.white.selected {
   line-height: 20px;
 }
 
-.filter-card .groupTools {
+.filter-card .filterTools {
   display: none;
 }
 
-.filter-card .groupTools i {
+.filter-card .filterTools i {
   font-size: 16px;
   border-radius: 20px;
   padding: 5px;
@@ -631,7 +630,7 @@ i.white.selected {
   transition: 200ms ease all;
 }
 
-.filter-card .groupTools i:hover {
+.filter-card .filterTools i:hover {
   color: #000000;
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -640,7 +639,7 @@ i.white.selected {
   grid-template-columns: 34px minmax(100px, 1fr) auto;
 }
 
-.filter-card:hover .groupTools {
+.filter-card:hover .filterTools {
   display: block;
 }
 
@@ -654,7 +653,19 @@ i.white.selected {
 
 .item-card {
   background: #ffffff;
-  padding: 1.5em 2em;
+  padding: 1.5em 1.5em;
+  display: grid;
+  grid-template-columns: auto minmax(100px, 1fr);
+  -moz-column-gap: 0.5em;
+       column-gap: 0.5em;
+}
+
+.item-card > div {
+  margin: auto 0;
+}
+
+.totals-card {
+  background: #ffffff;
 }
 
 span.card-tag {
@@ -664,40 +675,21 @@ span.card-tag {
   padding: 2px 10px;
 }
 
-.cash-card {
-  display: grid;
-  grid-template-columns: 3em minmax(100px, 1fr);
-  grid-template-rows: 30px 1fr;
-}
-
-.task-card {
-  display: grid;
-  grid-template-columns: 2em minmax(100px, 1fr);
-}
-
 .task-card.complete {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
-.timer-card {
-  display: grid;
-  grid-template-columns: 3em minmax(100px, 1fr);
-  grid-template-rows: 20px 20px;
-}
-
 .bookmark-card {
   padding: 0;
-  display: grid;
-  grid-template-columns: 100px minmax(100px, 1fr);
 }
 
 .bookmark-card .card-text {
-  padding: 1.5em 2em;
+  padding: 1.5em;
 }
 
-#itemModal,
-#groupModal,
-#groupSelectModal,
+#item-modal,
+#filter-modal,
+#group-modal,
 #loginModal {
   display: none;
   position: fixed;
@@ -712,9 +704,9 @@ span.card-tag {
   /* Modal Content/Box */
 }
 
-#itemModal .modal-dialog,
-#groupModal .modal-dialog,
-#groupSelectModal .modal-dialog,
+#item-modal .modal-dialog,
+#filter-modal .modal-dialog,
+#group-modal .modal-dialog,
 #loginModal .modal-dialog {
   color: #787878;
   background: #ffffff;
@@ -724,26 +716,26 @@ span.card-tag {
   max-width: 600px;
 }
 
-#itemModal .modal-title,
-#groupModal .modal-title,
-#groupSelectModal .modal-title,
+#item-modal .modal-title,
+#filter-modal .modal-title,
+#group-modal .modal-title,
 #loginModal .modal-title {
   line-height: 30px;
   vertical-align: middle;
 }
 
-#itemModal .close-modal-btn,
-#groupModal .close-modal-btn,
-#groupSelectModal .close-modal-btn,
+#item-modal .close-modal-btn,
+#filter-modal .close-modal-btn,
+#group-modal .close-modal-btn,
 #loginModal .close-modal-btn {
   float: right;
 }
 
-#groupSelectModal {
+#group-modal {
   /* Modal Content/Box */
 }
 
-#groupSelectModal .modal-dialog {
+#group-modal .modal-dialog {
   background: #55CFBF;
   margin: 7vh auto;
   height: calc(100% - 50px - 14vh);
@@ -783,7 +775,7 @@ span.card-tag {
   position: relative;
 }
 
-.itemTools {
+.dropdown {
   display: none;
   position: absolute;
   width: 120px;
@@ -799,11 +791,11 @@ span.card-tag {
   cursor: pointer;
 }
 
-.itemTools li {
+.dropdown li {
   padding: 10px;
 }
 
-.itemTools li:hover {
+.dropdown li:hover {
   color: #000000;
 }
 

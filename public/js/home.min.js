@@ -29,6 +29,14 @@ function render (response) {
 	}
 		
 	console.log(response);
+	console.log('render done');
+}
+
+function index (type, viewType = null) {
+	console.log("Index " + type);
+	let url = "/" + type;
+	let data = {"viewType" : viewType};		
+	return request (url, 'GET', data);
 }
 
 function get (type, id) {	
@@ -55,13 +63,6 @@ function move (type, id, targetId) {
 	return request (url, 'POST', data);		
 }
 
-function index (type, viewType = null) {
-	console.log("Index " + type);
-	let url = "/" + type;
-	let data = {"viewType" : viewType};		
-	return request (url, 'GET', data);
-}
-
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	index('groups', 'cardPanel').done(function(response) {
@@ -70,36 +71,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	index('cash').done(function(response) {
 		render(response);		
 	});
-
-	// TOGGLE FILTERS/ITEMS
-	$(document).on('click', '.toggleDisplayBtn', function() {
-		
-		$(".toggleDisplayBtn").toggle();
-		$("#filter-container").toggle();
-		$("#item-container").toggle();
-
-	});
+	console.log('home done');
 });
 
 function openModal(type) {
-	$('.itemTools').hide();
-	$('#' + type + 'Modal').fadeIn(200);
-
-	$(document).on('click', '#' + type + 'Modal', function(e) {
+	$('.dropdown').hide();
+	$('#' + type + '-modal').fadeIn(200);
+	console.log('#' + type + '-modal');
+	$(document).on('click', '#' + type + '-modal', function(e) {
 		
 		if (!$(e.target).closest('.modal-dialog').length) {
 			closeModal(type);
 			$(document).off('click.modal-dialog');
 		}
 		if (!$(e.target).closest('.modal-menu-container').length) {
-			$('.itemTools').hide();
+			$('.dropdown').hide();
 		}
 	});
 }
 
 function closeModal(type = null) {
 	if (type) {
-		$('#' + type + 'Modal').fadeOut(200);
+		$('#' + type + '-modal').fadeOut(200);
 	} else {
 		$('.modal').fadeOut(200);
 	}
@@ -109,32 +102,28 @@ function closeModal(type = null) {
 function renderModal (response) {
 	
 	let type = response.type;
-	if (type == "group") {
-		$("#groupModalContent").html('');
-		$(response.modalHtml).appendTo($("#groupModalContent"));
-		openModal('group');
-	} else if (type == "account") {
-		$("#groupModalContent").html('');
-		$(response.modalHtml).appendTo($("#groupModalContent"));
-		openModal('group');
+	if (type == "group" || type == "account") {
+		$("#filter-modal-content").html('');
+		$(response.modalHtml).appendTo($("#filter-modal-content"));
+		openModal('filter');
 	} else if (type == "groupSelect") {
 
 		console.log(response);
 		let actionObjectType = response.actionObjectType;
 		let actionObjectId = response.actionObjectId;
 
-		$("#groupSelectModalContent").html('');
-		$(response.html).appendTo($("#groupSelectModalContent"));
+		$("#group-modal-content").html('');
+		$(response.html).appendTo($("#group-modal-content"));
 
-		$("#groupSelectModalContent").attr('data-type', actionObjectType);
-		$("#groupSelectModalContent").attr('data-id', actionObjectId);
+		$("#group-modal-content").attr('data-type', actionObjectType);
+		$("#group-modal-content").attr('data-id', actionObjectId);
 
-		$("#groupSelectModalContent").find(".nestedGroup").hide();
-		$("#groupSelectModalContent").find(".nestedGroup").first().show();
-		openModal('groupSelect');
+		$("#group-modal-content").find(".nestedGroup").hide();
+		$("#group-modal-content").find(".nestedGroup").first().show();
+		openModal('group');
 	} else {
-		$("#itemModalContent").html('');
-		$(response.modalHtml).appendTo($("#itemModalContent"));
+		$("#item-modal-content").html('');
+		$(response.modalHtml).appendTo($("#item-modal-content"));
 		openModal('item');
 	}
 }
@@ -163,19 +152,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 
 	// CLOSE MODAL
-    $(document).on('click', '.closeModalBtn', function() {
+    $(document).on('click', '.modal-close-btn', function() {
 		let type = $(this).closest('.modal').attr('data-type');
 		closeModal(type);		
 	});
 		
 	// SHOW MODAL TOOLS
-    $(document).on('click', '.itemToolsBtn', function() {
-		$(this).parent().children('.itemTools').toggle();
+    $(document).on('click', '.modal-tools-btn', function() {
+		$(this).parent().children('.dropdown').toggle();
 	});
 		
 	// MODAL TOOLS ACTIONS
     $(document).on('click', '.item-card-action', function() {
-		let container = $(this).closest("#itemModal").find('.container');
+		let container = $(this).closest("#item-modal").find('.container');
 		let type = container.attr('data-type');
 		let id = container.attr('data-id');
 		let action = $(this).attr('data-action');
@@ -360,8 +349,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		if ($(e.target).closest(".filter-card-action").length) { return };
 		
 		let id = $(this).attr('data-id');
+		let type = $(this).attr('data-type');
 		let filterCard = $(this);
-		console.log("group: " + id);
+		console.log("Filter " + type + ": " + id);
 
 		updateCurrentGroup(id).done(function(response) {
 			if (selectMode) {
@@ -450,7 +440,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				case 'groups':
 					move(type, id, targetId).done(function(response) {
 						let group = JSON.parse(response.group);	
-						closeModal('groupSelect');
+						closeModal('group');
 						index('groups', 'cardPanel').done(function(response) {
 							render(response);		
 						});
@@ -461,7 +451,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					break;					
 				default:
 					move(type, id, targetId).done(function(response) {	
-						closeModal('groupSelect');
+						closeModal('group');
 						closeModal('item');
 						//index(type);
 					});
@@ -470,10 +460,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		}
 	});
 	
+	// MULTIPLE SELECT
 	$(document).on('mouseup', '.group-card', function(){		
 		clearTimeout(pressTimer);
 		return false;
 	});
+	
 	$(document).on('mousedown', '.group-card', function() {
 		pressTimer = window.setTimeout(function() {
 			// selectMode = true;
@@ -599,4 +591,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		});
 	});
 	
+	// TOGGLE FILTERS/ITEMS
+	$(document).on('click', '.toggleDisplayBtn', function() {
+		
+		$(".toggleDisplayBtn").toggle();
+		$("#filter-container").toggle();
+		$("#item-container").toggle();
+
+	});
 });

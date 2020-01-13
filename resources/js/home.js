@@ -29,6 +29,14 @@ function render (response) {
 	}
 		
 	console.log(response);
+	console.log('render done');
+}
+
+function index (type, viewType = null) {
+	console.log("Index " + type);
+	let url = "/" + type;
+	let data = {"viewType" : viewType};		
+	return request (url, 'GET', data);
 }
 
 function get (type, id) {	
@@ -55,13 +63,6 @@ function move (type, id, targetId) {
 	return request (url, 'POST', data);		
 }
 
-function index (type, viewType = null) {
-	console.log("Index " + type);
-	let url = "/" + type;
-	let data = {"viewType" : viewType};		
-	return request (url, 'GET', data);
-}
-
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	index('groups', 'cardPanel').done(function(response) {
@@ -70,13 +71,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	index('cash').done(function(response) {
 		render(response);		
 	});
-
-	// TOGGLE FILTERS/ITEMS
-	$(document).on('click', '.toggleDisplayBtn', function() {
-		
-		$(".toggleDisplayBtn").toggle();
-		$("#filter-container").toggle();
-		$("#item-container").toggle();
-
-	});
+	console.log('home done');
 });

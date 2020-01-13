@@ -25,7 +25,7 @@
 	background: $white-40;
 		
 	line-height: 34px;
-	padding: 1em;
+	padding: $card-padding;
 
 	.count-label {
 		text-align: center;
@@ -36,7 +36,7 @@
 		line-height: 20px;
 	}
 	
-	.groupTools {
+	.filterTools {
 		display: none;
 
 		i {
@@ -57,7 +57,7 @@
 	&:hover {
 		grid-template-columns: 34px minmax(100px, 1fr) auto;
 
-		.groupTools {
+		.filterTools {
 			display: block;
 		}
 
@@ -73,7 +73,17 @@
 
 .item-card {	
 	background: $white;
-	padding: 1.5em 2em;	
+	padding: 1.5em 1.5em;
+	display: grid;
+	grid-template-columns: auto minmax(100px, 1fr);
+	column-gap: 0.5em;
+	& > div {
+		margin: auto 0;
+	}
+}
+
+.totals-card {
+	background: $white;
 }
 
 span.card-tag {
@@ -83,37 +93,19 @@ span.card-tag {
 	padding: 2px 10px;
 }
 
-// CASH
-.cash-card {	
-	display: grid;
-	grid-template-columns: 3em minmax(100px, 1fr);
-	grid-template-rows: 30px 1fr;
-}
-
 // TASKS
 .task-card {	
-	display: grid;
-	grid-template-columns: 2em minmax(100px, 1fr);
 
 	&.complete {
 		background-color: $white-40;
 	}
 }
 
-// TIMERS
-.timer-card {	
-	display: grid;
-	grid-template-columns: 3em minmax(100px, 1fr);
-	grid-template-rows: 20px 20px;
-}
-
 // BOOKMARKS
 .bookmark-card {
 	padding: 0;
-	display: grid;
-	grid-template-columns: 100px minmax(100px, 1fr);
 
 	.card-text {
-		padding: 1.5em 2em;
+		padding: 1.5em;
 	}
 }

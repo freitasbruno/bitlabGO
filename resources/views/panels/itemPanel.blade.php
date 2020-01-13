@@ -1,17 +1,17 @@
 {{-- ITEM NAV --}}
 <div id="item-nav">
 	<div class="nav-left">
-		<i class="material-icons item-filter-link white {{ $type == 'cash' ? 'selected' : ''}}" data-type="cash">attach_money</i>					
-		<i class="material-icons item-filter-link white {{ $type == 'tasks' ? 'selected' : ''}}" data-type="tasks">done</i>					
-		<i class="material-icons item-filter-link white {{ $type == 'timers' ? 'selected' : ''}}" data-type="timers">timer</i>					
-		<i class="material-icons item-filter-link white {{ $type == 'bookmarks' ? 'selected' : ''}}" data-type="bookmarks">bookmark_border</i>
+		<i class="material-icons icon-btn item-filter-link white {{ $type == 'cash' ? 'selected' : ''}}" data-type="cash">attach_money</i>					
+		<i class="material-icons icon-btn item-filter-link white {{ $type == 'tasks' ? 'selected' : ''}}" data-type="tasks">done</i>					
+		<i class="material-icons icon-btn item-filter-link white {{ $type == 'timers' ? 'selected' : ''}}" data-type="timers">timer</i>					
+		<i class="material-icons icon-btn item-filter-link white {{ $type == 'bookmarks' ? 'selected' : ''}}" data-type="bookmarks">bookmark_border</i>
 	</div>
 	<div class="nav-center">
 		{{ $title }}
 	</div>
 	<div class="nav-right">
 		<a href="#" class="newItemBtn" data-type="{{ $type }}">
-			<i class="material-icons white">add_circle</i>
+			<i class="material-icons icon-btn white">add_circle</i>
 		</a>
 	</div>
 </div>
@@ -20,15 +20,15 @@
 @if ($items->count() > 0)
 	@if(isset($totals) && $totals['type'] == 'cash')
 		<div class="item-totals">
-			<div class="card item-card totals-card">
+			<div class="card white-card totals-card">
 				<p class="card-text-s">Income:</p>
 				<p class="card-text-m">{{ $totals['income'] }}€</p>
 			</div>
-			<div class="card item-card totals-card">
+			<div class="card white-card totals-card">
 				<p class="card-text-s">Expenses:</p>
 				<p class="card-text-m">{{ $totals['expense'] }}€</p>
 			</div>
-			<div class="card item-card totals-card">
+			<div class="card white-card totals-card">
 				<p class="card-text-s">Balance:</p>
 				<p class="card-text-m">{{ $totals['balance'] }}€</p>
 			</div>			
