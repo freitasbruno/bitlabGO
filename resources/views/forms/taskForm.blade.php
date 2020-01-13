@@ -4,6 +4,4 @@
 		<span class="highlight"></span><span class="bar"></span>
 		<label class="label">Enter a new task</label>
 	</div>
-	<input type="hidden" name="group" value="{{ session()->get('currentGroup')->id }}">
-	<input type="hidden" name="itemType" value="tasks">
 </div>

@@ -56,57 +56,6 @@ function renderModal (response) {
 	}
 }
 
-function newItem (type) {		
-	return $.ajax({
-		url: "/" + type + "/create",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item form");
-		}
-	});
-}
-
-function getItem (type, itemId) {		
-	return $.ajax({
-		url: "/" + type + "/" + itemId,
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item");
-		}
-	});
-}
-
-function moveItem (type, id) {		
-	console.log("Move " + type + " with ID: " + id);
-}
-
-function deleteItem (type, id) {		
-	return $.ajax({
-		url: "/" + type + "/" + id,
-		method: "DELETE",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item");
-		}
-	});
-}
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -119,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemId = $(this).attr('data-id');
 		console.log(type + " item: " + itemId);
 		
-		getItem(type, itemId).done(function(response) {
+		get(type, itemId).done(function(response) {
 			renderModal(response);
 		}); 		       
 		
@@ -150,12 +99,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		switch (action) {
 			case 'move':
-				moveItem (type, id);
 				break;
 			case 'delete':
-				deleteItem (type, id).done( function(response) {
+				destroy (type, id).done( function(response) {
 					console.log(response);
-					getItems (type);
+					index (type);
 					closeModal('item');
 				});
 				break;		

@@ -1,4 +1,4 @@
-function submitForm (type, form) {	
+function submitForm (type, form) {
 	return $.ajax({
 		url: "/" + type,
 		method: "POST",
@@ -71,28 +71,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('submit', '.form', function() {
 		let type = $(this).closest('.form-card').attr('data-type');
 		let form = $(this);
-
 		submitForm(type, form).done(function(model) {
-			if (type === 'groups') {
-				getGroup(model.id).done(function(response) {
-					renderModal(response);
-				});
-				getGroups().done(function(response) {
-					render(response);		
-				});
-			}else if (type === 'accounts') {
-				getAccount(model.id).done(function(response) {
-					renderModal(response);
-				});
-				getAccounts().done(function(response) {
-					render(response);		
-				});
-			} else {
-				getItem(type, model.id).done(function(response) {
-					renderModal(response);
-				});
-				getItems(type);
-			}
+			get(type, model.id).done(function(response) {
+				renderModal(response);
+			});
+			index(type, 'cardPanel').done(function(response) {
+				render(response);		
+			});
 		});
 		return false;
 	});
@@ -142,15 +127,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		submitFieldForm(type, id).done(function(response) {
 			if (response.type == 'group') {
-				getGroups().done(function(response) {
+				index('groups', 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			} else if (response.type == 'accounts') {
-				getAccounts().done(function(response) {
+				index('accounts', 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			} else {
-				getItems (type);
+				index (type);
 			}
 			renderModal(response);
 		});

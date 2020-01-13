@@ -6,15 +6,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$(this).addClass("selected");
 
 		let type = $(this).attr('data-type');
-		if (type == 'groups') {
-			getGroups('cardPanel').done(function(response) {
-				render(response);		
-			});
-		} else if (type == 'accounts') {
-			getAccounts().done(function(response) {
-				render(response);		
-			});
-		}
+		index(type, 'cardPanel').done(function(response) {
+			render(response);		
+		});
 	});
 
 	// ITEM NAV SELECTION
@@ -25,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
-		getItems (itemType);
+		index (itemType).done(function(response) {
+			render(response);		
+		});
 	});
 	
 });

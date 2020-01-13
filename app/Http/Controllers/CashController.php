@@ -78,7 +78,7 @@ class CashController extends Controller
 			'id_user' => $id_user,
 			'id_parent' => $item->id,
 			'id_account' => $request->id_account,
-			'type' => $request->type,
+			'type' => $request->transactionType,
 			'amount' => $request->amount,
 			'currency' => $request->currency,
 			'recurring' => $request->recurring ? $request->recurring : false,

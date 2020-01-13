@@ -31,7 +31,7 @@ function render (response) {
 	console.log(response);
 }
 
-function show (id, type) {	
+function get (type, id) {	
 	console.log("Show " + type + " - id: " + id);
 	let url = "/" + type + "/" + id;	
 	return request (url, 'GET');
@@ -55,53 +55,16 @@ function move (type, id, targetId) {
 	return request (url, 'POST', data);		
 }
 
-function index (type, display = null) {
+function index (type, viewType = null) {
 	console.log("Index " + type);
-	let url = "/" + type;	
-	return request (url, 'GET');
-}
-
-function getGroups (viewType = 'cardPanel') {		
-	return $.ajax({
-		url: "/groups",
-		method: "GET",
-		data: {
-			viewType : viewType,
-		},
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting groups");
-		}
-	});
-}
-
-function getAccounts (viewType = 'cardPanel') {		
-	return $.ajax({
-		url: "/accounts",
-		method: "GET",
-		data: {
-			viewType : viewType,
-		},
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting accounts");
-		}
-	});
+	let url = "/" + type;
+	let data = {"viewType" : viewType};		
+	return request (url, 'GET', data);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	getGroups('cardPanel').done(function(response) {
+	index('groups', 'cardPanel').done(function(response) {
 		render(response);		
 	});
 	index('cash').done(function(response) {
@@ -176,57 +139,6 @@ function renderModal (response) {
 	}
 }
 
-function newItem (type) {		
-	return $.ajax({
-		url: "/" + type + "/create",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item form");
-		}
-	});
-}
-
-function getItem (type, itemId) {		
-	return $.ajax({
-		url: "/" + type + "/" + itemId,
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item");
-		}
-	});
-}
-
-function moveItem (type, id) {		
-	console.log("Move " + type + " with ID: " + id);
-}
-
-function deleteItem (type, id) {		
-	return $.ajax({
-		url: "/" + type + "/" + id,
-		method: "DELETE",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting item");
-		}
-	});
-}
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
@@ -239,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemId = $(this).attr('data-id');
 		console.log(type + " item: " + itemId);
 		
-		getItem(type, itemId).done(function(response) {
+		get(type, itemId).done(function(response) {
 			renderModal(response);
 		}); 		       
 		
@@ -270,12 +182,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		switch (action) {
 			case 'move':
-				moveItem (type, id);
 				break;
 			case 'delete':
-				deleteItem (type, id).done( function(response) {
+				destroy (type, id).done( function(response) {
 					console.log(response);
-					getItems (type);
+					index (type);
 					closeModal('item');
 				});
 				break;		
@@ -286,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	
 });
 
-function submitForm (type, form) {	
+function submitForm (type, form) {
 	return $.ajax({
 		url: "/" + type,
 		method: "POST",
@@ -359,28 +270,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('submit', '.form', function() {
 		let type = $(this).closest('.form-card').attr('data-type');
 		let form = $(this);
-
 		submitForm(type, form).done(function(model) {
-			if (type === 'groups') {
-				getGroup(model.id).done(function(response) {
-					renderModal(response);
-				});
-				getGroups().done(function(response) {
-					render(response);		
-				});
-			}else if (type === 'accounts') {
-				getAccount(model.id).done(function(response) {
-					renderModal(response);
-				});
-				getAccounts().done(function(response) {
-					render(response);		
-				});
-			} else {
-				getItem(type, model.id).done(function(response) {
-					renderModal(response);
-				});
-				getItems(type);
-			}
+			get(type, model.id).done(function(response) {
+				renderModal(response);
+			});
+			index(type, 'cardPanel').done(function(response) {
+				render(response);		
+			});
 		});
 		return false;
 	});
@@ -430,15 +326,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 		submitFieldForm(type, id).done(function(response) {
 			if (response.type == 'group') {
-				getGroups().done(function(response) {
+				index('groups', 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			} else if (response.type == 'accounts') {
-				getAccounts().done(function(response) {
+				index('accounts', 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			} else {
-				getItems (type);
+				index (type);
 			}
 			renderModal(response);
 		});
@@ -478,10 +374,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
-				let itemType = $(selected).attr('data-type');
-				console.log('itemType = ' + itemType);
-	
-				getItems (itemType);
+				let itemType = $(selected).attr('data-type');	
+				index(itemType).done(function(response) {
+					render(response);		
+				});
 			}
 		});
 
@@ -511,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				break;
 
 			case 'open':
-				show(filterId, filterType).done(function(response) {
+				get(filterType, filterId).done(function(response) {
 					console.log(response);
 					renderModal(response);
 				});	       
@@ -534,7 +430,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let container = $(this).closest('.modal').find('.container');
 		let id = container.attr('data-id');
 		let type = container.attr('data-type');
-		getGroups('groupSelect').done(function(response) {
+		index('groups', 'groupSelect').done(function(response) {
 			response.actionObjectType = type;
 			response.actionObjectId = id;
 			renderModal(response);		
@@ -555,10 +451,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					move(type, id, targetId).done(function(response) {
 						let group = JSON.parse(response.group);	
 						closeModal('groupSelect');
-						getGroups('cardPanel').done(function(response) {
+						index('groups', 'cardPanel').done(function(response) {
 							render(response);		
 						});
-						getGroup(group.id).done(function(response) {
+						get('groups', group.id).done(function(response) {
 							renderModal(response);
 						});
 					});
@@ -567,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					move(type, id, targetId).done(function(response) {	
 						closeModal('groupSelect');
 						closeModal('item');
-						//getItems(type);
+						//index(type);
 					});
 					break;
 			}
@@ -609,7 +505,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		toggleTask(taskId).done(function(response) {
 			element.closest(".task-card").toggleClass('complete');
 			if (!element.closest(".task-card").length) {
-				getItems('tasks');
+				index('tasks');
 			}	
 			console.log($(this));	
 		});
@@ -644,7 +540,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStartBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		// updateTimer(itemId, 'start');
-		// getItems('timers');		
+		// index('timers');		
 		var minutesLabel = document.getElementById("minutes");
 		var secondsLabel = document.getElementById("seconds");
 		var totalSeconds = 0;
@@ -670,7 +566,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStopBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		updateTimer(itemId, 'stop');
-		getItems('timers');
+		index('timers').done(function(response) {
+			render(response);		
+		});
 	});
 
 });
@@ -683,15 +581,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$(this).addClass("selected");
 
 		let type = $(this).attr('data-type');
-		if (type == 'groups') {
-			getGroups('cardPanel').done(function(response) {
-				render(response);		
-			});
-		} else if (type == 'accounts') {
-			getAccounts().done(function(response) {
-				render(response);		
-			});
-		}
+		index(type, 'cardPanel').done(function(response) {
+			render(response);		
+		});
 	});
 
 	// ITEM NAV SELECTION
@@ -702,7 +594,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
-		getItems (itemType);
+		index (itemType).done(function(response) {
+			render(response);		
+		});
 	});
 	
 });

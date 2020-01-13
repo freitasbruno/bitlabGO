@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		toggleTask(taskId).done(function(response) {
 			element.closest(".task-card").toggleClass('complete');
 			if (!element.closest(".task-card").length) {
-				getItems('tasks');
+				index('tasks');
 			}	
 			console.log($(this));	
 		});

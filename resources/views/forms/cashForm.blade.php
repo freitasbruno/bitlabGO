@@ -5,7 +5,7 @@
 		<label class="label">Name</label>
 	</div>
 	<div class="form-group">		
-		<select name="type" data-field="type" required>			
+		<select name="transactionType" data-field="transactionType" required>			
 			<option value="" disabled selected></option>
 			<option value="expense" @isset($cashItem) {{ $cashItem->type == 'expense' ? 'selected' : '' }} @endisset>
 				Expense</option>
@@ -41,6 +41,4 @@
 		<span class="highlight"></span><span class="bar"></span>
 		<label class="label">Currency</label>
 	</div>
-	<input type="hidden" name="group" value="{{ session()->get('currentGroup')->id }}">
-	<input type="hidden" name="itemType" value="cash">
 </div>

@@ -31,7 +31,7 @@ function render (response) {
 	console.log(response);
 }
 
-function show (id, type) {	
+function get (type, id) {	
 	console.log("Show " + type + " - id: " + id);
 	let url = "/" + type + "/" + id;	
 	return request (url, 'GET');
@@ -55,53 +55,16 @@ function move (type, id, targetId) {
 	return request (url, 'POST', data);		
 }
 
-function index (type, display = null) {
+function index (type, viewType = null) {
 	console.log("Index " + type);
-	let url = "/" + type;	
-	return request (url, 'GET');
-}
-
-function getGroups (viewType = 'cardPanel') {		
-	return $.ajax({
-		url: "/groups",
-		method: "GET",
-		data: {
-			viewType : viewType,
-		},
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting groups");
-		}
-	});
-}
-
-function getAccounts (viewType = 'cardPanel') {		
-	return $.ajax({
-		url: "/accounts",
-		method: "GET",
-		data: {
-			viewType : viewType,
-		},
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting accounts");
-		}
-	});
+	let url = "/" + type;
+	let data = {"viewType" : viewType};		
+	return request (url, 'GET', data);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
-	getGroups('cardPanel').done(function(response) {
+	index('groups', 'cardPanel').done(function(response) {
 		render(response);		
 	});
 	index('cash').done(function(response) {

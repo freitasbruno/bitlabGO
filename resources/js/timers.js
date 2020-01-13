@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStartBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		// updateTimer(itemId, 'start');
-		// getItems('timers');		
+		// index('timers');		
 		var minutesLabel = document.getElementById("minutes");
 		var secondsLabel = document.getElementById("seconds");
 		var totalSeconds = 0;
@@ -51,7 +51,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStopBtn" , function() {
 		var itemId = $(this).attr('data-id');
 		updateTimer(itemId, 'stop');
-		getItems('timers');
+		index('timers').done(function(response) {
+			render(response);		
+		});
 	});
 
 });

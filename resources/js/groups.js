@@ -30,10 +30,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			let selected = $(".item-filter-link.selected");
 			
 			if (selected.length) {
-				let itemType = $(selected).attr('data-type');
-				console.log('itemType = ' + itemType);
-	
-				getItems (itemType);
+				let itemType = $(selected).attr('data-type');	
+				index(itemType).done(function(response) {
+					render(response);		
+				});
 			}
 		});
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				break;
 
 			case 'open':
-				show(filterId, filterType).done(function(response) {
+				get(filterType, filterId).done(function(response) {
 					console.log(response);
 					renderModal(response);
 				});	       
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let container = $(this).closest('.modal').find('.container');
 		let id = container.attr('data-id');
 		let type = container.attr('data-type');
-		getGroups('groupSelect').done(function(response) {
+		index('groups', 'groupSelect').done(function(response) {
 			response.actionObjectType = type;
 			response.actionObjectId = id;
 			renderModal(response);		
@@ -107,10 +107,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					move(type, id, targetId).done(function(response) {
 						let group = JSON.parse(response.group);	
 						closeModal('groupSelect');
-						getGroups('cardPanel').done(function(response) {
+						index('groups', 'cardPanel').done(function(response) {
 							render(response);		
 						});
-						getGroup(group.id).done(function(response) {
+						get('groups', group.id).done(function(response) {
 							renderModal(response);
 						});
 					});
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					move(type, id, targetId).done(function(response) {	
 						closeModal('groupSelect');
 						closeModal('item');
-						//getItems(type);
+						//index(type);
 					});
 					break;
 			}
