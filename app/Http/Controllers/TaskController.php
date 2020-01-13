@@ -7,8 +7,9 @@ use App\Models\Items\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TaskController extends Controller
+class TaskController extends ItemController
 {
+
     /**
      * Display a listing of the resource.
      *
