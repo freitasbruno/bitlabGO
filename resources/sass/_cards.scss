@@ -1,111 +1,10 @@
-.card-deck {
-
-	width: 90%;
-	margin: 0px auto;
-	height: $main-container-height;
-	
-}
-.card-deck, #groupSelectModalContent {
-	
-	padding: 0em 0.5em 0em 1em;	
-	overflow: hidden;
-
-	.cardScrollbar {
-		float: right;
-		height: calc(100% - 6em);
-		width: 100%;
-		padding-right: 0.5em;
-		overflow-y: auto;
-	}
-
-	.cardScrollbar::-webkit-scrollbar {
-		width: 6px;
-	} 
-
-	.cardScrollbar::-webkit-scrollbar-thumb {
-		background-color: rgba(0,0,0,0.3);
-		border-radius: 3px;
-	}
-
-	.cardScrollbar::-webkit-scrollbar-track {
-		box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-		border-radius: 3px;
-		cursor: grab;
-	}
-
-	.force-overflow {
-		min-height: 10px;
-	}
-
-	.deck-title {
-		display: grid;
-		grid-template-columns: auto minmax(100px, 1fr) 40px;
-		height: 1.5em;
-
-		color: $white;
-		font-size: 1.5em;
-		font-weight: 700;
-
-		padding-top: 0.75em;
-		margin-right: 0.5em;
-		margin-bottom: 0.5em;
-		
-		.deck-title-text {
-			text-transform: uppercase;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			line-height: 35px;
-			padding-left: 0.5em;
-		}
-		
-		.deck-title-btn {
-			padding-left: 10px;
-			i {
-				font-size: 30px;
-			}
-		}
-	}
-	
-	.nestedGroup {
-		padding-left: 20px;
-	}
-}
-
-#item-container > .card-deck > .cardScrollbar {	
-	height: calc(100% - 6em - 60px);
-}
-
-#groupSelectModalContent {
-
-	.cardScrollbar {
-		height: calc(100%);
-	}
-}
-
-.deck-totals {
-	width: 100%;
-	display: grid;
-	grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
-	column-gap: 0.75em;
-	float: right;
-	width: calc(100% - 0.25em);
-	padding-right: 0.75em;
-	color: $primary-color;
-	
-	.total-card {
-		padding: 1em;
-	}
-}
-
-.item-card, .group-card, .account-card {
+.card {
 	margin-bottom: 0.75em;
-	color : $card-text-color;
-	background: $white;
-	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);	
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 	transition: background-color 200ms;
-
+	color : $card-text-color;
+	padding: $card-padding;
+	
 	&:hover, &.selected {
 		box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);	
 		background: $gray-95;
@@ -118,31 +17,15 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-
-	&.complete {
-		background: rgba(255,255,255,0.4);
-	}
-
 }
 
-span.card-tag {
-	color: $gray-95;
-	background: $primary-color;
-	border-radius: 10px;
-	padding: 2px 10px;
-}
-
-// Specific item properties
-
-// GROUPS
-.group-card, .account-card {
-	background: rgba(255,255,255,0.4);
+.filter-card {	
+	display: grid;
+	grid-template-columns: 34px minmax(100px, 1fr) 20px;
+	background: $white-40;
+		
 	line-height: 34px;
 	padding: 1em;
-
-	&.group-list-card {
-		padding: 0.25em;
-	}
 
 	.count-label {
 		text-align: center;
@@ -153,11 +36,6 @@ span.card-tag {
 		line-height: 20px;
 	}
 	
-	.group-card-grid {	
-		display: grid;
-		grid-template-columns: 34px minmax(100px, 1fr) 20px;
-	}
-
 	.groupTools {
 		display: none;
 
@@ -177,12 +55,10 @@ span.card-tag {
 	}
 	
 	&:hover {
+		grid-template-columns: 34px minmax(100px, 1fr) auto;
+
 		.groupTools {
 			display: block;
-		}
-
-		.group-card-grid {	
-			grid-template-columns: 34px minmax(100px, 1fr) auto;
 		}
 
 		.count-label {
@@ -191,39 +67,41 @@ span.card-tag {
 	}
 }
 
-// CASH
-.cash-card {	
-	height: 110px;	
+.filter-list-card {
+	padding: 0.25em;
 }
 
-.cash-card-grid {	
-	padding: 1.5em 2em;
+.item-card {	
+	background: $white;
+	padding: 1.5em 2em;	
+}
+
+span.card-tag {
+	color: $gray-95;
+	background: $primary-color;
+	border-radius: 10px;
+	padding: 2px 10px;
+}
+
+// CASH
+.cash-card {	
 	display: grid;
 	grid-template-columns: 3em minmax(100px, 1fr);
-	grid-template-rows: 30px 1fr;	
+	grid-template-rows: 30px 1fr;
 }
 
 // TASKS
 .task-card {	
-	//height: 70px;
-}
-
-.task-card-grid {	
-	padding: 1.5em 2em;
 	display: grid;
 	grid-template-columns: 2em minmax(100px, 1fr);
 
-	&:hover {
-		cursor: pointer;
+	&.complete {
+		background-color: $white-40;
 	}
 }
 
 // TIMERS
 .timer-card {	
-}
-
-.timer-card-grid {	
-	padding: 1.5em 2em;
 	display: grid;
 	grid-template-columns: 3em minmax(100px, 1fr);
 	grid-template-rows: 20px 20px;
@@ -231,18 +109,11 @@ span.card-tag {
 
 // BOOKMARKS
 .bookmark-card {
-
-}
-
-.bookmark-card-grid {
+	padding: 0;
 	display: grid;
 	grid-template-columns: 100px minmax(100px, 1fr);
 
 	.card-text {
 		padding: 1.5em 2em;
 	}
-}
-
-.share-avatar {
-	width: 30px;
 }

@@ -14,7 +14,7 @@
 	.modal-dialog {
 		color : $card-text-color;
 		background: $white;
-		margin: calc(50vh - #{$navbar-height} - 200px) auto;
+		margin: calc(50vh - #{$nav-height} - 200px) auto;
 		border: 1px solid #888;
 		width: 75%;
 		max-width: 600px;
@@ -36,7 +36,7 @@
 	.modal-dialog {
 		background: $primary-color;
 		margin: 7vh auto;
-		height: calc(100% - #{$navbar-height} - 14vh);
+		height: calc(100% - #{$nav-height} - 14vh);
 	}
 }
 

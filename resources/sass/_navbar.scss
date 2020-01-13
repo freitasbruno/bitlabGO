@@ -1,84 +1,80 @@
 #main-navbar, #welcome-navbar {
 	
-	line-height: $navbar-height;
-	background: $navbar-color;	
+	line-height: $nav-height;
+	background: $white-40;	
 	margin: 0;
 	padding: 0 1em;
 	width: calc(100% -2em);
 
-	.navbar-container {
-		display: grid;
-		grid-template-columns: 200px 1fr minmax(30px, 200px);
-		height: $navbar-height;
+	display: grid;
+	grid-template-columns: 200px 1fr minmax(30px, 200px);
+	height: $nav-height;
 
-		.navbar-left, .navbar-right {
-			color: $gray-98;
-			margin-top: 5px;
-			
-		}
-		.navbar-center {
-			color: $white;
-			font-size: 1.5em;
-			text-align: center;
-		}
-
-		.navbar-right {
-			padding-left: 160px;
-			position: relative;
-			display: inline-block;
-			cursor: pointer;
-				
-			.navbar-menu {
-				display: none;
-				position: absolute;
-				width: 120px;
-				text-align: left;
-				background-color: $offwhite;
-				color: $gray-50;
-				box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-				padding: 12px 16px;
-				z-index: 1;
-				right: 0px;
-				margin: 0;
-				list-style: none;
-
-				li {
-					&:hover {
-						color: $black;
-					}
-				}
-			}		
-		}
+	.navbar-left, .navbar-right {
+		color: $gray-98;
+		margin-top: 5px;
 		
-		.navbar-right:hover .navbar-menu {
-			display: block;
-		}
+	}
+	.navbar-center {
+		color: $white;
+		font-size: 1.5em;
+		text-align: center;
+	}
+
+	.navbar-right {
+		padding-left: 160px;
+		position: relative;
+		display: inline-block;
+		cursor: pointer;
+			
+		.navbar-menu {
+			display: none;
+			position: absolute;
+			width: 120px;
+			text-align: left;
+			background-color: $offwhite;
+			color: $gray-50;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			padding: 12px 16px;
+			z-index: 1;
+			right: 0px;
+			margin: 0;
+			list-style: none;
+
+			li {
+				&:hover {
+					color: $black;
+				}
+			}
+		}		
+	}
+	
+	.navbar-right:hover .navbar-menu {
+		display: block;
 	}
 }
 
 #welcome-navbar {
 
-	.navbar-container {
-		display: grid;
-		grid-template-columns: 500px 1fr 500px;
+	display: grid;
+	grid-template-columns: 200px 1fr auto;
 
-		.navbar-left {
-			text-align: left;
-		}
+	.navbar-left {
+		text-align: left;
+	}
 
-		.navbar-right {
-			text-align: right;
+	.navbar-right {
+		text-align: right;
 
-			a {
-				padding-left: 0.5em;
-			}
+		a {
+			padding-left: 0.5em;
 		}
 	}
 }
 
 @media only screen and (max-width: 600px) {
 
-	#main-navbar > .navbar-container, #welcome-navbar > .navbar-container {
+	#main-navbar, #welcome-navbar {
 		grid-template-columns: 200px 1fr 30px;
 
 		.navbar-center > a{
@@ -90,7 +86,7 @@
 		}
 	}
 
-	#welcome-navbar > .navbar-container {
+	#welcome-navbar {
 		grid-template-columns: 200px 1fr;
 		
 		.navbar-center {

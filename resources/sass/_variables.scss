@@ -30,6 +30,8 @@ $gray-15: #222222;
 $gray-10: #171717;
 $black: #000000;
 
+$white-40: rgba(255,255,255,0.4);
+
 // Background colors
 $navbar-color: rgba(255,255,255,0.3);
 
@@ -45,10 +47,18 @@ $card-text-color: rgb(120, 120, 120);
 $link-color: rgb(66, 122, 136);
 $link-hover-color: rgba(66, 122, 136, 0.8);
 
+
 // Dimension constraints
 
-	// Navbar
-	$navbar-height: 60px;
+// Navbars
+$nav-height: 50px;
 
-	// Display area
-	$main-container-height: calc(100vh - #{$navbar-height});
+// Display area
+$container-padding: 1em;
+$item-totals-height: 80px;
+$main-container-height: calc(100vh - #{$nav-height});
+$filter-container-height: calc(#{$main-container-height} - #{$nav-height} - 2 * #{$container-padding});
+$item-container-height: calc(#{$main-container-height} - #{$nav-height} - 2 * #{$container-padding} - #{$item-totals-height});
+
+// Cards
+$card-padding: 1em;

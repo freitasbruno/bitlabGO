@@ -27,30 +27,28 @@
 
 	<body>
 		<!-- Top bar -->
-		<div id="welcome-navbar">
-			<nav class="navbar-container">
+		<nav id="welcome-navbar" class="navbar-container">
 
-				<div class="navbar-left">						
-					<a href="/home"><i class="material-icons">offline_bolt</i></a>						
-				</div>
+			<div class="navbar-left">						
+				<a href="/home"><i class="material-icons">offline_bolt</i></a>						
+			</div>
 
-				<div class="navbar-center">
-					<a class="navbar-logo" href="#">BOLTFLOW</a>
-				</div>
+			<div class="navbar-center">
+				<a class="navbar-logo" href="#">BOLTFLOW</a>
+			</div>
 
-				<!-- Authentication Links -->	
-				<div class="navbar-right">
-					@auth
-						<a href="{{ url('/home') }}">Home</a>
-					@else
-						<a href="#" id="loginBtn">Login</a>
-						<a href="{{ route('register') }}">Register</a>
-					@endauth
-				</div>
-				<!-- Authentication Links -->
+			<!-- Authentication Links -->	
+			<div class="navbar-right">
+				@auth
+					<a href="{{ url('/home') }}">Home</a>
+				@else
+					<a href="#" id="loginBtn">Login</a>
+					<a href="{{ route('register') }}">Register</a>
+				@endauth
+			</div>
+			<!-- Authentication Links -->
 
-			</nav>
-		</div>
+		</nav>
 		<!-- /#Top bar -->
 
 		@yield('content')

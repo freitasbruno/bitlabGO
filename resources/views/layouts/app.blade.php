@@ -28,47 +28,45 @@
 
 	<body>
 		<!-- Top bar -->
-		<div id="main-navbar">
-			<nav class="navbar-container">
+		<nav id="main-navbar" class="navbar-container">
 
-				<div class="navbar-left">						
-					<a href="/home"><i class="material-icons white">offline_bolt</i></a>					
-					<i class="material-icons filter-link white toggleDisplayBtn">filter_list</i>	
-					<i class="material-icons filter-link white hidden toggleDisplayBtn">list</i>	
-				</div>
+			<div class="navbar-left">						
+				<a href="/home"><i class="material-icons white">offline_bolt</i></a>					
+				<i class="material-icons filter-link white toggleDisplayBtn">filter_list</i>	
+				<i class="material-icons filter-link white hidden toggleDisplayBtn">list</i>	
+			</div>
 
-				<div class="navbar-center">
-					<a class="navbar-logo" href="#">BOLTFLOW</a>
-				</div>
+			<div class="navbar-center">
+				<a class="navbar-logo" href="#">BOLTFLOW</a>
+			</div>
 
-				<!-- Authentication Links -->	
-				@auth					
-				<div class="navbar-right">
-					<img class="icon-30" src="/images/prototype/boy.svg" alt="User menu">
-					<ul class="navbar-menu">
-						<li>
-							<a href="{{ route('logout') }}" onclick="event.preventDefault();
-										document.getElementById('logout-form').submit();">
-										<i class="material-icons-outlined group-card-action" data-action="logout">exit_to_app</i>
-										{{ __('Logout') }}
-							</a>							
-							<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								@csrf
-							</form>						
-						</li>						
-						<li id="session-details">
-							<a href="/session" target="blank">
-								<i class="material-icons-outlined group-card-action" data-action="session">data_usage</i>
-								Session
-							</a>
-						</li>						
-					</ul>
-				</div>
-				@endauth
-				<!-- Authentication Links -->
+			<!-- Authentication Links -->	
+			@auth					
+			<div class="navbar-right">
+				<img class="icon-30" src="/images/prototype/boy.svg" alt="User menu">
+				<ul class="navbar-menu">
+					<li>
+						<a href="{{ route('logout') }}" onclick="event.preventDefault();
+									document.getElementById('logout-form').submit();">
+									<i class="material-icons-outlined group-card-action" data-action="logout">exit_to_app</i>
+									{{ __('Logout') }}
+						</a>							
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+							@csrf
+						</form>						
+					</li>						
+					<li id="session-details">
+						<a href="/session" target="blank">
+							<i class="material-icons-outlined group-card-action" data-action="session">data_usage</i>
+							Session
+						</a>
+					</li>						
+				</ul>
+			</div>
+			@endauth
+			<!-- Authentication Links -->
 
-			</nav>
-		</div>
+		</nav>
 		<!-- /#Top bar -->
 
 		@yield('content')

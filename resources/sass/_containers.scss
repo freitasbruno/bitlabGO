@@ -10,13 +10,97 @@ body {
 	grid-template-columns: 1fr 2fr;	
 }
 
-#filter-container {	
-	// border-right: 1px solid #ccc;
+#filter-container, #item-container {
+	display: grid;
+	grid-template-rows: $nav-height 1fr;
+	padding: $container-padding;
 }
 
+#filter-nav, #item-nav {
+	display: grid;
+	grid-template-columns: auto minmax(50px, 1fr) 40px;
 
-.toggleDisplayBtn {
-	display: none;
+	color: $white;
+	font-size: 1.5em;
+	font-weight: 700;
+	
+	.nav-center {
+		text-transform: uppercase;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		line-height: 35px;
+		padding-left: 0.5em;
+	}
+	
+	.nav-right {
+		float: right;
+		i {
+			font-size: 30px;
+		}
+	}
+}
+
+.card-container, #groupSelectModalContent {
+		
+	overflow: hidden;
+	height: 100%;
+
+	.cardScrollbar {
+		float: right;
+		height: 100%;
+		width: calc(100% - 0.5em);
+		padding-right: 0.5em;
+		overflow-y: auto;
+	}
+
+	.cardScrollbar::-webkit-scrollbar {
+		width: 6px;
+	} 
+
+	.cardScrollbar::-webkit-scrollbar-thumb {
+		background-color: rgba(0,0,0,0.3);
+		border-radius: 3px;
+	}
+
+	.cardScrollbar::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		border-radius: 3px;
+		cursor: grab;
+	}
+
+	.force-overflow {
+		min-height: 10px;
+	}
+	
+	.nestedGroup {
+		padding-left: 20px;
+	}
+}
+
+.filter-container {
+	height: $filter-container-height;
+}
+
+.item-container {
+	height: $item-container-height;
+}
+
+.item-totals {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat( auto-fit, minmax(100px, 1fr) );
+	column-gap: 0.75em;
+	float: right;
+	width: calc(100% - 0.25em);
+	padding-right: 0.75em;
+	color: $primary-color;
+	height: $item-totals-height;
+	
+	.totals-card {
+		padding: 1em;
+	}
 }
 
 @media only screen and (max-width: 600px) {
@@ -27,8 +111,4 @@ body {
 	#filter-container {
 	  display: none;
 	}
-
-	.toggleDisplayBtn {
-		display: inline;
-	}
-  }
+}
