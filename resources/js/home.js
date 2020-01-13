@@ -1,3 +1,22 @@
+function request (url, method, data = null) {	
+
+	return $.ajax({
+		url: url,
+		method: method,
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: data,
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed @" + url + " - method: " + method);
+		}
+	});
+
+}
+
 function render (response) {	
 	
 	if (response.groups || response.accounts) {
@@ -12,87 +31,34 @@ function render (response) {
 	console.log(response);
 }
 
-function getCash () {		
-	return $.ajax({
-		url: "/cash",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting cash items");
-		}
-	});
+function show (id, type) {	
+	console.log("Show " + type + " - id: " + id);
+	let url = "/" + type + "/" + id;	
+	return request (url, 'GET');
 }
 
-function getTasks () {		
-	return $.ajax({
-		url: "/tasks",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting tasks");
-		}
-	});
+function destroy (id, type) {
+	console.log("Destroy " + type + " - id: " + id);	
+	let url = "/" + type + "/" + id;
+	return request (url, 'DELETE');
 }
 
-function getTimers () {		
-	return $.ajax({
-		url: "/timers",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting timers");
-		}
-	});
-}
-	
-function getBookmarks () {		
-	return $.ajax({
-		url: "/bookmarks",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting bookmarks");
-		}
-	});
+function create (type) {
+	let url = "/" + type + "/create";	
+	return request (url, 'GET');
 }
 
-function getItems (type) {
-	switch (type) {
-		case 'cash':				
-			getCash().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'tasks':
-			getTasks().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'timers':
-			getTimers().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'bookmarks':
-			getBookmarks().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		default:
-			break;
-	}
+function move (type, id, targetId) {
+	console.log("Move " + type + " - id: " + id + " to parent with id: " + targetId);
+	let url = "/" + type + "/move/" + id;
+	let data = {"targetId" : targetId};	
+	return request (url, 'POST', data);		
+}
+
+function index (type, display = null) {
+	console.log("Index " + type);
+	let url = "/" + type;	
+	return request (url, 'GET');
 }
 
 function getGroups (viewType = 'cardPanel') {		
@@ -138,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	getGroups('cardPanel').done(function(response) {
 		render(response);		
 	});
-	getItems('cash');
+	index('cash').done(function(response) {
+		render(response);		
+	});
 
 	// TOGGLE FILTERS/ITEMS
 	$(document).on('click', '.toggleDisplayBtn', function() {

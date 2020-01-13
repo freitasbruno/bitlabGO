@@ -16,14 +16,13 @@ const mix = require("laravel-mix");
 
 mix.scripts([
 		"resources/js/home.js",
-		"resources/js/filter-type.js",
 		"resources/js/modal.js",
 		"resources/js/forms.js",
 		"resources/js/groups.js",
-		"resources/js/accounts.js",
 		"resources/js/items.js",
 		"resources/js/tasks.js",
-		"resources/js/timers.js"
+		"resources/js/timers.js",
+		"resources/js/listeners.js"
 	], "public/js/home.js")
     .minify([
 		"public/js/home.js"

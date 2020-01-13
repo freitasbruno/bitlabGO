@@ -1,3 +1,22 @@
+function request (url, method, data = null) {	
+
+	return $.ajax({
+		url: url,
+		method: method,
+		headers: {
+			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+		},
+		data: data,
+		success: function(response) {
+			//
+		},
+		error: function(errorThrown) {
+			console.log("failed @" + url + " - method: " + method);
+		}
+	});
+
+}
+
 function render (response) {	
 	
 	if (response.groups || response.accounts) {
@@ -12,87 +31,34 @@ function render (response) {
 	console.log(response);
 }
 
-function getCash () {		
-	return $.ajax({
-		url: "/cash",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting cash items");
-		}
-	});
+function show (id, type) {	
+	console.log("Show " + type + " - id: " + id);
+	let url = "/" + type + "/" + id;	
+	return request (url, 'GET');
 }
 
-function getTasks () {		
-	return $.ajax({
-		url: "/tasks",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting tasks");
-		}
-	});
+function destroy (id, type) {
+	console.log("Destroy " + type + " - id: " + id);	
+	let url = "/" + type + "/" + id;
+	return request (url, 'DELETE');
 }
 
-function getTimers () {		
-	return $.ajax({
-		url: "/timers",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting timers");
-		}
-	});
-}
-	
-function getBookmarks () {		
-	return $.ajax({
-		url: "/bookmarks",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		error: function(errorThrown) {
-			console.log("failed getting bookmarks");
-		}
-	});
+function create (type) {
+	let url = "/" + type + "/create";	
+	return request (url, 'GET');
 }
 
-function getItems (type) {
-	switch (type) {
-		case 'cash':				
-			getCash().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'tasks':
-			getTasks().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'timers':
-			getTimers().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		case 'bookmarks':
-			getBookmarks().done(function(response) {
-				render(response);
-			}); 
-			break;
-	
-		default:
-			break;
-	}
+function move (type, id, targetId) {
+	console.log("Move " + type + " - id: " + id + " to parent with id: " + targetId);
+	let url = "/" + type + "/move/" + id;
+	let data = {"targetId" : targetId};	
+	return request (url, 'POST', data);		
+}
+
+function index (type, display = null) {
+	console.log("Index " + type);
+	let url = "/" + type;	
+	return request (url, 'GET');
 }
 
 function getGroups (viewType = 'cardPanel') {		
@@ -138,7 +104,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	getGroups('cardPanel').done(function(response) {
 		render(response);		
 	});
-	getItems('cash');
+	index('cash').done(function(response) {
+		render(response);		
+	});
 
 	// TOGGLE FILTERS/ITEMS
 	$(document).on('click', '.toggleDisplayBtn', function() {
@@ -148,38 +116,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		$("#item-container").toggle();
 
 	});
-});
-
-document.addEventListener("DOMContentLoaded", function(event) {
-
-	// Listen to Btn click
-    $(document).on('click', '.item-filter-link', function() {
-		$(".item-filter-link").removeClass("selected");
-		$(this).addClass("selected");
-
-		let itemType = $(this).attr('data-type');
-		console.log(itemType);
-		
-		getItems (itemType);
-	});
-
-	// Listen to Btn click
-    $(document).on('click', '.filter-link', function() {
-		$(".filter-link").removeClass("selected");
-		$(this).addClass("selected");
-
-		let type = $(this).attr('data-type');
-		if (type == 'groups') {
-			getGroups('cardPanel').done(function(response) {
-				render(response);		
-			});
-		} else if (type == 'accounts') {
-			getAccounts().done(function(response) {
-				render(response);		
-			});
-		}
-	});
-	
 });
 
 function openModal(type) {
@@ -410,7 +346,7 @@ function submitFieldForm (type, id) {
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// GET GROUP FORM
-	$(document).on('click', '.newGroupBtn', function() {
+	$(document).on('click', '.newFilterBtn', function() {
 		$('#filter-container').find('.form-card').show();	
 	});
 
@@ -510,110 +446,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 });
-
-function newGroup () {		
-	return $.ajax({
-		url: "/groups/create",
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting group form");
-		}
-	});
-}
-
-function getGroup (id) {		
-	return $.ajax({
-		url: "/groups/" + id,
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting group");
-		}
-	});
-}
-
-function deleteGroup (id) {		
-	return $.ajax({
-		url: "/groups/" + id,
-		method: "DELETE",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed deleting group");
-		}
-	});
-}
-
-function updateCurrentGroup (id) {		
-	return $.ajax({
-		url: "/groups/current",
-		method: "POST",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: {
-			id : id
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed updating current group");
-		}
-	});
-}
-
-function moveGroup (groupId, targetId) {		
-	return $.ajax({
-		url: "/groups/move/" + groupId,
-		method: "POST",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: {
-			targetId : targetId
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed updating current group");
-		}
-	});
-}
-
-function moveItem (type, id, targetId) {		
-	return $.ajax({
-		url: "/" + type + "/move/" + id,
-		method: "POST",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: {
-			targetId : targetId
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed updating current group");
-		}
-	});
+function updateCurrentGroup (id) {	
+	console.log("Update current group - id: " + id);
+	let url = "/groups/current";
+	let data = {"id" : id};	
+	return request (url, 'POST', data);
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -622,20 +459,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	var selectMode = false;
 
 	// GET GROUP
-    $(document).on('click', '.group-card', function(e) {
+    $(document).on('click', '.filter-card', function(e) {
 
-		if ($(e.target).closest(".group-card-action").length) { return };
+		if ($(e.target).closest(".filter-card-action").length) { return };
 		
 		let id = $(this).attr('data-id');
-		let groupCard = $(this);
+		let filterCard = $(this);
 		console.log("group: " + id);
 
 		updateCurrentGroup(id).done(function(response) {
 			if (selectMode) {
-				groupCard.addClass("selected highlight");
+				filterCard.addClass("selected highlight");
 			} else {
-				$(".group-card").removeClass("selected");
-				groupCard.addClass("selected");
+				$(".filter-card").removeClass("selected");
+				filterCard.addClass("selected");
 			}
 			
 			let selected = $(".item-filter-link.selected");
@@ -650,38 +487,39 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	});
 	
-	// GROUP ACTIONS
-    $(document).on('click', '.group-card-action', function(e) {
+	// FILTER ACTIONS
+    $(document).on('click', '.filter-card-action', function(e) {
 		let actionBtn = $(this);
 		let action = $(this).attr('data-action');
-		let groupCard = $(this).closest(".group-card");
-		let groupId = groupCard.attr('data-id');
-		let type = groupCard.closest('.modal').attr('data-type');
+		let filterCard = $(this).closest(".filter-card");
+		let filterType = filterCard.attr('data-type');
+		let filterId = filterCard.attr('data-id');
+		let type = filterCard.closest('.modal').attr('data-type');
 		let target = type == 'groupSelect' ? '#nestedListGroup-' : '#nestedGroup-';
 
 		switch (action) {
 			case 'expand':
-				$(target + groupId).show();
+				$(target + filterId).show();
 				actionBtn.html('arrow_drop_up');	       
 				actionBtn.attr('data-action', 'collapse');	       
 				break;
 			
 			case 'collapse':
-				$(target + groupId).hide();
+				$(target + filterId).hide();
 				actionBtn.html('arrow_right');	       
 				actionBtn.attr('data-action', 'expand');	       
 				break;
 
 			case 'open':
-				getGroup(groupId).done(function(response) {
-					console.log(JSON.parse(response.group));
+				show(filterId, filterType).done(function(response) {
+					console.log(response);
 					renderModal(response);
 				});	       
 				break;
 
 			case 'delete':
-				deleteGroup(groupId).done(function(response) {
-					groupCard.remove();
+				destroy(filterId, filterType).done(function(response) {
+					filterCard.remove();
 				}); 		       
 				break;
 		
@@ -704,9 +542,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		console.log("Move " + type + ": " + id);
 	});
 
-    $(document).on('click', '.group-list-card', function(e) {
+    $(document).on('click', '.filter-list-card', function(e) {
 
-		if (!$(e.target).closest('.group-card-action').length) {
+		if (!$(e.target).closest('.filter-card-action').length) {
 
 			let type = $(this).closest('.container').attr('data-type');
 			let id = $(this).closest('.container').attr('data-id');
@@ -714,7 +552,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 			switch (type) {
 				case 'groups':
-					moveGroup(id, targetId).done(function(response) {
+					move(type, id, targetId).done(function(response) {
 						let group = JSON.parse(response.group);	
 						closeModal('groupSelect');
 						getGroups('cardPanel').done(function(response) {
@@ -726,7 +564,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					});
 					break;					
 				default:
-					moveItem(type, id, targetId).done(function(response) {	
+					move(type, id, targetId).done(function(response) {	
 						closeModal('groupSelect');
 						closeModal('item');
 						//getItems(type);
@@ -745,68 +583,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			// selectMode = true;
 		},1000);
 	 	return false; 
-	});
-});
-
-function getAccount (id) {		
-	return $.ajax({
-		url: "/accounts/" + id,
-		method: "GET",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed getting account");
-		}
-	});
-}
-
-function deleteAccount (id) {		
-	return $.ajax({
-		url: "/accounts/" + id,
-		method: "DELETE",
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		success: function(response) {
-			//
-		},
-		error: function(errorThrown) {
-			console.log("failed deleting account");
-		}
-	});
-}
-
-document.addEventListener("DOMContentLoaded", function(event) {
-
-	// GROUP ACTIONS
-    $(document).on('click', '.account-card-action', function(e) {
-		let actionBtn = $(this);
-		let action = $(this).attr('data-action');
-		let accountCard = $(this).closest(".account-card");
-		let accountId = accountCard.attr('data-id');
-		let type = accountCard.closest('.modal').attr('data-type');
-
-		switch (action) {
-			case 'open':
-				getAccount(accountId).done(function(response) {
-					console.log(response);
-					renderModal(response);
-				});	       
-				break;
-
-			case 'delete':
-				deleteAccount(accountId).done(function(response) {
-					accountCard.remove();
-				}); 		       
-				break;
-		
-			default:
-				break;
-		}
 	});
 });
 
@@ -897,4 +673,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		getItems('timers');
 	});
 
+});
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+	// FILTER NAV SELECTION
+    $(document).on('click', '.filter-link', function() {
+		$(".filter-link").removeClass("selected");
+		$(this).addClass("selected");
+
+		let type = $(this).attr('data-type');
+		if (type == 'groups') {
+			getGroups('cardPanel').done(function(response) {
+				render(response);		
+			});
+		} else if (type == 'accounts') {
+			getAccounts().done(function(response) {
+				render(response);		
+			});
+		}
+	});
+
+	// ITEM NAV SELECTION
+    $(document).on('click', '.item-filter-link', function() {
+		$(".item-filter-link").removeClass("selected");
+		$(this).addClass("selected");
+
+		let itemType = $(this).attr('data-type');
+		console.log(itemType);
+		
+		getItems (itemType);
+	});
+	
 });

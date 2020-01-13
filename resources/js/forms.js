@@ -58,7 +58,7 @@ function submitFieldForm (type, id) {
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// GET GROUP FORM
-	$(document).on('click', '.newGroupBtn', function() {
+	$(document).on('click', '.newFilterBtn', function() {
 		$('#filter-container').find('.form-card').show();	
 	});
 
