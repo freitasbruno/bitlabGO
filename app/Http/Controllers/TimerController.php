@@ -144,7 +144,7 @@ class TimerController extends Controller
      */	
     public function stop()
     {
-		$timerId = $_POST['itemId'];
+		$timerId = $_POST['id'];
 
 		$timer = Timer::find($timerId);
 		$timer->stop = now();
@@ -159,7 +159,7 @@ class TimerController extends Controller
      */	
     public function start()
     {
-		$timerId = $_POST['itemId'];
+		$timerId = $_POST['id'];
 
 		$timer = Timer::find($timerId);
 		$timer->start = now();

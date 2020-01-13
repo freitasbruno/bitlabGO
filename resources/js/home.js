@@ -29,7 +29,6 @@ function render (response) {
 	}
 		
 	console.log(response);
-	console.log('render done');
 }
 
 function index (type, viewType = null) {
@@ -71,5 +70,4 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	index('cash').done(function(response) {
 		render(response);		
 	});
-	console.log('home done');
 });

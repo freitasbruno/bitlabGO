@@ -101,6 +101,11 @@ span.card-tag {
 	}
 }
 
+// TIMERS
+.timer-card {	
+	grid-template-columns: auto minmax(100px, 1fr) auto;	
+}
+
 // BOOKMARKS
 .bookmark-card {
 	padding: 0;

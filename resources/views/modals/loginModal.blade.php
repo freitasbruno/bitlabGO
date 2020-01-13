@@ -1,4 +1,4 @@
-<div class="modal" id="loginModal">
+<div class="modal" id="login-modal">
 	<div class="modal-dialog modal-dialog-grid">		
 		<div class="modal-title" id="item-modal-title">
 			<p class="card-text-m"></p>

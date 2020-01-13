@@ -24,7 +24,7 @@ class Timer extends Model
      * @var array
      */
     protected $with = ['item'];
-	
+
 	/**
      * Get the user who owns the resource.
      */

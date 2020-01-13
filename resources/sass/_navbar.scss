@@ -7,12 +7,11 @@
 	width: calc(100% -2em);
 
 	display: grid;
-	grid-template-columns: 200px 1fr minmax(30px, 200px);
+	grid-template-columns: 60px 1fr 60px;
 	height: $nav-height;
 
 	.navbar-left, .navbar-right {
 		color: $gray-98;
-		margin-top: 5px;
 		
 	}
 	.navbar-center {
@@ -22,14 +21,17 @@
 	}
 
 	.navbar-right {
-		padding-left: 160px;
 		position: relative;
-		display: inline-block;
 		cursor: pointer;
-			
+		
+		.icon-btn {
+			float: right;
+		}
+
 		.navbar-menu {
-			display: none;
+			display: none;			
 			position: absolute;
+			top: $nav-height;
 			width: 120px;
 			text-align: left;
 			background-color: $offwhite;

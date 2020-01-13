@@ -25,7 +25,7 @@ body {
 }
 
 #main-container {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 40px);
   display: grid;
   grid-template-columns: 1fr 2fr;
 }
@@ -33,7 +33,7 @@ body {
 #filter-container,
 #item-container {
   display: grid;
-  grid-template-rows: 50px auto 1fr;
+  grid-template-rows: 40px auto 1fr;
   padding: 1em;
 }
 
@@ -111,11 +111,11 @@ body {
 }
 
 .card-container {
-  height: calc(calc(100vh - 50px) - 50px - 2 * 1em);
+  height: calc(calc(100vh - 40px) - 40px - 2 * 1em);
 }
 
 .card-container.totals {
-  height: calc(calc(100vh - 50px) - 50px - 2 * 1em - 80px);
+  height: calc(calc(100vh - 40px) - 40px - 2 * 1em - 80px);
 }
 
 .item-totals {
@@ -473,14 +473,14 @@ i {
 
 #main-navbar,
 #welcome-navbar {
-  line-height: 50px;
+  line-height: 40px;
   background: rgba(255, 255, 255, 0.4);
   margin: 0;
   padding: 0 1em;
   width: calc(100% -2em);
   display: grid;
-  grid-template-columns: 200px 1fr minmax(30px, 200px);
-  height: 50px;
+  grid-template-columns: 60px 1fr 60px;
+  height: 40px;
 }
 
 #main-navbar .navbar-left,
@@ -488,7 +488,6 @@ i {
 #welcome-navbar .navbar-left,
 #welcome-navbar .navbar-right {
   color: #f3f3f3;
-  margin-top: 5px;
 }
 
 #main-navbar .navbar-center,
@@ -500,16 +499,20 @@ i {
 
 #main-navbar .navbar-right,
 #welcome-navbar .navbar-right {
-  padding-left: 160px;
   position: relative;
-  display: inline-block;
   cursor: pointer;
+}
+
+#main-navbar .navbar-right .icon-btn,
+#welcome-navbar .navbar-right .icon-btn {
+  float: right;
 }
 
 #main-navbar .navbar-right .navbar-menu,
 #welcome-navbar .navbar-right .navbar-menu {
   display: none;
   position: absolute;
+  top: 40px;
   width: 120px;
   text-align: left;
   background-color: #EEE;
@@ -677,6 +680,10 @@ span.card-tag {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+.timer-card {
+  grid-template-columns: auto minmax(100px, 1fr) auto;
+}
+
 .bookmark-card {
   padding: 0;
 }
@@ -688,7 +695,7 @@ span.card-tag {
 #item-modal,
 #filter-modal,
 #group-modal,
-#loginModal {
+#login-modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -705,10 +712,10 @@ span.card-tag {
 #item-modal .modal-dialog,
 #filter-modal .modal-dialog,
 #group-modal .modal-dialog,
-#loginModal .modal-dialog {
+#login-modal .modal-dialog {
   color: #787878;
   background: #ffffff;
-  margin: calc(50vh - 50px - 200px) auto;
+  margin: calc(50vh - 40px - 200px) auto;
   border: 1px solid #888;
   width: 75%;
   max-width: 600px;
@@ -717,7 +724,7 @@ span.card-tag {
 #item-modal .modal-title,
 #filter-modal .modal-title,
 #group-modal .modal-title,
-#loginModal .modal-title {
+#login-modal .modal-title {
   line-height: 30px;
   vertical-align: middle;
 }
@@ -725,7 +732,7 @@ span.card-tag {
 #item-modal .close-modal-btn,
 #filter-modal .close-modal-btn,
 #group-modal .close-modal-btn,
-#loginModal .close-modal-btn {
+#login-modal .close-modal-btn {
   float: right;
 }
 
@@ -736,7 +743,7 @@ span.card-tag {
 #group-modal .modal-dialog {
   background: #55CFBF;
   margin: 7vh auto;
-  height: calc(100% - 50px - 14vh);
+  height: calc(100% - 40px - 14vh);
 }
 
 .modal-dialog-grid {

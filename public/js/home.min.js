@@ -29,7 +29,6 @@ function render (response) {
 	}
 		
 	console.log(response);
-	console.log('render done');
 }
 
 function index (type, viewType = null) {
@@ -71,7 +70,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	index('cash').done(function(response) {
 		render(response);		
 	});
-	console.log('home done');
 });
 
 function openModal(type) {
@@ -135,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $(document).on('click', '.item-card', function(e) {
 		if ($(e.target).closest(".checkboxLabel").length) { return };
 		if ($(e.target).closest(".timerStopBtn").length) { return };
+		if ($(e.target).closest(".timerStartBtn").length) { return };
 		if ($(e.target).closest(".total-card").length) { return };
 		let type = $(this).attr('data-type');
 		let itemId = $(this).attr('data-id');
@@ -505,58 +504,63 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 });
 
-function updateTimer (itemId, action) {
-	return $.ajax({
-		url: "/timers/" + action,
-		method: "POST",
-		dataType: 'json',
-		headers: {
-			"X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
-		},
-		data: {
-			itemId: itemId
-		},
-		success: function(response) {
-			console.log(response);
-		},
-		error: function(error) {
-			console.log("failed getting item");
-			console.log(error);
+function updateTimer (id, action) {
+	console.log(action + " timer id: " + id);
+	let url = "/timers/" + action;
+	let data = {"id" : id};		
+	return request (url, 'POST', data);
+}
+
+function startTimer (element) {
+	let timerCard = element.closest('.timer-card');
+	let itemId = timerCard.attr('data-id');
+
+	timerCard.find(".timerStartBtn").toggle();
+	timerCard.find(".timerStopBtn").toggle();
+	updateTimer(itemId, 'start');	
+	let daysLabel = timerCard.find(".days");		
+	let hoursLabel = timerCard.find(".hours");		
+	let minutesLabel = timerCard.find(".minutes");		
+	let secondsLabel = timerCard.find(".seconds");
+	let totalSeconds = 0;
+
+	setInterval(setTime, 1000);
+
+	function setTime() {
+		++totalSeconds;
+		secondsLabel.html(pad(totalSeconds % 60, 's'));
+		if (totalSeconds > 60) {
+			minutesLabel.html(pad(parseInt(totalSeconds / 60 % 60), 'm'));
 		}
-	});
+		if (totalSeconds > 60 * 60) {
+		hoursLabel.html(pad(parseInt(totalSeconds / 60 / 60 % 24), 'h'));
+		}
+		if (totalSeconds > 60 * 60 * 24) {
+		daysLabel.html(pad(parseInt(totalSeconds / 60 / 60 / 24), 'd'));
+		}
+	}
+
+	function pad(val, suffix) {
+		var valString = val + "";
+		if (valString.length < 2) {
+			return "0" + valString + suffix;
+		} else {
+			return valString + suffix;
+		}
+	}
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
 	// Start Timer
-	$(document).on('click', ".timerStartBtn" , function() {
-		var itemId = $(this).attr('data-id');
-		// updateTimer(itemId, 'start');
-		// index('timers');		
-		var minutesLabel = document.getElementById("minutes");
-		var secondsLabel = document.getElementById("seconds");
-		var totalSeconds = 0;
-		setInterval(setTime, 1000);
-
-		function setTime() {
-			++totalSeconds;
-			secondsLabel.innerHTML = pad(totalSeconds % 60);
-			minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-		}
-
-		function pad(val) {
-			var valString = val + "";
-			if (valString.length < 2) {
-				return "0" + valString;
-			} else {
-				return valString;
-			}
-		}
+	$(document).on('click', ".timerStartBtn" , function() {	
+		startTimer($(this));			
 	});
 
 	// Stop Timer
 	$(document).on('click', ".timerStopBtn" , function() {
-		var itemId = $(this).attr('data-id');
+		let timerCard = $(this).closest('.timer-card');
+		let itemId = timerCard.attr('data-id');
 		updateTimer(itemId, 'stop');
 		index('timers').done(function(response) {
 			render(response);		

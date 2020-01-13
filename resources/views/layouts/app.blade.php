@@ -5,8 +5,8 @@
 
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
+		<meta name="description" content="Boltflow is an application designed to give you control over your data">
+		<meta name="author" content="Bitlab - Bruno Freitas">
 
 		<title>BoltFlow</title>
 
@@ -43,12 +43,11 @@
 			<!-- Authentication Links -->	
 			@auth					
 			<div class="navbar-right">
-				<img class="icon-30" src="/images/prototype/boy.svg" alt="User menu">
+				<i class="material-icons icon-btn white">account_circle</i>
 				<ul class="navbar-menu">
 					<li>
 						<a href="{{ route('logout') }}" onclick="event.preventDefault();
 									document.getElementById('logout-form').submit();">
-									<i class="material-icons-outlined group-card-action" data-action="logout">exit_to_app</i>
 									{{ __('Logout') }}
 						</a>							
 						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -57,7 +56,6 @@
 					</li>						
 					<li id="session-details">
 						<a href="/session" target="blank">
-							<i class="material-icons-outlined group-card-action" data-action="session">data_usage</i>
 							Session
 						</a>
 					</li>						
