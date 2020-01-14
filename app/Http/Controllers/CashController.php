@@ -18,10 +18,29 @@ class CashController extends Controller
      */
     public function index()
     {
-		$items = Item::has('cash')
-			->where('id_user', Auth::user()->id)
-			->where('id_parent', session('currentGroup')->id)
-			->with('cash')->get();
+
+		if (session('currentGroup') !==null && session('currentAccount') !== null){
+			$accountId = session('currentAccount')->id;
+			$items = Item::has('cash')
+				->where('id_user', Auth::user()->id)
+				->where('id_parent', session('currentGroup')->id)
+				->whereHas('cash', function ($query) use($accountId) {
+					$query->where('id_account', '=', $accountId);
+				})->get();
+		} else if (session('currentGroup') !==null) {
+			$items = Item::has('cash')
+				->where('id_user', Auth::user()->id)
+				->where('id_parent', session('currentGroup')->id)
+				->with('cash')->get();			
+		} else if (session('currentAccount') !== null) {
+			$accountId = session('currentAccount')->id;
+			$items = Item::has('cash')
+				->where('id_user', Auth::user()->id)
+				->where('id_account', session('currentAccount')->id)
+				->with('cash')->get();
+		} else {
+			$items = collect();
+		}
 		
 		$totals = Cash::getTotals($items);
 		$accounts = Account::where('id_user', Auth::user()->id)->get();

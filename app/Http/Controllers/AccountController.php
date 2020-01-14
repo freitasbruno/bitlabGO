@@ -144,7 +144,24 @@ class AccountController extends Controller
 			'account' => $account->toJson()
 		));
 	}
-			
+		
+	/**
+     * Update the current group.
+     *
+     */	
+    public function setCurrent()
+    {
+		$id = $_POST['id'];
+
+		$account = Account::find($id);
+		session(['currentAccount' => $account]);
+
+        return response()->json(array(
+			'success' => true,
+			'account' => $account->toJson()
+		));
+	}
+
 	/**
      * Get a form to update a specific field.
      *

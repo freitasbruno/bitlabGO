@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 		
 	// MODAL TOOLS ACTIONS
-    $(document).on('click', '.item-card-action', function() {
+    $(document).on('click', '.action', function() {
 		let container = $(this).closest("#item-modal").find('.container');
 		let type = container.attr('data-type');
 		let id = container.attr('data-id');
@@ -97,7 +97,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			case 'delete':
 				destroy (type, id).done( function(response) {
 					console.log(response);
-					index (type);
+					index (type).done(function(response) {
+						render(response);		
+					});
 					closeModal('item');
 				});
 				break;		

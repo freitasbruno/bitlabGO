@@ -20,6 +20,7 @@ class HomeController extends Controller
 		
 		// Change the currentGroup in the Session
 		session(['currentGroup' => $group]);
+		session(['currentAccount' => null]);
 		
 		// load the view and pass the groups
 		return view('home');

@@ -1,6 +1,6 @@
-function updateCurrentGroup (id) {	
+function updateCurrent (type, id) {	
 	console.log("Update current group - id: " + id);
-	let url = "/groups/current";
+	let url = "/" + type + "/current";
 	let data = {"id" : id};	
 	return request (url, 'POST', data);
 }
@@ -20,7 +20,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let filterCard = $(this);
 		console.log("Filter " + type + ": " + id);
 
-		updateCurrentGroup(id).done(function(response) {
+		updateCurrent(type, id).done(function(response) {
+			console.log(response);
+			
 			if (selectMode) {
 				filterCard.addClass("selected highlight");
 			} else {
@@ -32,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			
 			if (selected.length) {
 				let itemType = $(selected).attr('data-type');	
-				index(itemType).done(function(response) {
+				index(itemType, 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			}
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				break;
 
 			case 'delete':
-				destroy(filterId, filterType).done(function(response) {
+				destroy(filterType, filterId).done(function(response) {
 					filterCard.remove();
 				}); 		       
 				break;

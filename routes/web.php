@@ -28,7 +28,10 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('home', 'HomeController');
 
 	Route::resource('groups', 'GroupController');
-	Route::post('groups/current', 'GroupController@updateCurrentGroup');
+	Route::post('groups/current', 'GroupController@setCurrent');
+
+	Route::resource('accounts', 'AccountController');
+	Route::post('accounts/current', 'AccountController@setCurrent');
 
 	Route::post('groups/move/{group}', 'GroupController@move');
 	Route::post('cash/move/{cash}', 'CashController@move');
@@ -53,12 +56,10 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::resource('timers', 'TimerController');
 	Route::post('timers/start', 'TimerController@start');
 	Route::post('timers/stop', 'TimerController@stop');
-	
-	Route::resource('accounts', 'AccountController');
-	Route::post('accounts/getAccount', 'AccountController@getAccount');
 
 	Route::get('/session', function () {
 		$session = session()->all();
+		dd($session['currentAccount']->toArray());
 		dd($session['currentGroup']->toArray());
 	});
 });
@@ -67,7 +68,12 @@ Route::group(['middleware' => ['auth']], function () {
 use App\Models\Items\Timer;
 
 Route::get('/test', function () {
-
-	$task = Cash::find(1);
-	dd($task->getTable());die;
+	$accountId = session('currentAccount')->id;
+	$items = Item::has('cash')
+		->where('id_user', Auth::user()->id)
+		->where('id_parent', session('currentGroup')->id)
+		->whereHas('cash', function ($query) use($accountId) {
+			$query->where('id_account', '=', $accountId);
+		})->get();
+	dd($items);
 });

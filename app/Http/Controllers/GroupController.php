@@ -148,7 +148,7 @@ class GroupController extends Controller
      * Update the current group.
      *
      */	
-    public function updateCurrentGroup()
+    public function setCurrent()
     {
 		$groupId = $_POST['id'];
 

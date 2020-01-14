@@ -44,7 +44,7 @@ function get (type, id) {
 	return request (url, 'GET');
 }
 
-function destroy (id, type) {
+function destroy (type, id) {
 	console.log("Destroy " + type + " - id: " + id);	
 	let url = "/" + type + "/" + id;
 	return request (url, 'DELETE');

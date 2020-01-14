@@ -19,6 +19,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
+		if (itemType == 'tasks' || itemType == 'tasks' || itemType == 'tasks') {
+			$(".cash-filter").hide();
+		} else if (itemType == 'cash') {
+			$(".cash-filter").show();
+		}
+
 		index (itemType).done(function(response) {
 			render(response);		
 		});

@@ -44,7 +44,7 @@ function get (type, id) {
 	return request (url, 'GET');
 }
 
-function destroy (id, type) {
+function destroy (type, id) {
 	console.log("Destroy " + type + " - id: " + id);	
 	let url = "/" + type + "/" + id;
 	return request (url, 'DELETE');
@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 		
 	// MODAL TOOLS ACTIONS
-    $(document).on('click', '.item-card-action', function() {
+    $(document).on('click', '.action', function() {
 		let container = $(this).closest("#item-modal").find('.container');
 		let type = container.attr('data-type');
 		let id = container.attr('data-id');
@@ -171,7 +171,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			case 'delete':
 				destroy (type, id).done( function(response) {
 					console.log(response);
-					index (type);
+					index (type).done(function(response) {
+						render(response);		
+					});
 					closeModal('item');
 				});
 				break;		
@@ -327,9 +329,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 	
 });
-function updateCurrentGroup (id) {	
+function updateCurrent (type, id) {	
 	console.log("Update current group - id: " + id);
-	let url = "/groups/current";
+	let url = "/" + type + "/current";
 	let data = {"id" : id};	
 	return request (url, 'POST', data);
 }
@@ -349,7 +351,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let filterCard = $(this);
 		console.log("Filter " + type + ": " + id);
 
-		updateCurrentGroup(id).done(function(response) {
+		updateCurrent(type, id).done(function(response) {
+			console.log(response);
+			
 			if (selectMode) {
 				filterCard.addClass("selected highlight");
 			} else {
@@ -361,7 +365,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 			
 			if (selected.length) {
 				let itemType = $(selected).attr('data-type');	
-				index(itemType).done(function(response) {
+				index(itemType, 'cardPanel').done(function(response) {
 					render(response);		
 				});
 			}
@@ -400,7 +404,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				break;
 
 			case 'delete':
-				destroy(filterId, filterType).done(function(response) {
+				destroy(filterType, filterId).done(function(response) {
 					filterCard.remove();
 				}); 		       
 				break;
@@ -587,6 +591,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
+		if (itemType == 'tasks' || itemType == 'tasks' || itemType == 'tasks') {
+			$(".cash-filter").hide();
+		} else if (itemType == 'cash') {
+			$(".cash-filter").show();
+		}
+
 		index (itemType).done(function(response) {
 			render(response);		
 		});

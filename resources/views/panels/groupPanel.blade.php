@@ -1,7 +1,7 @@
 <div id="filter-nav">
 	<div class="nav-left">
 		<i class="material-icons-outlined icon-btn filter-link white {{ $type == 'groups' ? 'selected' : null }}" data-type="groups">folder</i>
-		<i class="material-icons-outlined icon-btn filter-link white {{ $type == 'accounts' ? 'selected' : null }}" data-type="accounts">credit_card</i>
+		<i class="material-icons-outlined icon-btn filter-link cash-filter white {{ $type == 'accounts' ? 'selected' : null }}" data-type="accounts">credit_card</i>
 	</div>
 	<div class="nav-center">
 		{{ $type }}			
