@@ -57,7 +57,8 @@ input[type="checkbox"]:checked + label:before {
 	width: 5px;
     top: -5px;
 	left: 5px;	
-    border: 2px solid $primary-color;
+    // border: 2px solid $primary-color;
+    border: 2px solid $gray-50;
     border-radius: 0;
     opacity: 1;
     border-top-color: transparent;

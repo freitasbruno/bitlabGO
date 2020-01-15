@@ -70,8 +70,12 @@ class BookmarkController extends Controller
 			'url' => $request->get('url')
 		]);
 
-		$item->name = $bookmark->findSiteTitle();
+		$src = $bookmark->getSourceCode();
+		$item->name = $bookmark->findSiteTitle($src);
 		$item->save();
+
+		// $bookmark->iconUrl = $bookmark->findSiteIcon($src);
+		// $bookmark->save();
 
         return response()->json($bookmark);
 	}

@@ -66,14 +66,15 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 use App\Models\Items\Timer;
+use Carbon\Carbon;
 
 Route::get('/test', function () {
-	$accountId = session('currentAccount')->id;
-	$items = Item::has('cash')
-		->where('id_user', Auth::user()->id)
-		->where('id_parent', session('currentGroup')->id)
-		->whereHas('cash', function ($query) use($accountId) {
-			$query->where('id_account', '=', $accountId);
-		})->get();
-	dd($items);
+
+	$url = "https://www.publico.pt/";
+	$str = file_get_contents($url);
+	if(strlen($str)>0){
+		//$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
+		preg_match('/<link rel="shortcut icon" href="(.*)"/i',$str,$iconUrl); // ignore case
+		echo $iconUrl[1];
+	}
 });

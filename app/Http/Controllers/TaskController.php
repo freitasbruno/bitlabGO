@@ -146,7 +146,11 @@ class TaskController extends ItemController
 		$task = Task::find($taskId);
 		$task->complete = !$task->complete;
 		$task->save();
-        return "task complete toggled";
+        return response()->json(array(
+			'success' => true,
+			'type' => 'task',
+			'task' => $task->toJson()
+		));
     }
 
     /**

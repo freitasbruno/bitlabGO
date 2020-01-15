@@ -41,13 +41,26 @@ class Bookmark extends Model
         return $this->belongsTo('App\Models\Item', 'id_parent');
 	}
 
-	public function findSiteTitle()
+	public function getSourceCode()
 	{ 
 		$str = file_get_contents($this->url);
+		return $str;
+	}
+
+	public function findSiteTitle($str)
+	{ 
 		if(strlen($str)>0){
 			$str = trim(preg_replace('/\s+/', ' ', $str)); // supports line breaks inside <title>
 			preg_match("/\<title\>(.*)\<\/title\>/i",$str,$title); // ignore case
 			return $title[1];
+		}
+	}
+
+	public function findSiteIcon($str)
+	{ 
+		if(strlen($str)>0){
+			preg_match('/<link rel="shortcut icon" href="(.*)"/i',$str,$iconUrl); // ignore case
+			return $iconUrl[1];
 		}
 	}
 }

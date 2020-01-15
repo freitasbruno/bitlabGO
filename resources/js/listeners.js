@@ -19,8 +19,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
-		if (itemType == 'tasks' || itemType == 'tasks' || itemType == 'tasks') {
+		if (itemType == 'tasks' || itemType == 'timers' || itemType == 'bookmarks') {
 			$(".cash-filter").hide();
+			if($(".filter-link.selected").attr('data-type') !== "groups") {
+				$(".filter-link").removeClass('selected');
+				$(".filter-link[data-type='groups']").click();
+			}
 		} else if (itemType == 'cash') {
 			$(".cash-filter").show();
 		}

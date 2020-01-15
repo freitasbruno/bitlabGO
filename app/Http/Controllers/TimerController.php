@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Items\Timer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,19 @@ class TimerController extends Controller
 			->where('id_parent', session('currentGroup')->id)
 			->with('timer')->get();
 		
+		foreach ($items as $item) {
+			$timer = $item->timer;
+			if ($timer->stop) {
+				$end = Carbon::parse($timer->stop);
+				$start = Carbon::parse($timer->start);	
+			} else {
+				$end = Carbon::now();
+				$start = Carbon::parse($timer->start);	
+			}
+			$dif = $end->diff($start);
+			$item->timer->totalSeconds = $end->diffInSeconds($start);
+			$item->timer->totals = ['days' => $dif->format('%d'), 'hours' => $dif->format('%h'), 'minutes' => $dif->format('%i'), 'seconds' => $dif->format('%s')];
+		}
 		$totals = Timer::getTotals($items);
 
 		$returnHTML = view('panels.itemPanel')->with([
@@ -132,7 +146,7 @@ class TimerController extends Controller
 
 		return response()->json(array(
 			'success' => true,
-			'type' => 'task',
+			'type' => 'timer',
 			'timer' => $timer->toJson(),
 			'modalHtml' => $modalHtml
 		));
@@ -145,12 +159,18 @@ class TimerController extends Controller
     public function stop()
     {
 		$timerId = $_POST['id'];
+		$totalSeconds = $_POST['totalSeconds'];
 
 		$timer = Timer::find($timerId);
-		$timer->stop = now();
+		$start = Carbon::parse($timer->start);
+		$timer->stop = $start->addSeconds($totalSeconds);
 		$timer->save();
 
-        return $timer->stop;
+        return response()->json(array(
+			'success' => true,
+			'type' => 'timer',
+			'timer' => $timer->toJson()
+		));
     }
 	
 	/**

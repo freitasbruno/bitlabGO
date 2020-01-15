@@ -18,11 +18,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let element = $(this);
 		let taskId = $(this).attr('data-id');	
 		toggleTask(taskId).done(function(response) {
-			element.closest(".task-card").toggleClass('complete');
-			if (!element.closest(".task-card").length) {
-				index('tasks');
-			}	
-			console.log($(this));	
+			let task = JSON.parse(response.task);
+			let taskCard = element.closest(".task-card");
+			taskCard.toggleClass('complete');
+			if (task.complete) {
+				taskCard.appendTo(taskCard.closest(".cardScrollbar"));
+				console.log('complete');
+			} else {
+				taskCard.prependTo(taskCard.closest(".cardScrollbar"));
+			}
+			console.log(task.complete);	
 		});
 	});
 

@@ -495,49 +495,60 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let element = $(this);
 		let taskId = $(this).attr('data-id');	
 		toggleTask(taskId).done(function(response) {
-			element.closest(".task-card").toggleClass('complete');
-			if (!element.closest(".task-card").length) {
-				index('tasks');
-			}	
-			console.log($(this));	
+			let task = JSON.parse(response.task);
+			let taskCard = element.closest(".task-card");
+			taskCard.toggleClass('complete');
+			if (task.complete) {
+				taskCard.appendTo(taskCard.closest(".cardScrollbar"));
+				console.log('complete');
+			} else {
+				taskCard.prependTo(taskCard.closest(".cardScrollbar"));
+			}
+			console.log(task.complete);	
 		});
 	});
 
 });
 
-function updateTimer (id, action) {
+function updateTimer (id, action, totalSeconds = 0) {
 	console.log(action + " timer id: " + id);
 	let url = "/timers/" + action;
-	let data = {"id" : id};		
+	let data = {
+		"id" : id,
+		"totalSeconds" : totalSeconds
+	};		
 	return request (url, 'POST', data);
 }
 
-function startTimer (element) {
+function startTimer (element, start = 0) {
 	let timerCard = element.closest('.timer-card');
 	let itemId = timerCard.attr('data-id');
 
 	timerCard.find(".timerStartBtn").toggle();
 	timerCard.find(".timerStopBtn").toggle();
-	updateTimer(itemId, 'start');	
+	//updateTimer(itemId, 'start');	
 	let daysLabel = timerCard.find(".days");		
 	let hoursLabel = timerCard.find(".hours");		
 	let minutesLabel = timerCard.find(".minutes");		
 	let secondsLabel = timerCard.find(".seconds");
-	let totalSeconds = 0;
+	let days = daysLabel.html().length == 0 ? 0 : parseInt(daysLabel.html());		
+	let hours = hoursLabel.html().length == 0 ? 0 : parseInt(hoursLabel.html());		
+	let minutes = minutesLabel.html().length == 0 ? 0 : parseInt(minutesLabel.html());		
+	let seconds = secondsLabel.html().length == 0 ? 0 : parseInt(secondsLabel.html());
+	
+	let totalSeconds = seconds + (minutes * 60) + (hours * 60 * 60) + (days * 60 * 60 * 24);
 
 	setInterval(setTime, 1000);
 
 	function setTime() {
 		++totalSeconds;
 		secondsLabel.html(pad(totalSeconds % 60, 's'));
-		if (totalSeconds > 60) {
-			minutesLabel.html(pad(parseInt(totalSeconds / 60 % 60), 'm'));
-		}
+		minutesLabel.html(pad(parseInt(totalSeconds / 60 % 60), 'm'));
 		if (totalSeconds > 60 * 60) {
-		hoursLabel.html(pad(parseInt(totalSeconds / 60 / 60 % 24), 'h'));
+			hoursLabel.html(pad(parseInt(totalSeconds / 60 / 60 % 24), 'h'));
 		}
 		if (totalSeconds > 60 * 60 * 24) {
-		daysLabel.html(pad(parseInt(totalSeconds / 60 / 60 / 24), 'd'));
+			daysLabel.html(pad(parseInt(totalSeconds / 60 / 60 / 24), 'd'));
 		}
 	}
 
@@ -562,7 +573,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	$(document).on('click', ".timerStopBtn" , function() {
 		let timerCard = $(this).closest('.timer-card');
 		let itemId = timerCard.attr('data-id');
-		updateTimer(itemId, 'stop');
+		
+		let daysLabel = timerCard.find(".days");		
+		let hoursLabel = timerCard.find(".hours");		
+		let minutesLabel = timerCard.find(".minutes");		
+		let secondsLabel = timerCard.find(".seconds");
+		let days = daysLabel.html().length == 0 ? 0 : parseInt(daysLabel.html());		
+		let hours = hoursLabel.html().length == 0 ? 0 : parseInt(hoursLabel.html());		
+		let minutes = minutesLabel.html().length == 0 ? 0 : parseInt(minutesLabel.html());		
+		let seconds = secondsLabel.html().length == 0 ? 0 : parseInt(secondsLabel.html());
+		let totalSeconds = seconds + (minutes * 60) + (hours * 60 * 60) + (days * 60 * 60 * 24);
+		updateTimer(itemId, 'stop', totalSeconds);
 		index('timers').done(function(response) {
 			render(response);		
 		});
@@ -591,8 +612,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		let itemType = $(this).attr('data-type');
 		console.log(itemType);
 		
-		if (itemType == 'tasks' || itemType == 'tasks' || itemType == 'tasks') {
+		if (itemType == 'tasks' || itemType == 'timers' || itemType == 'bookmarks') {
 			$(".cash-filter").hide();
+			if($(".filter-link.selected").attr('data-type') !== "groups") {
+				$(".filter-link").removeClass('selected');
+				$(".filter-link[data-type='groups']").click();
+			}
 		} else if (itemType == 'cash') {
 			$(".cash-filter").show();
 		}

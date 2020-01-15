@@ -211,7 +211,7 @@ input[type=checkbox]:checked + label:before {
   width: 5px;
   top: -5px;
   left: 5px;
-  border: 2px solid #55CFBF;
+  border: 2px solid #808080;
   border-radius: 0;
   opacity: 1;
   border-top-color: transparent;
@@ -684,8 +684,24 @@ span.card-tag {
   grid-template-columns: auto minmax(100px, 1fr) auto;
 }
 
+.timer-card .timer-counter {
+  text-align: right;
+}
+
 .bookmark-card {
   padding: 0;
+}
+
+.bookmark-card .bookmark-card-icon {
+  padding: 0;
+  height: 100px;
+  width: 100px;
+}
+
+.bookmark-card .bookmark-card-icon img {
+  margin: 25px;
+  height: 50px;
+  width: 50px;
 }
 
 .bookmark-card .card-text {

@@ -104,12 +104,27 @@ span.card-tag {
 // TIMERS
 .timer-card {	
 	grid-template-columns: auto minmax(100px, 1fr) auto;	
+
+	.timer-counter {
+		text-align: right;
+	}
 }
 
 // BOOKMARKS
 .bookmark-card {
 	padding: 0;
 
+	.bookmark-card-icon {
+		padding: 0;
+		height: 100px;
+		width: 100px;
+
+		img {
+			margin: 25px;
+			height: 50px;
+			width: 50px;
+		}
+	}
 	.card-text {
 		margin: auto 10px;
 	}
