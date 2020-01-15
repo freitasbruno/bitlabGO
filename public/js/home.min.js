@@ -245,12 +245,16 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 	// GET GROUP FORM
 	$(document).on('click', '.newFilterBtn', function() {
-		$('#filter-container').find('.form-card').show();	
+		let formCard = $('#filter-container').find('.form-card');
+		formCard.show();
+		formCard.find('[data-field="name"]').focus();	
 	});
 
 	// GET ITEM FORM
 	$(document).on('click', '.newItemBtn', function() {	
-		$('#item-container').find('.form-card').show();	
+		let formCard = $('#item-container').find('.form-card');
+		formCard.show();
+		formCard.find('[data-field="name"]').focus();
 	});
 
 	// SUBMIT NEW GROUP/ITEM FORM

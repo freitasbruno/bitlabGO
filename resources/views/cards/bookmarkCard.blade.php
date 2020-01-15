@@ -3,7 +3,7 @@
 		@if (isset($item->bookmark->iconUrl))
 			<img src="{{ $item->bookmark->iconUrl }}" alt="">	
 		@else
-			<img src={{ $item->bookmark->url . "/favicon.ico" }} alt="">
+			<img src={{ parse_url($item->bookmark->url)['scheme'] . '://' . parse_url($item->bookmark->url)['host'] . "/favicon.ico" }} alt="">
 		@endif
 	</div>
 	<div class="card-text">
