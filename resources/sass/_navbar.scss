@@ -54,6 +54,10 @@
 	.navbar-right:hover .navbar-menu {
 		display: block;
 	}
+				
+	.toggleDisplayBtn {
+		display: none;
+	}
 }
 
 #welcome-navbar {
@@ -85,6 +89,14 @@
 
 		.navbar-right {
 			padding-left: 0px;
+		}
+			
+		.toggleDisplayBtn {
+			display: inline;
+		}
+
+		.hidden {
+			display: none;
 		}
 	}
 

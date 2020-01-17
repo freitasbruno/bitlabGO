@@ -1,8 +1,3 @@
-
-.toggleDisplayBtn {
-	display: none;
-}
-
 @media only screen and (max-width: 600px) {
 	#main-container {
 		grid-template-columns: 1fr;
@@ -12,7 +7,4 @@
 	  display: none;
 	}
 
-	.toggleDisplayBtn {
-		display: inline;
-	}
   }

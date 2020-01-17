@@ -1,8 +1,8 @@
 <div class="card item-card cash-card" data-id="{{ $item->cash->id }}" data-type="cash">
 	@if ($item->cash -> type == 'expense')					
-		<i class="material-icons icon-36 icon-expense">arrow_upward</i>
+		<i class="material-icons icon-36 icon-expense">arrow_downward</i>
 	@else
-		<i class="material-icons icon-36 icon-income">arrow_downward</i>
+		<i class="material-icons icon-36 icon-income">arrow_upward</i>
 	@endif
 	<div>
 		<p class="card-text-l">€{{ $item->cash->amount }}</p>

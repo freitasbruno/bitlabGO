@@ -78,3 +78,4 @@ Route::get('/test', function () {
 		echo $iconUrl[1];
 	}
 });
+

@@ -102,4 +102,11 @@ body {
 	#filter-container {
 	  display: none;
 	}
+	
+	#filter-nav, #item-nav {
+		grid-template-columns: auto 40px;
+		.nav-center {
+			display: none;
+		}
+	}
 }
