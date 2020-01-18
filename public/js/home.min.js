@@ -147,6 +147,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		openModal('login'); 		       
 	});
 
+	// GET LOGIN FORM
+    $(document).on('click', '#registerBtn', function() {
+		openModal('register'); 		       
+	});
+
 	// CLOSE MODAL
     $(document).on('click', '.modal-close-btn', function() {
 		let type = $(this).closest('.modal').attr('data-type');

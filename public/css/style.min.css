@@ -728,7 +728,8 @@ span.card-tag {
 #item-modal,
 #filter-modal,
 #group-modal,
-#login-modal {
+#login-modal,
+#register-modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -745,7 +746,8 @@ span.card-tag {
 #item-modal .modal-dialog,
 #filter-modal .modal-dialog,
 #group-modal .modal-dialog,
-#login-modal .modal-dialog {
+#login-modal .modal-dialog,
+#register-modal .modal-dialog {
   color: #787878;
   background: #ffffff;
   margin: calc(50vh - 40px - 200px) auto;
@@ -757,7 +759,8 @@ span.card-tag {
 #item-modal .modal-title,
 #filter-modal .modal-title,
 #group-modal .modal-title,
-#login-modal .modal-title {
+#login-modal .modal-title,
+#register-modal .modal-title {
   line-height: 30px;
   vertical-align: middle;
 }
@@ -765,7 +768,8 @@ span.card-tag {
 #item-modal .close-modal-btn,
 #filter-modal .close-modal-btn,
 #group-modal .close-modal-btn,
-#login-modal .close-modal-btn {
+#login-modal .close-modal-btn,
+#register-modal .close-modal-btn {
   float: right;
 }
 

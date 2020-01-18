@@ -43,7 +43,7 @@
 					<a href="{{ url('/home') }}">Home</a>
 				@else
 					<a href="#" id="loginBtn">Login</a>
-					<a href="{{ route('register') }}">Register</a>
+					<a href="#" id="registerBtn">Register</a>
 				@endauth
 			</div>
 			<!-- Authentication Links -->
@@ -55,6 +55,7 @@
 				
 		<!-- Modals -->
 		@include('modals.loginModal')
+		@include('modals.registerModal')
 	</body>
 
 </html>
